@@ -1,10 +1,11 @@
+import Router from "./Router";
+import { RecoilRoot } from "recoil";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>2024 LIKELION_DAEPO_FRONT</p>
-      </header>
-    </div>
+    <RecoilRoot>
+      <Router />
+    </RecoilRoot>
   );
 }
 
