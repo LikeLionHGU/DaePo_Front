@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import PortfolioCardComponent from "../MyPortfolioComponent/PortfolioCardComponent";
 import EditModalComponent from "../MyPortfolioComponent/EditModalComponent";
+import DeleteModalComponent from "./DeleteModalComponent";
 
 const PoPolDataList = [
   {
@@ -23,16 +24,21 @@ const PoPolDataList = [
 ];
 
 function MyPortfolioComponent() {
-  const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const handleCardClick = (data) => {
+  const handleCardEditClick = (data) => {
     setSelectedData(data);
-    setShowModal(true);
+    setShowEditModal(true);
+  };
+  const handleCardDeleteClick = () => {
+    setShowDeleteModal(true);
   };
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setShowEditModal(false);
+    setShowDeleteModal(false);
   };
 
   return (
@@ -42,13 +48,15 @@ function MyPortfolioComponent() {
         <PortfolioCardComponent
           key={index}
           data={data}
-          onEdit={handleCardClick}
+          onEdit={handleCardEditClick}
+          onDelete={handleCardDeleteClick}
         />
       ))}
 
-      {showModal && (
+      {showEditModal && (
         <EditModalComponent data={selectedData} onClose={handleCloseModal} />
       )}
+      {showDeleteModal && <DeleteModalComponent onClose={handleCloseModal} />}
     </div>
   );
 }

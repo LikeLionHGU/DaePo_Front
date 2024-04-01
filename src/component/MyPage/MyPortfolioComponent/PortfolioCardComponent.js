@@ -8,19 +8,29 @@ const Card = styled.div`
   cursor: pointer;
 `;
 
-function PortfolioCardComponent({ data, onEdit }) {
-  const handleCardClick = () => {
+const Button = styled.button`
+  margin-right: 10px;
+  cursor: pointer;
+`;
+
+function PortfolioCardComponent({ data, onEdit, onDelete }) {
+  const handleEditClick = () => {
     onEdit(data);
+  };
+  const handleDeleteClick = () => {
+    onDelete();
   };
 
   return (
-    <Card onClick={handleCardClick}>
+    <Card>
       <p>담당 교수님: {data.professor}</p>
       <p>사용 툴: {data.tools}</p>
       <p>제작 연도: {data.year}</p>
       <p>분야: {data.field}</p>
       <p>작품명: {data.title}</p>
       <p>디그리 설명: {data.description}</p>
+      <Button onClick={handleEditClick}>수정</Button>
+      <Button onClick={handleDeleteClick}>삭제</Button>
     </Card>
   );
 }

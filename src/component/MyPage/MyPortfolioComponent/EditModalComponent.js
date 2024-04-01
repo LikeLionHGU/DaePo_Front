@@ -11,8 +11,8 @@ const Modal = styled.div`
   padding: 50px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 20%;
-  height: 25%;
+  width: 400px;
+  height: 300px;
 `;
 
 const Button = styled.button`
