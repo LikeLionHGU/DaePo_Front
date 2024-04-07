@@ -3,6 +3,7 @@ import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import MyPage from "./pages/MyPage";
 import CreatePost from "./pages/CreatePost";
+import PostPage from "./pages/PostPage";
 
 export default function Router() {
   return (
@@ -12,6 +13,7 @@ export default function Router() {
         <Route path="/DaePo" element={<Home />} />
         <Route path="/DaePo/MyPage" element={<MyPage />} />
         <Route path="/DaePo/CreatePost" element={<CreatePost />} />
+        <Route path="/DaePo/PostPage" element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   );
