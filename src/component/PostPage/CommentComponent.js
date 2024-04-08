@@ -71,6 +71,7 @@ const CommentComponent = () => {
   return (
     <Root id="root">
       <div>
+        <div>작성자: 김하영</div>
         <WritingArea id="writing-area">
           <Textarea id="new-comment-content"></Textarea>
           <Button id="submit-new-comment" onClick={addComment}>
