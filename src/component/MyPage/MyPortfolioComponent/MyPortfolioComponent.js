@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 import PortfolioCardComponent from "../MyPortfolioComponent/PortfolioCardComponent";
 import EditModalComponent from "../MyPortfolioComponent/EditModalComponent";
@@ -23,6 +25,12 @@ const PoPolDataList = [
   },
 ];
 
+const PlusButton = styled.button`
+  background-color: yellow;
+  width: 150px;
+  height: 100px;
+  cursor: pointer;
+`;
 function MyPortfolioComponent() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
@@ -52,7 +60,9 @@ function MyPortfolioComponent() {
           onDelete={handleCardDeleteClick}
         />
       ))}
-
+      <Link to="/DaePo/CreatePost">
+        <PlusButton>+ 포폴 등록하기</PlusButton>
+      </Link>
       {showEditModal && (
         <EditModalComponent data={selectedData} onClose={handleCloseModal} />
       )}
