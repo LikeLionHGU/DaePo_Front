@@ -25,13 +25,12 @@ const OverlayTop = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 50%;
 `;
 
 const OverlayBottom = styled.div`
   position: absolute;
-  bottom: ${({ show }) =>
-    show ? "0" : "-100%"}; /* 아래에서 올라오도록 설정 */
+  bottom: ${({ show }) => (show ? "0" : "-100%")};
   left: 0;
   right: 0;
   background-color: rgba(138, 43, 226, 0.7);
@@ -41,16 +40,18 @@ const OverlayBottom = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 50%;
 `;
 
 const Text = styled.p`
   color: white;
   font-size: 24px;
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 85px;
+  left: 90px;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  z-index: 1;
+  transition: opacity 1s ease-in-out;
 `;
 
 const CardComponent = () => {
@@ -62,10 +63,10 @@ const CardComponent = () => {
     >
       <Link to="/DaePo/PostPage/">
         <img src={cardImage} alt="duck" />
+
         <OverlayTop show={hovered}></OverlayTop>
-        <OverlayBottom show={hovered}>
-          <Text>Duck</Text>
-        </OverlayBottom>
+        <OverlayBottom show={hovered}></OverlayBottom>
+        <Text show={hovered}>Duck</Text>
       </Link>
     </Rect>
   );
