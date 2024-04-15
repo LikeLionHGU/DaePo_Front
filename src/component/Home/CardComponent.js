@@ -4,8 +4,8 @@ import cardImage from "../../img/CardComponent.png";
 import { Link } from "react-router-dom";
 
 const Rect = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 230px;
+  height: 230px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -24,8 +24,8 @@ const OverlayTop = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 50%;
+  width: 250px;
+  height: 115px;
 `;
 
 const OverlayBottom = styled.div`
@@ -39,8 +39,8 @@ const OverlayBottom = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 50%;
+  width: 250px;
+  height: 115px;
 `;
 
 const Text = styled.p`
@@ -54,14 +54,14 @@ const Text = styled.p`
   transition: opacity 1s ease-in-out;
 `;
 
-const CardComponent = () => {
+const CardComponent = ({ id }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <Rect
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Link to="/DaePo/PostPage/">
+      <Link to={`/DaePo/PostPage/${id + 1}`}>
         <img src={cardImage} alt="duck" />
 
         <OverlayTop show={hovered}></OverlayTop>
