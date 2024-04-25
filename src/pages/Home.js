@@ -1,15 +1,10 @@
-import CardComponent from "../component/Home/CardComponent";
-
-import AddPostButtonComponent from "../component/Home/AddPostButtonComponent";
-import PopularPostComponent from "../component/Home/PopularPostComponent";
+import DivisionComponent from "../component/Home/DivisionComponent";
 
 function Home() {
   return (
     <div>
       Home
-      <CardComponent />
-      <AddPostButtonComponent />
-      <PopularPostComponent />
+      <DivisionComponent />
     </div>
   );
 }

@@ -15,7 +15,7 @@ export default function Router() {
         <Route path="/DaePo/MyPage" element={<MyPage />} />
         <Route path="/DaePo/CreatePost" element={<CreatePost />} />
         <Route path="/DaePo/PostPage/:id" element={<PostPage />} />
-        <Route path="/DaePo/FilteringPage" element={<FilteringPage />} />
+        <Route path="/DaePo/PortFolio" element={<FilteringPage />} />
       </Routes>
     </BrowserRouter>
   );
