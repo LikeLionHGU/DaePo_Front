@@ -24,6 +24,12 @@ const PoPolDataList = [
     description: "달고 달디 단 밤양개객애개액애갱개액액액액애갱갱ㄱㅇ",
   },
 ];
+const Horizontal = styled.div`
+  //가로 정렬
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
 
 const PlusButton = styled.button`
   background-color: yellow;
@@ -51,18 +57,20 @@ function MyPortfolioComponent() {
 
   return (
     <div>
-      <h2>내가 쓴 포폴 페이지</h2>
-      {PoPolDataList.map((data, index) => (
-        <PortfolioCardComponent
-          key={index}
-          data={data}
-          onEdit={handleCardEditClick}
-          onDelete={handleCardDeleteClick}
-        />
-      ))}
-      <Link to="/DaePo/CreatePost">
-        <PlusButton>+ 포폴 등록하기</PlusButton>
-      </Link>
+      <h2>업로드한 작품</h2>
+      <Horizontal>
+        {PoPolDataList.map((data, index) => (
+          <PortfolioCardComponent
+            key={index}
+            data={data}
+            onEdit={handleCardEditClick}
+            onDelete={handleCardDeleteClick}
+          />
+        ))}
+        <Link to="/DaePo/CreatePost">
+          <PlusButton>+ 포폴 등록하기</PlusButton>
+        </Link>
+      </Horizontal>
       {showEditModal && (
         <EditModalComponent data={selectedData} onClose={handleCloseModal} />
       )}

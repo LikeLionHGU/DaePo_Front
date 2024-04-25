@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import styled from "styled-components";
+
+const Div = styled.div`
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
 
 function PostFormComponent() {
   const [professor, setProfessor] = useState("");
@@ -22,7 +29,7 @@ function PostFormComponent() {
     console.log("CreatePost : ", formData);
   };
   return (
-    <div>
+    <Div>
       <h2>포트폴리오 작성하기</h2>
       <form onSubmit={handleSubmit}>
         <label>
@@ -80,7 +87,7 @@ function PostFormComponent() {
         <br />
         <button type="submit">제출</button>
       </form>
-    </div>
+    </Div>
   );
 }
 

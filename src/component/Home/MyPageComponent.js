@@ -5,8 +5,10 @@ import EditInfoComponent from "./EditInfoComponent/EditInfoComponent";
 function MyPageComponent() {
   return (
     <>
-      <MyPortfolioComponent />
       <EditInfoComponent />
+      <hr />
+      <MyPortfolioComponent />
+      <hr />
       <LikedPortfolioComponent />
     </>
   );

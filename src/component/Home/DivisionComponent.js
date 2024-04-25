@@ -35,6 +35,7 @@ function DivisionComponent() {
           작품 업로드
         </MenuButton>
       </Container>
+      <hr />
 
       {activeMenu === "home" && <HomePageComponent />}
       {activeMenu === "portfolioZip" && <FilteringComponent />}

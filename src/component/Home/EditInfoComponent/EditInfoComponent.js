@@ -43,7 +43,7 @@ function EditInfoComponent() {
 
   return (
     <div>
-      <h2>정보 수정 페이지</h2>
+      <h2>학생 프로필</h2>
       <div style={{ display: "flex" }}>
         <div style={{ marginRight: "20px" }}>
           <img
