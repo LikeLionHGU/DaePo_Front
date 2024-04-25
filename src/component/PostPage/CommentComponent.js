@@ -7,6 +7,7 @@ const Root = styled.div`
 `;
 
 const WritingArea = styled.div`
+  width: 800px;
   margin-top: 20px;
 `;
 
