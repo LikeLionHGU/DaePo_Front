@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { SlMagnifier } from "react-icons/sl";
 
 const Horizontal = styled.div`
@@ -13,6 +14,7 @@ const Logo = styled.p`
   font-size: 50px;
   font-weight: 800;
   margin-right: 50px;
+  cursor: pointer;
 `;
 
 const SearchSpace = styled.div`
@@ -46,16 +48,23 @@ const LoginBT = styled.button`
 `;
 
 function HeaderComponent() {
+  const navigate = useNavigate();
+  const onClickHUP = () => {
+    navigate("/DaePo");
+  };
+  const onClickLogin = () => {
+    // ToDo: 로그인 연결
+  };
   return (
     <Horizontal>
-      <Logo> HUP </Logo>
+      <Logo onClick={onClickHUP}> HUP </Logo>
       <SearchSpace>
         <SearchInput placeholder="작품명, 학생 이름, 키워드로 검색" />
         <SlMagnifierBT>
           <SlMagnifier style={{ width: "30px" }} />
         </SlMagnifierBT>
       </SearchSpace>
-      <LoginBT> 로그인 / 회원가입 </LoginBT>
+      <LoginBT onClick={onClickLogin}> 로그인 / 회원가입 </LoginBT>
     </Horizontal>
   );
 }
