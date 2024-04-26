@@ -8,23 +8,27 @@ const Div = styled.div`
 `;
 
 function PostFormComponent() {
-  const [professor, setProfessor] = useState("");
-  const [tools, setTools] = useState("");
-  const [year, setYear] = useState("");
-  const [field, setField] = useState("");
+  const [studentNum, setStudentNum] = useState("");
+  const [email, setEmail] = useState("");
   const [title, setTitle] = useState("");
+  const [year, setYear] = useState("");
+  const [tools, setTools] = useState("");
+  const [field, setField] = useState("");
   const [description, setDescription] = useState("");
+  const [video, setVideo] = useState("");
 
   //ToDo: 폼을 제출 시 함수
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = {
-      professor: professor,
-      tools: tools,
-      year: year,
-      field: field,
+      studentNum: studentNum,
+      email: email,
       title: title,
+      year: year,
+      tools: tools,
+      field: field,
       description: description,
+      video: video,
     };
     console.log("CreatePost : ", formData);
   };
@@ -33,38 +37,20 @@ function PostFormComponent() {
       <h2>포트폴리오 작성하기</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          담당 교수님:
+          학번
           <input
             type="text"
-            value={professor}
-            onChange={(e) => setProfessor(e.target.value)}
+            value={studentNum}
+            onChange={(e) => setStudentNum(e.target.value)}
           />
         </label>
         <br />
         <label>
-          사용 툴:
+          이메일
           <input
             type="text"
-            value={tools}
-            onChange={(e) => setTools(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          제작 연도:
-          <input
-            type="text"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          분야:
-          <input
-            type="text"
-            value={field}
-            onChange={(e) => setField(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </label>
         <br />
@@ -78,10 +64,46 @@ function PostFormComponent() {
         </label>
         <br />
         <label>
+          제작 연도:
+          <input
+            type="text"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          사용 툴:
+          <input
+            type="text"
+            value={tools}
+            onChange={(e) => setTools(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          분야:
+          <input
+            type="text"
+            value={field}
+            onChange={(e) => setField(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
           디그리 설명:
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          미디어:
+          <input
+            type="text"
+            value={video}
+            onChange={(e) => setVideo(e.target.value)}
           />
         </label>
         <br />

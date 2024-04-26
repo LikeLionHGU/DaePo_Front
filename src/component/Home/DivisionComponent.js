@@ -39,7 +39,12 @@ function DivisionComponent() {
 
       {activeMenu === "home" && <HomePageComponent />}
       {activeMenu === "portfolioZip" && <FilteringComponent />}
-      {activeMenu === "myPage" && <MyPageComponent />}
+      {activeMenu === "myPage" && (
+        <MyPageComponent
+          activeMenu={activeMenu}
+          setActiveMenu={setActiveMenu}
+        />
+      )}
       {activeMenu === "addPortfolio" && <PostFormComponent />}
     </>
   );
