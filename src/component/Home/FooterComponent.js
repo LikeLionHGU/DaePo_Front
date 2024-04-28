@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FooterContainer = styled.div`
-  background-color: navy;
-  padding: 4rem 0 2rem 0;
+  background-color: orange;
+  padding-top: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,7 +18,7 @@ const SubscriptionSection = styled.section`
   align-items: center;
   text-align: center;
   margin-bottom: 24px;
-  padding: 24px;
+  padding: 10px;
   color: white;
 `;
 
