@@ -1,7 +1,7 @@
 import CardComponent from "../component/Home/CardComponent";
 
 import AddPostButtonComponent from "../component/Home/AddPostButtonComponent";
-import PopularPostComponent from "../component/Home/PopularPostComponent";
+import CarouselComponent from "../component/Home/CarouselComponent";
 
 function Home() {
   return (
@@ -9,7 +9,7 @@ function Home() {
       Home
       <CardComponent />
       <AddPostButtonComponent />
-      <PopularPostComponent />
+      <CarouselComponent />
     </div>
   );
 }

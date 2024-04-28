@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import duck1 from "../../img/duck1.png";
 import duck2 from "../../img/duck2.png";
@@ -14,6 +14,11 @@ const LRButton = styled.button`
   border: white;
   font-size: 80px;
 `;
+const StartButton = styled.button`
+  background-color: white;
+  border: white;
+  font-size: 35px;
+`;
 const Container = styled.div``;
 const CarouselContainer = styled.div`
   display: flex;
@@ -27,9 +32,11 @@ const CarouselImage = styled.img`
   width: ${(props) => (props.isCenter ? "250px" : "220px")};
   height: ${(props) => (props.isCenter ? "250px" : "220px")};
   margin: 0 10px;
+  transition: transform 0.5s ease-out;
 `;
 const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [autoRotate, setAutoRotate] = useState(true);
 
   const visibleImages = [];
   for (let i = 0; i < 4; i++) {
@@ -48,6 +55,18 @@ const Carousel = ({ images }) => {
     );
   };
 
+  useEffect(() => {
+    let intervalId;
+    if (autoRotate) {
+      intervalId = setInterval(rightSlide, 1500);
+    }
+    return () => clearInterval(intervalId);
+  }, [autoRotate]);
+
+  const toggleAutoRotate = () => {
+    setAutoRotate((prev) => !prev);
+  };
+
   return (
     <div className="carousel">
       <ImageContainer>
@@ -59,17 +78,20 @@ const Carousel = ({ images }) => {
               src={image}
               alt={`Images ${index}`}
               className="slide"
-              isCenter={index === 1 || index === 2} // 중간 이미지는 크게 표시
+              isCenter={index === 1 || index === 2}
             />
           ))}
         </CarouselContainer>
         <LRButton onClick={rightSlide}>{">"}</LRButton>
       </ImageContainer>
+      <StartButton onClick={toggleAutoRotate}>
+        {autoRotate ? "∥" : "▷"}
+      </StartButton>
     </div>
   );
 };
 
-const PopularPostComponent = () => {
+const CarouselComponent = () => {
   const images = [duck1, duck2, duck3, duck4, duck5, duck6, duck7, duck8];
 
   return (
@@ -79,4 +101,4 @@ const PopularPostComponent = () => {
   );
 };
 
-export default PopularPostComponent;
+export default CarouselComponent;
