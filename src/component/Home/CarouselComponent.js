@@ -18,6 +18,7 @@ const StartButton = styled.button`
   background-color: white;
   border: white;
   font-size: 35px;
+  cursor: pointer;
 `;
 const Container = styled.div``;
 const CarouselContainer = styled.div`

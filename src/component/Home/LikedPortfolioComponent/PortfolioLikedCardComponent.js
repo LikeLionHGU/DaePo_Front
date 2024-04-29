@@ -8,11 +8,6 @@ const Card = styled.div`
   cursor: pointer;
 `;
 
-const Button = styled.button`
-  margin-right: 10px;
-  cursor: pointer;
-`;
-
 function PortfolioLikedCardComponent({ data }) {
   return (
     <Card>

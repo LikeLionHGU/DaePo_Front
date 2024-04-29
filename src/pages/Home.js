@@ -5,7 +5,6 @@ import DivisionComponent from "../component/Home/DivisionComponent";
 function Home() {
   return (
     <div>
-      Home
       <HeaderComponent />
       <DivisionComponent />
       <FooterComponent />

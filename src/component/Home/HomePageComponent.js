@@ -1,5 +1,5 @@
 import AddPostButtonComponent from "./AddPostButtonComponent";
-import PopularPostComponent from "./PopularPostComponent";
+import CarouselComponent from "./CarouselComponent";
 import CardComponent from "./CardComponent";
 
 function HomePageComponent() {
@@ -7,7 +7,7 @@ function HomePageComponent() {
     <>
       <CardComponent />
       <AddPostButtonComponent />
-      <PopularPostComponent />
+      <CarouselComponent />
     </>
   );
 }
