@@ -12,7 +12,7 @@ import duck8 from "../../img/duck8.png";
 const LRButton = styled.button`
   background-color: white;
   border: white;
-  font-size: 80px;
+  font-size: 50px;
 `;
 const StartButton = styled.button`
   background-color: white;
@@ -29,8 +29,8 @@ const ImageContainer = styled.div`
   align-items: center;
 `;
 const CarouselImage = styled.img`
-  width: ${(props) => (props.isCenter ? "250px" : "220px")};
-  height: ${(props) => (props.isCenter ? "250px" : "220px")};
+  width: ${(props) => (props.isCenter ? "220px" : "200px")};
+  height: ${(props) => (props.isCenter ? "220px" : "200px")};
   margin: 0 10px;
   transition: transform 0.5s ease-out;
 `;

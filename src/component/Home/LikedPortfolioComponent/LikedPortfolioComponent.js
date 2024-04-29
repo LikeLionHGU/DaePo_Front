@@ -1,5 +1,5 @@
 import React from "react";
-
+import styled from "styled-components";
 import PortfolioLikedCardComponent from "./PortfolioLikedCardComponent";
 
 const LikedDataList = [
@@ -21,13 +21,22 @@ const LikedDataList = [
   },
 ];
 
+const Horizontal = styled.div`
+  //가로 정렬
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
+
 function LikedPortfolioComponent() {
   return (
     <div>
-      <h2>내가 좋아요 누른 포폴 페이지</h2>
-      {LikedDataList.map((data, index) => (
-        <PortfolioLikedCardComponent key={index} data={data} />
-      ))}
+      <h2>좋아한 작품</h2>
+      <Horizontal>
+        {LikedDataList.map((data, index) => (
+          <PortfolioLikedCardComponent key={index} data={data} />
+        ))}
+      </Horizontal>
     </div>
   );
 }
