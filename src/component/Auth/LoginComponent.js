@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { UserInfoState } from "../../store/atoms";
@@ -9,9 +10,14 @@ const LoginButton = styled.button`
 function LoginComponent() {
   //ToDo: 로그인 시 정보 recoil 처리
   const setUserInfo = useSetRecoilState(UserInfoState);
+  const navigate = useNavigate();
+
+  const onClickLogin = () => {
+    navigate("/DaePo");
+  };
   return (
     <>
-      <LoginButton>로그인</LoginButton>
+      <LoginButton onClick={onClickLogin}>로그인</LoginButton>
     </>
   );
 }

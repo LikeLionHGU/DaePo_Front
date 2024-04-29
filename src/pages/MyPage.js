@@ -1,10 +1,13 @@
-import DivisionComponent from "../component/MyPage/DivisionComponent";
+import MyPortfolioComponent from "../component/Home/MyPortfolioComponent/MyPortfolioComponent";
+import LikedPortfolioComponent from "../component/Home/LikedPortfolioComponent/LikedPortfolioComponent";
+import EditInfoComponent from "../component/Home/EditInfoComponent/EditInfoComponent";
 
 function MyPage() {
   return (
     <>
-      MyPage
-      <DivisionComponent />
+      <MyPortfolioComponent />
+      <EditInfoComponent />
+      <LikedPortfolioComponent />
     </>
   );
 }

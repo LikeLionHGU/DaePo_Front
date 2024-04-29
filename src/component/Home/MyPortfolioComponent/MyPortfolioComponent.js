@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import PortfolioCardComponent from "../MyPortfolioComponent/PortfolioCardComponent";
@@ -24,6 +23,12 @@ const PoPolDataList = [
     description: "달고 달디 단 밤양개객애개액애갱개액액액액애갱갱ㄱㅇ",
   },
 ];
+const Horizontal = styled.div`
+  //가로 정렬
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
 
 const PlusButton = styled.button`
   background-color: yellow;
@@ -31,7 +36,7 @@ const PlusButton = styled.button`
   height: 100px;
   cursor: pointer;
 `;
-function MyPortfolioComponent() {
+function MyPortfolioComponent({ activeMenu, setActiveMenu }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -49,20 +54,24 @@ function MyPortfolioComponent() {
     setShowDeleteModal(false);
   };
 
+  const onClickCreate = () => {
+    setActiveMenu("addPortfolio");
+  };
+
   return (
     <div>
-      <h2>내가 쓴 포폴 페이지</h2>
-      {PoPolDataList.map((data, index) => (
-        <PortfolioCardComponent
-          key={index}
-          data={data}
-          onEdit={handleCardEditClick}
-          onDelete={handleCardDeleteClick}
-        />
-      ))}
-      <Link to="/DaePo/CreatePost">
-        <PlusButton>+ 포폴 등록하기</PlusButton>
-      </Link>
+      <h2>업로드한 작품</h2>
+      <Horizontal>
+        {PoPolDataList.map((data, index) => (
+          <PortfolioCardComponent
+            key={index}
+            data={data}
+            onEdit={handleCardEditClick}
+            onDelete={handleCardDeleteClick}
+          />
+        ))}
+        <PlusButton onClick={onClickCreate}>+ 포폴 등록하기</PlusButton>
+      </Horizontal>
       {showEditModal && (
         <EditModalComponent data={selectedData} onClose={handleCloseModal} />
       )}
