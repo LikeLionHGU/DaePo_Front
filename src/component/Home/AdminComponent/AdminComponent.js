@@ -77,6 +77,19 @@ const data = [
 
 function AdminComponent() {
   const [dataState, setDataState] = useState(data);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredData = dataState.filter((item) => {
+    return (
+      item.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.date.includes(searchTerm)
+    );
+  });
 
   const handleStatusChange = (id, newStatus) => {
     setDataState((prevData) =>
@@ -91,7 +104,11 @@ function AdminComponent() {
       <Horizontal>
         <button>승인대기 n 명</button>
         <SearchSpace>
-          <SearchInput placeholder="작성자 이름, 이메일, 작성일로  검색" />
+          <SearchInput
+            placeholder="작성자 이름, 이메일, 작성일로  검색"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
           <SlMagnifierBT>
             <SlMagnifier style={{ width: "30px" }} />
           </SlMagnifierBT>
@@ -108,7 +125,7 @@ function AdminComponent() {
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {filteredData.map((item) => (
             <tr key={item.id}>
               <Td>{item.id}</Td>
               <Td>{item.date}</Td>
