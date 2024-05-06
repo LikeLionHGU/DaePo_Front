@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import cardImage from "../../img/CardComponent.png";
+// import cardImage from "../../img/CardComponent.png";
 import { Link } from "react-router-dom";
 
 const Rect = styled.div`
@@ -54,7 +54,7 @@ const Text = styled.p`
   transition: opacity 1s ease-in-out;
 `;
 
-const CardComponent = ({ id }) => {
+const CardComponent = ({ id, imageSrc }) => {
   const [hovered, setHovered] = useState(false);
   return (
     <Rect
@@ -62,11 +62,11 @@ const CardComponent = ({ id }) => {
       onMouseLeave={() => setHovered(false)}
     >
       <Link to={`/DaePo/PostPage/${id + 1}`}>
-        <img src={cardImage} alt="duck" />
+        <img src={imageSrc} alt={`Card ${id}`} />
 
         <OverlayTop show={hovered}></OverlayTop>
         <OverlayBottom show={hovered}></OverlayBottom>
-        <Text show={hovered}>Duck</Text>
+        <Text show={hovered}>{`Duck${id + 1}`}</Text>
       </Link>
     </Rect>
   );
