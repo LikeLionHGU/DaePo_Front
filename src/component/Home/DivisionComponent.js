@@ -5,6 +5,7 @@ import HomePageComponent from "./HomePageComponent";
 import MyPageComponent from "./MyPageComponent";
 import PostFormComponent from "../CreatePost/PostFormComponent";
 import FilteringComponent from "../FilteringPage/FilteringComponent";
+import AdminComponent from "../Home/AdminComponent/AdminComponent";
 
 const Container = styled.div`
   display: flex;
@@ -34,6 +35,9 @@ function DivisionComponent() {
         <MenuButton onClick={() => handleClick("addPortfolio")}>
           작품 업로드
         </MenuButton>
+        <MenuButton onClick={() => handleClick("adminPage")}>
+          게시물 관리
+        </MenuButton>
       </Container>
       <hr />
 
@@ -46,6 +50,7 @@ function DivisionComponent() {
         />
       )}
       {activeMenu === "addPortfolio" && <PostFormComponent />}
+      {activeMenu === "adminPage" && <AdminComponent />}
     </>
   );
 }

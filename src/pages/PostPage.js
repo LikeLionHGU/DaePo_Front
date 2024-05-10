@@ -4,6 +4,7 @@ import HeaderComponent from "../component/Home/HeaderComponent";
 import CommentComponent from "../component/PostPage/CommentComponent";
 import TitleComponent from "../component/PostPage/TitleComponent";
 import LikeComponent from "../component/PostPage/LikeComponent";
+import IntroduceComponent from "../component/PostPage/IntroduceComponent";
 
 function PostPage() {
   return (
@@ -19,6 +20,7 @@ function PostPage() {
         muted={true}
         controls={true}
       />
+      <IntroduceComponent />
       <CommentComponent />
       <LikeComponent />
     </>
