@@ -25,6 +25,7 @@ const SinglecommentWrapper = styled.div`
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    position: relative;
   }
   .writer {
     font-weight: bold;
@@ -38,6 +39,20 @@ const SinglecommentWrapper = styled.div`
   .content {
     font-size: 16px;
   }
+  .edit-textarea {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+  }
+`;
+
+const Modal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
 `;
 
 const CommentComponent = () => {
@@ -56,6 +71,11 @@ const CommentComponent = () => {
     },
   ]);
 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedComment, setSelectedComment] = useState(null);
+  const [editingComment, setEditingComment] = useState(null);
+  const [editContent, setEditContent] = useState("");
+
   const addComment = () => {
     const value = document.querySelector("#new-comment-content").value;
     setComment([
@@ -67,6 +87,37 @@ const CommentComponent = () => {
         content: value,
       },
     ]);
+  };
+
+  const deleteComment = () => {
+    const updatedComments = comment.filter(
+      (c) => c.uuid !== selectedComment.uuid
+    );
+    setComment(updatedComments);
+    setShowModal(false);
+  };
+
+  const openModal = (selected) => {
+    setSelectedComment(selected);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const editComment = (selected) => {
+    setEditingComment(selected.uuid);
+    setEditContent(selected.content);
+  };
+
+  const saveEditComment = () => {
+    const updatedComments = comment.map((c) =>
+      c.uuid === editingComment ? { ...c, content: editContent } : c
+    );
+    setComment(updatedComments);
+    setEditingComment(null);
+    setEditContent("");
   };
 
   return (
@@ -81,16 +132,42 @@ const CommentComponent = () => {
         </WritingArea>
         <ul id="comment">
           <SinglecommentWrapper>
-            {comment.map((comment) => (
-              <div className="comment" key={comment.uuid}>
-                <div className="writer">{comment.writer}</div>
-                <div className="date">{comment.date}</div>
-                <div className="content">{comment.content}</div>
+            {comment.map((c) => (
+              <div className="comment" key={c.uuid}>
+                <div className="writer">{c.writer}</div>
+                <div className="date">{c.date}</div>
+                {editingComment === c.uuid ? (
+                  <Textarea
+                    className="edit-textarea"
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                  ></Textarea>
+                ) : (
+                  <div className="content">{c.content}</div>
+                )}
+                {editingComment === c.uuid ? (
+                  <>
+                    <Button onClick={saveEditComment}>저장</Button>
+                    <Button onClick={() => setEditingComment(null)}>
+                      취소
+                    </Button>
+                  </>
+                ) : (
+                  <Button onClick={() => editComment(c)}>수정</Button>
+                )}
+                <Button onClick={() => openModal(c)}>삭제</Button>
               </div>
             ))}
           </SinglecommentWrapper>
         </ul>
       </div>
+      {showModal && (
+        <Modal>
+          <div>삭제하시겠습니까?</div>
+          <Button onClick={deleteComment}>삭제</Button>
+          <Button onClick={closeModal}>취소</Button>
+        </Modal>
+      )}
     </Root>
   );
 };
