@@ -6,6 +6,7 @@ import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 import FilteringPage from "./pages/FilteringPage";
 import ProfilePage from "./pages/ProfilePage";
+import AdminPage from "./pages/AdminPage";
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
         <Route path="/DaePo/CreatePost" element={<CreatePost />} />
         <Route path="/DaePo/PostPage/:id" element={<PostPage />} />
         <Route path="/DaePo/PortFolio" element={<FilteringPage />} />
+        <Route path="/DaePo/Admin" element={<AdminPage />} />
         <Route path="/DaePo/Profile/:targetId" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>

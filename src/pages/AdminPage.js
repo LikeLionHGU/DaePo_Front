@@ -1,21 +1,17 @@
-import React from "react";
-
+import AdminComponent from "../component/AdminPage/AdminComponent";
 import FooterComponent from "../component/Home/FooterComponent";
 import HeaderComponent from "../component/Home/HeaderComponent";
 import DivisionComponent from "../component/Home/DivisionComponent";
-import PostFormComponent from "../component/CreatePost/PostFormComponent";
-import PreviewPhotosComponent from "../component/CreatePost/PreviewPhotosComponent";
 
-function CreatePost() {
+function AdminPage() {
   return (
     <div>
       <HeaderComponent />
       <DivisionComponent />
-      <PostFormComponent />
-      <PreviewPhotosComponent />
+      <AdminComponent />
       <FooterComponent />
     </div>
   );
 }
 
-export default CreatePost;
+export default AdminPage;

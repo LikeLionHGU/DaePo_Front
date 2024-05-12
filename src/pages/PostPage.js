@@ -8,7 +8,7 @@ import IntroduceComponent from "../component/PostPage/IntroduceComponent";
 
 function PostPage() {
   return (
-    <>
+    <div>
       <HeaderComponent />
       <TitleComponent />
       <ReactPlayer
@@ -23,7 +23,7 @@ function PostPage() {
       <IntroduceComponent />
       <CommentComponent />
       <LikeComponent />
-    </>
+    </div>
   );
 }
 

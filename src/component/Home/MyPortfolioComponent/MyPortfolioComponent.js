@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import PortfolioCardComponent from "../MyPortfolioComponent/PortfolioCardComponent";
@@ -36,7 +37,7 @@ const PlusButton = styled.button`
   height: 100px;
   cursor: pointer;
 `;
-function MyPortfolioComponent({ activeMenu, setActiveMenu }) {
+function MyPortfolioComponent() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -54,10 +55,6 @@ function MyPortfolioComponent({ activeMenu, setActiveMenu }) {
     setShowDeleteModal(false);
   };
 
-  const onClickCreate = () => {
-    setActiveMenu("addPortfolio");
-  };
-
   return (
     <div>
       <h2>업로드한 작품</h2>
@@ -70,7 +67,9 @@ function MyPortfolioComponent({ activeMenu, setActiveMenu }) {
             onDelete={handleCardDeleteClick}
           />
         ))}
-        <PlusButton onClick={onClickCreate}>+ 포폴 등록하기</PlusButton>
+        <PlusButton>
+          <Link to="/DaePo/CreatePost">+ 포폴 등록하기</Link>
+        </PlusButton>
       </Horizontal>
       {showEditModal && (
         <EditModalComponent data={selectedData} onClose={handleCloseModal} />

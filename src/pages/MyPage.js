@@ -1,14 +1,16 @@
-import MyPortfolioComponent from "../component/Home/MyPortfolioComponent/MyPortfolioComponent";
-import LikedPortfolioComponent from "../component/Home/LikedPortfolioComponent/LikedPortfolioComponent";
-import EditInfoComponent from "../component/Home/EditInfoComponent/EditInfoComponent";
+import FooterComponent from "../component/Home/FooterComponent";
+import HeaderComponent from "../component/Home/HeaderComponent";
+import DivisionComponent from "../component/Home/DivisionComponent";
+import MyPageComponent from "../component/Home/MyPageComponent";
 
 function MyPage() {
   return (
-    <>
-      <MyPortfolioComponent />
-      <EditInfoComponent />
-      <LikedPortfolioComponent />
-    </>
+    <div>
+      <HeaderComponent />
+      <DivisionComponent />
+      <MyPageComponent />
+      <FooterComponent />
+    </div>
   );
 }
 
