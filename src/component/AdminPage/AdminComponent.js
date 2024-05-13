@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { SlMagnifier } from "react-icons/sl";
+import { LiaSortSolid } from "react-icons/lia";
+
 import styled from "styled-components";
 
 const Div = styled.div`
@@ -98,6 +100,20 @@ function AdminComponent() {
       )
     );
   };
+
+  const [sortBy, setSortBy] = useState(null);
+
+  const handleHeaderClick = (key) => {
+    if (sortBy === key) {
+      // If already sorted by this key, reverse the order
+      setDataState([...dataState].reverse());
+    } else {
+      // Sort the data by the clicked key
+      setDataState([...dataState].sort((a, b) => (a[key] > b[key] ? 1 : -1)));
+      setSortBy(key);
+    }
+  };
+
   return (
     <Div>
       <p>관리자 페이지</p>
@@ -117,10 +133,22 @@ function AdminComponent() {
       <Table>
         <thead>
           <tr>
-            <Th>번호</Th>
-            <Th>작성일</Th>
-            <Th>작성자</Th>
-            <Th>이메일</Th>
+            <Th onClick={() => handleHeaderClick("id")}>
+              번호
+              <LiaSortSolid />
+            </Th>
+            <Th onClick={() => handleHeaderClick("date")}>
+              작성일
+              <LiaSortSolid />
+            </Th>
+            <Th onClick={() => handleHeaderClick("author")}>
+              작성자
+              <LiaSortSolid />
+            </Th>
+            <Th onClick={() => handleHeaderClick("email")}>
+              이메일
+              <LiaSortSolid />
+            </Th>
             <Th></Th>
           </tr>
         </thead>
