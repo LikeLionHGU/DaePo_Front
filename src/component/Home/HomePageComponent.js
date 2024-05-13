@@ -5,7 +5,7 @@ import CardComponent from "./CardComponent";
 function HomePageComponent() {
   return (
     <>
-      <CardComponent />
+      {/* <CardComponent /> */}
       <AddPostButtonComponent />
       <CarouselComponent />
     </>
