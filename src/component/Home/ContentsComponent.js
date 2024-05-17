@@ -1,5 +1,20 @@
 import React from "react";
 import styled from "styled-components";
+import contents from "../../img/contents.png";
+
+const Bar = styled.div`
+  width: 100%;
+  height: 50px;
+  background-color: #d7d7d7;
+`;
+const BarText = styled.div`
+  font-family: "AUTHENTICSans";
+  font-weight: 1300;
+  font-size: 27.15px;
+  color: #ff0000;
+  padding-left: 15px;
+  padding-top: 10px;
+`;
 
 const Container = styled.div`
   width: 100%;
@@ -51,18 +66,39 @@ const Run = styled.div`
 
 const Title = styled.div`
   padding-top: 35px;
-  margin-top: 70px;
   margin-left: 50px;
   font-family: "AUTHENTICSans";
   font-weight: 1300;
   font-size: 31.03px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const ContentsImg = styled.img.attrs({
+  src: contents,
+  alt: "",
+})`
+  width: 35px;
+  height: 32px;
+  margin-left: 10px;
 `;
 
 function ContentComponent() {
   return (
     <>
+      <Bar>
+        {" "}
+        <BarText>
+          WATCH NOW WATCH NOW WATCH NOW WATCH NOW WATCH NOW WATCH NOW{" "}
+        </BarText>
+      </Bar>
       <Container>
-        <Title>CONTENTS</Title>
+        <Title>
+          CONTENTS
+          <ContentsImg />
+        </Title>
+
         <Content>
           <Run />
         </Content>
