@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "AUTHENTICSans";
+  font-weight: 600;
+  font-display: swap;
+  src: local("AUTHENTICSans-60"), url("AUTHENTICSans-60.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans";
+  font-weight: 900;
+  font-display: swap;
+  src: local("AUTHENTICSans-90"), url("AUTHENTICSans-90.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans";
+  font-weight: 1300;
+  font-display: swap;
+  src: local("AUTHENTICSans-130"), url("AUTHENTICSans-130.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans";
+  font-weight: 1500;
+  font-display: swap;
+  src: local("AUTHENTICSans-150"), url("AUTHENTICSans-150.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans Condensed";
+  font-weight: 600;
+  font-display: swap;
+  src: local("AUTHENTICSans-Condensed-60"),
+    url("AUTHENTICSans-Condensed-60.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans Condensed";
+  font-weight: 900;
+  font-display: swap;
+  src: local("AUTHENTICSans-Condensed-90"),
+    url("AUTHENTICSans-Condensed-90.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans Condensed";
+  font-weight: 1300;
+  font-display: swap;
+  src: local("AUTHENTICSans-Condensed-130"),
+    url("AUTHENTICSans-Condensed-130.woff") format("woff");
+}
+
+@font-face {
+  font-family: "AUTHENTICSans Condensed";
+  font-weight: 1500;
+  font-display: swap;
+  src: local("AUTHENTICSans-Condensed-150"),
+    url("AUTHENTICSans-Condensed-150.woff") format("woff");
+}

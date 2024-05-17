@@ -6,7 +6,7 @@ function HomePageComponent() {
   return (
     <>
       {/* <CardComponent /> */}
-      <AddPostButtonComponent />
+      {/* <AddPostButtonComponent /> */}
       <CarouselComponent />
     </>
   );
