@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { SlMagnifier } from "react-icons/sl";
+import { IoSearchSharp } from "react-icons/io5";
 import logo from "../../img/Group 58.png";
 
 const Horizontal = styled.div`
@@ -52,6 +52,7 @@ const SlMagnifierBT = styled.button`
   background-color: transparent;
   cursor: pointer;
   color: #ee7b00;
+  margin-right: 5px;
 `;
 
 function HeaderComponent() {
@@ -68,9 +69,9 @@ function HeaderComponent() {
         <Logo src={logo} alt="logo" />
       </LogoContainer>
       <SearchSpace>
-        {/* <SearchInput placeholder="작품명, 학생 이름, 키워드로 검색" /> */}
+        <SearchInput placeholder="작품명, 학생 이름, 키워드로 검색" />
         <SlMagnifierBT>
-          <SlMagnifier style={{ width: "40px" }} />
+          <IoSearchSharp style={{ width: "25px" }} size="1x" />
         </SlMagnifierBT>
       </SearchSpace>
       {/* <LoginBT onClick={onClickLogin}> 로그인 / 회원가입 </LoginBT> */}
