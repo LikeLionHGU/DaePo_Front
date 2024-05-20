@@ -4,32 +4,42 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
+  justify-content: flex-end;
+  width: 800px;
+  margin-right: 100px;
+`;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #ee7b00;
+  font-size: 20px;
 `;
 
 const MenuButton = styled.button`
   margin-right: 20px;
   cursor: pointer;
+  border: none;
+  background-color: white;
 `;
 
 function DivisionComponent() {
   return (
     <>
       <Container>
+        {/* <MenuButton>
+          <StyledLink to="/DaePo">홈</StyledLink>
+        </MenuButton> */}
         <MenuButton>
-          <Link to="/DaePo">홈</Link>
+          <StyledLink to="/DaePo/PortFolio">프로젝트</StyledLink>
         </MenuButton>
         <MenuButton>
-          <Link to="/DaePo/PortFolio">작품 페이지</Link>
+          <StyledLink to="/DaePo/CreatePost">업로드</StyledLink>
         </MenuButton>
         <MenuButton>
-          <Link to="/DaePo/MyPage">마이 페이지</Link>
+          <StyledLink to="/DaePo/MyPage">마이페이지</StyledLink>
         </MenuButton>
-        <MenuButton>
-          <Link to="/DaePo/CreatePost">작품 업로드</Link>
-        </MenuButton>
-        <MenuButton>
-          <Link to="/DaePo/Admin">게시물 관리</Link>
-        </MenuButton>
+        {/* <MenuButton>
+          <StyledLink to="/DaePo/Admin">게시물 관리</StyledLink>
+        </MenuButton> */}
       </Container>
       <hr />
     </>
