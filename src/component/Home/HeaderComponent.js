@@ -68,7 +68,7 @@ function HeaderComponent() {
         <Logo src={logo} alt="logo" />
       </LogoContainer>
       <SearchSpace>
-        {/* <SearchInput placeholder="작품명, 학생 이름, 키워드로 검색" /> */}
+        <SearchInput />
         <SlMagnifierBT>
           <SlMagnifier style={{ width: "40px" }} />
         </SlMagnifierBT>
