@@ -70,6 +70,7 @@ function HeaderComponent() {
       </LogoContainer>
       <SearchSpace>
         <SearchInput placeholder="작품명, 학생 이름, 키워드로 검색" />
+        <SearchInput />
         <SlMagnifierBT>
           <IoSearchSharp style={{ width: "25px" }} size="1x" />
         </SlMagnifierBT>
