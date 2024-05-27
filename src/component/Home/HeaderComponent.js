@@ -41,7 +41,7 @@ const SearchSpace = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: 80%;
+  width: 90%;
   height: 90%;
   border: none;
   outline: none;

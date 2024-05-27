@@ -5,6 +5,10 @@ import styled from "styled-components";
 import PortfolioCardComponent from "../MyPortfolioComponent/PortfolioCardComponent";
 import EditModalComponent from "../MyPortfolioComponent/EditModalComponent";
 import DeleteModalComponent from "./DeleteModalComponent";
+import {
+  NoCenterHorizontal,
+  themeColors,
+} from "../../../styles/StyledComponents";
 
 const PoPolDataList = [
   {
@@ -24,17 +28,20 @@ const PoPolDataList = [
     description: "달고 달디 단 밤양개객애개액애갱개액액액액애갱갱ㄱㅇ",
   },
 ];
-const Horizontal = styled.div`
-  //가로 정렬
+
+const Container = styled.div`
   display: flex;
-  align-items: center;
-  width: 100%;
+  flex-direction: column;
+  width: 63%;
+  margin: 0 auto;
 `;
 
 const PlusButton = styled.button`
-  background-color: yellow;
-  width: 150px;
-  height: 100px;
+  background-color: ${themeColors.ARROWCOLOR.color};
+  width: 231px;
+  height: 254px;
+  border: none;
+  border-radius: 24px;
   cursor: pointer;
 `;
 function MyPortfolioComponent() {
@@ -56,9 +63,17 @@ function MyPortfolioComponent() {
   };
 
   return (
-    <div>
-      <h2>업로드한 작품</h2>
-      <Horizontal>
+    <Container>
+      <h1>업로드한 작품</h1>
+      <NoCenterHorizontal>
+        <PlusButton>
+          <Link
+            to="/DaePo/CreatePost"
+            style={{ textDecoration: "none", color: "white" }}
+          >
+            +
+          </Link>
+        </PlusButton>
         {PoPolDataList.map((data, index) => (
           <PortfolioCardComponent
             key={index}
@@ -67,15 +82,12 @@ function MyPortfolioComponent() {
             onDelete={handleCardDeleteClick}
           />
         ))}
-        <PlusButton>
-          <Link to="/DaePo/CreatePost">+ 포폴 등록하기</Link>
-        </PlusButton>
-      </Horizontal>
+      </NoCenterHorizontal>
       {showEditModal && (
         <EditModalComponent data={selectedData} onClose={handleCloseModal} />
       )}
       {showDeleteModal && <DeleteModalComponent onClose={handleCloseModal} />}
-    </div>
+    </Container>
   );
 }
 export default MyPortfolioComponent;

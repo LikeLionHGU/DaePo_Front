@@ -6,11 +6,15 @@ import DivisionComponent from "../component/Home/DivisionComponent";
 import PostFormComponent from "../component/CreatePost/PostFormComponent";
 import PreviewPhotosComponent from "../component/CreatePost/PreviewPhotosComponent";
 
+import { Container } from "../styles/StyledComponents";
+
 function CreatePost() {
   return (
     <div>
-      <HeaderComponent />
-      <DivisionComponent />
+      <Container>
+        <HeaderComponent />
+        <DivisionComponent />
+      </Container>
       <PostFormComponent />
       <PreviewPhotosComponent />
       <FooterComponent />
