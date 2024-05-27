@@ -12,6 +12,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: #ee7b00;
   font-size: 20px;
+  margin-right: 40px;
 `;
 
 const MenuButton = styled.button`
@@ -28,15 +29,9 @@ function DivisionComponent() {
         {/* <MenuButton>
           <StyledLink to="/DaePo">홈</StyledLink>
         </MenuButton> */}
-        <MenuButton>
-          <StyledLink to="/DaePo/PortFolio">프로젝트</StyledLink>
-        </MenuButton>
-        <MenuButton>
-          <StyledLink to="/DaePo/CreatePost">업로드</StyledLink>
-        </MenuButton>
-        <MenuButton>
-          <StyledLink to="/DaePo/MyPage">마이페이지</StyledLink>
-        </MenuButton>
+        <StyledLink to="/DaePo/PortFolio">프로젝트</StyledLink>
+        <StyledLink to="/DaePo/CreatePost">업로드</StyledLink>
+        <StyledLink to="/DaePo/MyPage">마이페이지</StyledLink>
         {/* <MenuButton>
           <StyledLink to="/DaePo/Admin">게시물 관리</StyledLink>
         </MenuButton> */}

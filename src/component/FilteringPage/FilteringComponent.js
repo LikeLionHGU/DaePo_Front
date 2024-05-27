@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CardComponent from "../Home/CardComponent";
+import { Vertical } from "../../styles/StyledComponents";
 
 function FilteringComponent() {
   const initialData = [
@@ -319,7 +320,7 @@ function FilteringComponent() {
   }
 
   return (
-    <div>
+    <Vertical>
       <div>
         <div>
           <label>전공</label>
@@ -440,7 +441,7 @@ function FilteringComponent() {
         </div>
       </div>
       {rows}
-    </div>
+    </Vertical>
   );
 }
 

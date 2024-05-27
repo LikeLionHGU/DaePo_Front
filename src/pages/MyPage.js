@@ -30,7 +30,7 @@ const Logo = styled.img.attrs({
   width: 70px;
   height: 40px;
   margin-left: 94px;
-  margin-top: 15px;
+  margin-top: 25px;
 `;
 
 const ProfileImg = styled.img`
@@ -87,7 +87,11 @@ function MyPage() {
         <Horizontal>
           <Logo src={logo} alt="logo" onClick={onClickHUP} />
           <NoCenterHorizontal
-            style={{ justifyContent: "flex-end", marginRight: "75px" }}
+            style={{
+              justifyContent: "flex-end",
+              marginRight: "95px",
+              marginTop: "10px",
+            }}
           >
             <StyledLink to="/DaePo/PortFolio">프로젝트</StyledLink>
             <StyledLink to="/DaePo/CreatePost">업로드</StyledLink>

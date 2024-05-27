@@ -7,14 +7,14 @@ import { Container } from "../styles/StyledComponents";
 
 function FilteringPage() {
   return (
-    <div>
+    <>
       <Container>
         <HeaderComponent />
         <DivisionComponent />
       </Container>
       <FilteringComponent />
       <FooterComponent />
-    </div>
+    </>
   );
 }
 
