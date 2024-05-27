@@ -1,16 +1,13 @@
 import MyPortfolioComponent from "./MyPortfolioComponent/MyPortfolioComponent";
 import LikedPortfolioComponent from "./LikedPortfolioComponent/LikedPortfolioComponent";
-import EditInfoComponent from "./EditInfoComponent/EditInfoComponent";
-
+import { Vertical, Box } from "../../styles/StyledComponents";
 function MyPageComponent() {
   return (
-    <>
-      <EditInfoComponent />
-      <hr />
+    <Vertical>
       <MyPortfolioComponent />
-      <hr />
+      <Box margin="50px" />
       <LikedPortfolioComponent />
-    </>
+    </Vertical>
   );
 }
 

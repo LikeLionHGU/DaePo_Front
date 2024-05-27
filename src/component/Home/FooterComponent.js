@@ -8,6 +8,7 @@ const FooterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
 `;
 const Logo = styled.img.attrs({
   src: logo,

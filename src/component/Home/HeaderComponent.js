@@ -16,15 +16,10 @@ const Logo = styled.img.attrs({
 })`
   width: 70px;
   height: 40px;
+  margin-top: 20px;
   margin-left: 100px;
   margin-right: 30px;
-`;
-
-const LoginBT = styled.button`
-  border: none;
-  background-color: transparent;
   cursor: pointer;
-  margin-left: 50px;
 `;
 
 const LogoContainer = styled.div`
@@ -41,8 +36,8 @@ const SearchSpace = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: 80%;
-  height: 90%;
+  width: 330px;
+  margin-left: 10px;
   border: none;
   outline: none;
 `;
@@ -70,7 +65,6 @@ function HeaderComponent() {
       </LogoContainer>
       <SearchSpace>
         <SearchInput placeholder="작품명, 학생 이름, 키워드로 검색" />
-        <SearchInput />
         <SlMagnifierBT>
           <IoSearchSharp style={{ width: "25px" }} size="1x" />
         </SlMagnifierBT>

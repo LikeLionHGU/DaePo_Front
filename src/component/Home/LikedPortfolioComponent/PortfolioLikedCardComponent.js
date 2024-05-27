@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 const Card = styled.div`
   border: 1px solid #ccc;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 20px;
+  margin-right: 10px;
+  width: 231px;
+  height: 254px;
+  border-radius: 24px;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 function PortfolioLikedCardComponent({ data }) {

@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import styled from "styled-components";
 import App from "./App";
+import styled from "styled-components";
+import { GlobalStyle } from "./styles/GlobalStyle";
 
 const Div = styled.div`
   display: flex;
@@ -15,6 +16,7 @@ const Div = styled.div`
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <GlobalStyle />
     <Div>
       <App />
     </Div>
