@@ -19,8 +19,9 @@ const Header = styled.div`
   flex-direction: column;
   background-image: linear-gradient(to left, #ff7d04, #ffebd9);
   width: 100%;
-  height: 250px;
+  height: 225px;
   margin-bottom: 400px;
+  padding-top: 25px;
 `;
 const Logo = styled.img.attrs({
   src: logo,
@@ -28,8 +29,8 @@ const Logo = styled.img.attrs({
 })`
   width: 70px;
   height: 40px;
-  margin-left: 200px;
-  margin-top: 22px;
+  margin-left: 94px;
+  margin-top: 15px;
 `;
 
 const ProfileImg = styled.img`
@@ -86,7 +87,7 @@ function MyPage() {
         <Horizontal>
           <Logo src={logo} alt="logo" onClick={onClickHUP} />
           <NoCenterHorizontal
-            style={{ justifyContent: "flex-end", marginRight: "190px" }}
+            style={{ justifyContent: "flex-end", marginRight: "75px" }}
           >
             <StyledLink to="/DaePo/PortFolio">프로젝트</StyledLink>
             <StyledLink to="/DaePo/CreatePost">업로드</StyledLink>

@@ -20,13 +20,6 @@ const Logo = styled.img.attrs({
   margin-right: 30px;
 `;
 
-const LoginBT = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  margin-left: 50px;
-`;
-
 const LogoContainer = styled.div`
   margin-right: 20px;
 `;
