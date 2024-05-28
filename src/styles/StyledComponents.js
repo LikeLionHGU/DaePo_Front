@@ -31,6 +31,12 @@ export const Vertical = styled.div`
   width: 100%;
 `;
 
+export const WrapContainer = styled.div`
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 200px;
+`;
+
 export const NoCenterVertical = styled.div`
   //세로 정렬
   display: flex;
