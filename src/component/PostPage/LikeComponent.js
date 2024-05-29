@@ -16,9 +16,9 @@ function LikeComponent() {
   return (
     <div onClick={handleHeart}>
       {heart ? (
-        <AiFillHeart style={{ color: "red", fontSize: "30px" }} />
+        <AiFillHeart style={{ color: "white", fontSize: "30px" }} />
       ) : (
-        <AiOutlineHeart style={{ fontSize: "30px" }} />
+        <AiOutlineHeart style={{ color: "white", fontSize: "30px" }} />
       )}
     </div>
   );
