@@ -13,7 +13,6 @@ function FilteringPage() {
         <DivisionComponent />
       </Container>
       <FilteringComponent />
-      <FooterComponent />
     </>
   );
 }

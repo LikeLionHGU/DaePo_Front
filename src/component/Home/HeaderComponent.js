@@ -30,16 +30,16 @@ const SearchSpace = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex: 1; /* 변경된 부분 */
-  max-width: 400px; /* 변경된 부분 */
+  flex: 1;
+  max-width: 400px;
   height: 50px;
   border-radius: 50px;
   border: solid 2px #ee7b00;
 `;
 
 const SearchInput = styled.input`
-  flex: 1; /* 변경된 부분 */
-  width: 100%; /* 변경된 부분 */
+  flex: 1;
+  width: 100%;
   margin-left: 10px;
   border: none;
   outline: none;

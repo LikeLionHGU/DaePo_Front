@@ -6,7 +6,6 @@ import initialData from "./dummyData";
 const Vertical = styled.div`
   display: flex;
   flex-direction: row;
-
   justify-content: center; /* 가로 가운데 정렬 */
 `;
 
@@ -82,14 +81,32 @@ const Line = styled.div`
   margin: 30px 0px;
   border-color: rgba(0, 0, 0, 0.2);
 `;
-const fillEmptySlots = (data) => {
-  const remainingSlots = 24 - data.length;
-  if (remainingSlots > 0) {
-    const emptySlots = Array.from({ length: remainingSlots }).fill(null);
-    return [...data, ...emptySlots];
-  }
-  return data;
-};
+
+const YearSelectorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+const YearButton = styled.button`
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  cursor: pointer;
+
+  color: #d66f00;
+`;
+
+const YearDisplay = styled.div`
+  width: 80px;
+  text-align: center;
+  font-size: 18px;
+  font-family: "AUTHENTICSans";
+  font-weight: 1300;
+  font-size: 18px;
+  padding: 5px;
+`;
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -140,7 +157,7 @@ function FilteringComponent() {
       "제품 및 서비스 디자인": false,
       "Capstone Design": false,
     },
-    year: 0,
+    year: new Date().getFullYear(),
     tool: {
       포토샵: false,
       일러스트: false,
@@ -232,11 +249,11 @@ function FilteringComponent() {
     });
   };
 
-  const handleYearChange = (e) => {
-    setFilters({
-      ...filters,
-      year: parseInt(e.target.value),
-    });
+  const handleYearChange = (newYear) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      year: newYear,
+    }));
   };
 
   const handleToolChange = (e) => {
@@ -248,7 +265,14 @@ function FilteringComponent() {
       },
     });
   };
-
+  const fillEmptySlots = (data) => {
+    const remainingSlots = 24 - data.length;
+    if (remainingSlots > 0) {
+      const emptySlots = Array.from({ length: remainingSlots }).fill(null);
+      return [...data, ...emptySlots];
+    }
+    return data;
+  };
   const handleFieldChange = (e) => {
     setFilters({
       ...filters,
@@ -366,7 +390,7 @@ function FilteringComponent() {
               </>
             )}
             {(filters.major["제품"] ||
-              (!filters.major["시각"] && !filters.major["제품"])) && (
+              (!filters.major["시각"] && !filters.major["제허다"])) && (
               <CheckContainer>
                 <Check
                   type="checkbox"
@@ -384,14 +408,15 @@ function FilteringComponent() {
           <FilterSection>
             <Title>제작 연도</Title>
             <br />
-            <select onChange={handleYearChange} value={filters.year}>
-              <option value={0}>All Years</option>
-              {[...Array(2024 - 2017 + 1)].map((_, index) => (
-                <option key={index} value={2017 + index}>
-                  {2017 + index}
-                </option>
-              ))}
-            </select>
+            <YearSelectorContainer>
+              <YearButton onClick={() => handleYearChange(filters.year - 1)}>
+                {"<"}
+              </YearButton>
+              <YearDisplay>{filters.year}</YearDisplay>
+              <YearButton onClick={() => handleYearChange(filters.year + 1)}>
+                {">"}
+              </YearButton>
+            </YearSelectorContainer>
           </FilterSection>
           <Line className="jb-division-line"></Line>
           <FilterSection>
