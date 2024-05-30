@@ -16,27 +16,30 @@ const Logo = styled.img.attrs({
 })`
   width: 70px;
   height: 40px;
-  margin-top: 20px;
-  margin-left: 100px;
-  margin-right: 30px;
   cursor: pointer;
 `;
 
 const LogoContainer = styled.div`
   margin-right: 20px;
+  margin-top: 20px;
+  margin-left: 100px;
+  margin-right: 30px;
 `;
+
 const SearchSpace = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  width: 400px;
+  flex: 1;
+  max-width: 400px;
   height: 50px;
   border-radius: 50px;
   border: solid 2px #ee7b00;
 `;
 
 const SearchInput = styled.input`
-  width: 330px;
+  flex: 1;
+  width: 100%;
   margin-left: 10px;
   border: none;
   outline: none;

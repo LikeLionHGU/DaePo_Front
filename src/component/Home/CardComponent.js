@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-// import cardImage from "../../img/CardComponent.png";
 import { Link } from "react-router-dom";
+import LikeComponent from "../PostPage/LikeComponent";
 
 const Rect = styled.div`
   width: 230px;
@@ -11,6 +11,13 @@ const Rect = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 30px;
+  margin-right: 10px;
+`;
+
+const Image = styled.img`
+  width: 230px;
+  height: 230px;
 `;
 
 const OverlayTop = styled.div`
@@ -18,9 +25,8 @@ const OverlayTop = styled.div`
   top: ${({ show }) => (show ? "0" : "-100%")};
   left: 0;
   right: 0;
-  background-color: rgba(138, 43, 226, 0.7);
+  background-color: rgba(85, 92, 154, 0.8);
   transition: top 0.8s ease-in-out;
-  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,9 +39,9 @@ const OverlayBottom = styled.div`
   bottom: ${({ show }) => (show ? "0" : "-100%")};
   left: 0;
   right: 0;
-  background-color: rgba(138, 43, 226, 0.7);
+  background-color: rgba(85, 92, 154, 0.8);
   transition: bottom 0.8s ease-in-out;
-  z-index: 1;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,15 +49,41 @@ const OverlayBottom = styled.div`
   height: 115px;
 `;
 
-const Text = styled.p`
-  color: white;
-  font-size: 24px;
+const TextWrapper = styled.div`
   position: absolute;
-  top: 85px;
-  left: 90px;
-  opacity: ${({ show }) => (show ? 1 : 0)};
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  opacity: ${({ show }) => (show ? 1 : 0)}; /* Opacity controlled by show */
+  transition: opacity 0.5s ease-in-out; /* Smooth transition */
   z-index: 1;
-  transition: opacity 1s ease-in-out;
+`;
+
+const LikeWrapper = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  transition: opacity 0.5s ease-in-out;
+  z-index: 1;
+`;
+
+const Text = styled.p`
+  color: black;
+  font-size: 24px;
+  font-family: "AUTHENTICSans";
+  font-weight: bold;
+  font-size: 22px;
+`;
+
+const Name = styled.p`
+  color: black;
+  font-size: 24px;
+  margin-bottom: -20px;
+  font-family: "AUTHENTICSans";
+  font-weight: 1300;
+  font-size: 22px;
 `;
 
 const CardComponent = ({ id, imageSrc }) => {
@@ -62,12 +94,17 @@ const CardComponent = ({ id, imageSrc }) => {
       onMouseLeave={() => setHovered(false)}
     >
       <Link to={`/DaePo/PostPage/${id + 1}`}>
-        <img src={imageSrc} alt={`Card ${id}`} />
-
+        <Image src={imageSrc} alt={`Card ${id}`} />
         <OverlayTop show={hovered}></OverlayTop>
         <OverlayBottom show={hovered}></OverlayBottom>
-        <Text show={hovered}>{`Duck${id + 1}`}</Text>
+        <TextWrapper show={hovered}>
+          <Name>Somang</Name>
+          <Text>{`Duck${id + 1}`}</Text>
+        </TextWrapper>
       </Link>
+      <LikeWrapper show={hovered}>
+        <LikeComponent />
+      </LikeWrapper>
     </Rect>
   );
 };

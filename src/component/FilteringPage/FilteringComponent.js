@@ -1,155 +1,153 @@
 import React, { useState, useEffect } from "react";
 import CardComponent from "../Home/CardComponent";
-import { Vertical } from "../../styles/StyledComponents";
+import styled from "styled-components";
+import initialData from "./dummyData";
+
+const Vertical = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+const FilterContainer = styled.div`
+  flex: 1;
+  padding: 20px;
+  margin-left: 150px;
+  margin-top: 30px;
+  max-width: 200px;
+  position: sticky;
+  top: 0px;
+`;
+
+const FilterSection = styled.div`
+  margin-bottom: 20px;
+`;
+
+const FilteredCardsContainer = styled.div`
+  flex: 4;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 30px;
+`;
+
+const Title = styled.div`
+  font-family: "AUTHENTICSans";
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+const SubTitle = styled.div`
+  color: ${(props) => (props.checked ? "black" : "rgba(0, 0, 0, 0.2)")};
+`;
+
+const CheckContainer = styled.label`
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+const Check = styled.input.attrs({ type: "checkbox" })`
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: ${(props) => (props.checked ? "#ee7b00" : "white")};
+  border: 2px solid #ee7b00;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  margin-right: 10px;
+
+  &:checked {
+    background-color: #ee7b00;
+  }
+
+  &:checked::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+`;
+
+const Line = styled.div`
+  border-top: 1px solid #444444;
+  margin: 30px 0px;
+  border-color: rgba(0, 0, 0, 0.2);
+`;
+
+const YearSelectorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+const YearButton = styled.button`
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+  cursor: pointer;
+  color: #d66f00;
+`;
+
+const YearDisplay = styled.div`
+  width: 80px;
+  text-align: center;
+  font-size: 18px;
+  font-family: "AUTHENTICSans";
+  font-weight: 1300;
+  font-size: 18px;
+  padding: 5px;
+  color: black;
+`;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+  margin-bottom: 60px;
+  height: 40px;
+`;
+
+const PageButton = styled.button`
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: white;
+  color: ${(props) => (props.active ? "#d66f00" : "black")};
+  border: 1px solid white;
+  cursor: pointer;
+  font-family: "AUTHENTICSans";
+  font-weight: bold;
+  font-size: 20px;
+  &:hover {
+    color: #d66f00;
+  }
+`;
+
+const LoadMoreButton = styled.button`
+  padding: 5px 10px;
+  background-color: white;
+  color: ${(props) => (props.active ? "#d66f00" : "black")};
+  border: 1px solid white;
+  cursor: pointer;
+  font-family: "AUTHENTICSans";
+  font-weight: bold;
+  font-size: 8px;
+
+  &:hover {
+    color: #d66f00;
+  }
+`;
 
 function FilteringComponent() {
-  const initialData = [
-    {
-      major: "시각",
-      subject: "시각 캡스톤 디자인",
-      year: 2017,
-      tool: ["피그마", "포토샵"],
-      field: "UI",
-      likes: 25,
-      registrationDate: "2022-03-15",
-    },
-    {
-      major: "제품",
-      subject: "서비스 디자인",
-      year: 2018,
-      tool: ["일러스트", "블렌더"],
-      field: "UX",
-      likes: 30,
-      registrationDate: "2022-05-20",
-    },
-    {
-      major: "시각",
-      subject: "커뮤니케이션 디자인",
-      year: 2019,
-      tool: ["인디자인", "라이노"],
-      field: "BRANDING",
-      likes: 18,
-      registrationDate: "2022-01-10",
-    },
-    {
-      major: "시각",
-      subject: "제품 및 서비스 디자인",
-      year: 2020,
-      tool: ["스케치", "키샷"],
-      field: "ARCHITECTURE",
-      likes: 35,
-      registrationDate: "2022-07-05",
-    },
-    {
-      major: "시각",
-      subject: "시각 캡스톤 디자인",
-      year: 2021,
-      tool: ["피그마", "포토샵"],
-      field: "FURNITURE",
-      likes: 28,
-      registrationDate: "2022-04-30",
-    },
-    {
-      major: "제품",
-      subject: "서비스 디자인",
-      year: 2022,
-      tool: ["일러스트", "블렌더"],
-      field: "UX",
-      likes: 40,
-      registrationDate: "2022-10-12",
-    },
-    {
-      major: "시각",
-      subject: "커뮤니케이션 디자인",
-      year: 2023,
-      tool: ["인디자인", "라이노"],
-      field: "FURNITURE",
-      likes: 21,
-      registrationDate: "2023-02-18",
-    },
-    {
-      major: "시각",
-      subject: "제품 및 서비스 디자인",
-      year: 2024,
-      tool: ["스케치", "키샷"],
-      field: "ARCHITECTURE",
-      likes: 33,
-      registrationDate: "2023-08-07",
-    },
-    {
-      major: "제품",
-      subject: "시각 캡스톤 디자인",
-      year: 2017,
-      tool: ["피그마", "포토샵"],
-      field: "UI",
-      likes: 22,
-      registrationDate: "2022-08-25",
-    },
-    {
-      major: "제품",
-      subject: "서비스 디자인",
-      year: 2018,
-      tool: ["일러스트", "블렌더"],
-      field: "UX",
-      likes: 27,
-      registrationDate: "2022-06-14",
-    },
-    {
-      major: "시각",
-      subject: "커뮤니케이션 디자인",
-      year: 2019,
-      tool: ["인디자인", "라이노"],
-      field: "ENVIRONMENTAL",
-      likes: 17,
-      registrationDate: "2021-12-02",
-    },
-    {
-      major: "시각",
-      subject: "제품 및 서비스 디자인",
-      year: 2020,
-      tool: ["스케치", "키샷"],
-      field: "ARCHITECTURE",
-      likes: 38,
-      registrationDate: "2022-09-08",
-    },
-    {
-      major: "시각",
-      subject: "시각 캡스톤 디자인",
-      year: 2021,
-      tool: ["피그마", "포토샵"],
-      field: "ENVIRONMENTAL",
-      likes: 31,
-      registrationDate: "2022-11-21",
-    },
-    {
-      major: "제품",
-      subject: "서비스 디자인",
-      year: 2022,
-      tool: ["일러스트", "블렌더"],
-      field: "VEHICLE",
-      likes: 45,
-      registrationDate: "2023-05-16",
-    },
-    {
-      major: "시각",
-      subject: "커뮤니케이션 디자인",
-      year: 2023,
-      tool: ["인디자인", "라이노"],
-      field: "BRANDING",
-      likes: 20,
-      registrationDate: "2023-01-30",
-    },
-    {
-      major: "시각",
-      subject: "제품 및 서비스 디자인",
-      year: 2024,
-      tool: ["스케치", "키샷"],
-      field: "ARCHITECTURE",
-      likes: 37,
-      registrationDate: "2023-09-24",
-    },
-  ];
-
   const initialFilters = {
     major: { 시각: false, 제품: false },
     subject: {
@@ -159,56 +157,85 @@ function FilteringComponent() {
       "제품 및 서비스 디자인": false,
       "Capstone Design": false,
     },
-    year: 0,
+    year: new Date().getFullYear(),
+    allYears: true, // Added to track the "All" option for years
     tool: {
-      피그마: false,
       포토샵: false,
       일러스트: false,
-      블렌더: false,
       인디자인: false,
+      블렌더: false,
       라이노: false,
       스케치: false,
-      키샷: false,
-      디멘션: false,
+      프리미엄프로: false,
+      애프터이팩트: false,
+      피그마: false,
     },
     field: "",
     searchField: "",
     sortBy: "",
     sortOrder: "desc",
   };
+
   const [dummyData, setDummyData] = useState(initialData);
   const [filters, setFilters] = useState(initialFilters);
   const [filteredData, setFilteredData] = useState(initialData);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [visiblePages, setVisiblePages] = useState([0]);
+
+  useEffect(() => {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const newVisiblePages = Array.from(
+      { length: Math.min(totalPages, 5) },
+      (_, i) => i
+    );
+    setVisiblePages(newVisiblePages.filter((page) => page < totalPages));
+  }, [filteredData]);
+
+  const handleLoadMore = () => {
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    const lastVisiblePage = visiblePages[visiblePages.length - 1];
+    const newVisiblePages = Array.from(
+      { length: Math.min(totalPages - lastVisiblePage, 5) },
+      (_, i) => lastVisiblePage + i + 1
+    ).filter((page) => page < totalPages);
+    setVisiblePages((prevVisiblePages) => [
+      ...prevVisiblePages,
+      ...newVisiblePages,
+    ]);
+  };
+
+  const itemsPerPage = 24;
 
   useEffect(() => {
     const newData = dummyData.filter((data) => {
-      if (
+      return (
         (filters.major[data.major] ||
           Object.values(filters.major).every((value) => !value)) &&
         (filters.subject[data.subject] ||
           Object.values(filters.subject).every((value) => !value)) &&
-        (filters.year === 0 || data.year === filters.year) &&
+        (filters.allYears || data.year === filters.year) &&
         (filters.tool[data.tool[0]] ||
           filters.tool[data.tool[1]] ||
           Object.values(filters.tool).every((value) => !value)) &&
         (filters.field === "" || data.field === filters.field) &&
         (filters.searchField === "" ||
           data.field.toLowerCase().includes(filters.searchField.toLowerCase()))
-      ) {
-        return true;
-      }
-      return false;
+      );
     });
     setFilteredData(newData);
   }, [dummyData, filters]);
 
   const handleMajorChange = (e) => {
-    setFilters({
-      ...filters,
-      major: {
-        ...filters.major,
-        [e.target.value]: e.target.checked,
-      },
+    const { value, checked } = e.target;
+    setFilters((prevFilters) => {
+      const updatedMajor = {
+        ...prevFilters.major,
+        [value]: checked,
+      };
+      return {
+        ...prevFilters,
+        major: updatedMajor,
+      };
     });
   };
 
@@ -222,23 +249,23 @@ function FilteringComponent() {
     });
   };
 
-  const handleYearChange = (e) => {
-    setFilters({
-      ...filters,
-      year: parseInt(e.target.value),
-    });
-  };
+  const currentYear = new Date().getFullYear();
+  const maxYear = 2024;
 
-  const handleLatestSort = () => {
-    const sortedData = [...filteredData].sort(
-      (a, b) => new Date(b.registrationDate) - new Date(a.registrationDate)
-    );
-    setFilteredData(sortedData);
-  };
-
-  const handleLikesSort = () => {
-    const sortedData = [...filteredData].sort((a, b) => b.likes - a.likes);
-    setFilteredData(sortedData);
+  const handleYearChange = (newYear) => {
+    if (newYear <= currentYear) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        year: newYear,
+        allYears: false,
+      }));
+    } else if (newYear === currentYear + 1) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        year: newYear,
+        allYears: true,
+      }));
+    }
   };
 
   const handleToolChange = (e) => {
@@ -251,6 +278,15 @@ function FilteringComponent() {
     });
   };
 
+  const fillEmptySlots = (data) => {
+    const remainingSlots = 24 - data.length;
+    if (remainingSlots > 0) {
+      const emptySlots = Array.from({ length: remainingSlots }).fill(null);
+      return [...data, ...emptySlots];
+    }
+    return data;
+  };
+
   const handleFieldChange = (e) => {
     setFilters({
       ...filters,
@@ -258,11 +294,8 @@ function FilteringComponent() {
     });
   };
 
-  const handleFieldSearch = (e) => {
-    setFilters({
-      ...filters,
-      searchField: e.target.value,
-    });
+  const handlePageClick = (page) => {
+    setCurrentPage(page);
   };
 
   const cardImages = [
@@ -283,7 +316,16 @@ function FilteringComponent() {
     require("../../img/CardComponent.png"),
     require("../../img/p8.png"),
   ];
-  const filteredCards = filteredData.map((data, index) => {
+
+  const offset = currentPage * itemsPerPage;
+  const currentData = filteredData.slice(offset, offset + itemsPerPage);
+
+  const filteredCards = fillEmptySlots(currentData).map((data, index) => {
+    if (!data) {
+      return (
+        <div key={index} style={{ width: "250px", height: "250px" }}></div>
+      );
+    }
     const cardImageIndex = dummyData.findIndex((item) => item === data);
     return (
       <CardComponent
@@ -300,148 +342,149 @@ function FilteringComponent() {
     );
   });
 
-  const rows = [];
-  for (let i = 0; i < filteredCards.length; i += 4) {
-    rows.push(
-      <div
-        key={i / 4}
-        style={{
-          display: "flex",
-          marginBottom: "10px",
-        }}
-      >
-        {filteredCards.slice(i, i + 4).map((card, index) => (
-          <div key={index} style={{ marginRight: "10px" }}>
-            {card}
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const isLoadMoreVisible =
+    visiblePages[visiblePages.length - 1] < totalPages - 1;
 
   return (
-    <Vertical>
-      <div>
-        <div>
-          <label>전공</label>
-          <br />
-          <input
-            type="checkbox"
-            value="시각"
-            onChange={handleMajorChange}
-            checked={filters.major["시각"]}
-          />{" "}
-          시각 디자인
-          <input
-            type="checkbox"
-            value="제품"
-            onChange={handleMajorChange}
-            checked={filters.major["제품"]}
-          />{" "}
-          제품 디자인
-          <br />
-        </div>
-        <div>
-          <br />
-          <label>과목명</label>
-          <br />
-          <input
-            type="checkbox"
-            value="시각 캡스톤 디자인"
-            onChange={handleSubjectChange}
-            checked={filters.subject["시각 캡스톤 디자인"]}
-          />{" "}
-          시각 캡스톤 디자인
-          <input
-            type="checkbox"
-            value="서비스 디자인"
-            onChange={handleSubjectChange}
-            checked={filters.subject["서비스 디자인"]}
-          />{" "}
-          서비스 디자인
-          <input
-            type="checkbox"
-            value="커뮤니케이션 디자인"
-            onChange={handleSubjectChange}
-            checked={filters.subject["커뮤니케이션 디자인"]}
-          />{" "}
-          커뮤니케이션 디자인
-          <input
-            type="checkbox"
-            value="제품 및 서비스 디자인"
-            onChange={handleSubjectChange}
-            checked={filters.subject["제품 및 서비스 디자인"]}
-          />{" "}
-          제품 및 서비스 디자인
-          <input
-            type="checkbox"
-            value="Capstone Design"
-            onChange={handleSubjectChange}
-            checked={filters.subject["Capstone Design"]}
-          />{" "}
-          Capstone Design
-        </div>
-        <div>
-          <br />
-          <label>제작 연도</label>
-          <br />
-          <select onChange={handleYearChange} value={filters.year}>
-            <option value={0}>All Years</option>
-            {[...Array(2024 - 2017 + 1)].map((_, index) => (
-              <option key={index} value={2017 + index}>
-                {2017 + index}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <br />
-          <label>사용 툴</label>
-          <br />
-          {Object.keys(filters.tool).map((tool) => (
-            <React.Fragment key={tool}>
-              <input
+    <>
+      <Vertical>
+        <FilterContainer>
+          <FilterSection>
+            <Title>전공</Title>
+            <br />
+            <CheckContainer>
+              <Check
                 type="checkbox"
-                value={tool}
-                onChange={handleToolChange}
-                checked={filters.tool[tool]}
-              />{" "}
-              {tool}
-            </React.Fragment>
-          ))}
-        </div>
-        <div>
-          <br />
-          <label>분야</label>
-          <br />
-          <select onChange={handleFieldChange} value={filters.field}>
-            <option value="">All Fields</option>
-            <option value="UI">UI</option>
-            <option value="UX">UX</option>
-            <option value="BRANDING">BRANDING</option>
-            <option value="ARCHITECTURE">ARCHITECTURE</option>
-            <option value="VEHICLE">VEHICLE</option>
-            <option value="FURNITURE">FURNITURE</option>
-            <option value="ENVIRONMENTAL">ENVIRONMENTAL</option>
-          </select>
-          <br />
-          <br />
+                value="시각"
+                onChange={handleMajorChange}
+                checked={filters.major["시각"]}
+              />
+              <SubTitle checked={filters.major["시각"]}>시각 디자인</SubTitle>
+            </CheckContainer>
+            <CheckContainer>
+              <Check
+                type="checkbox"
+                value="제품"
+                onChange={handleMajorChange}
+                checked={filters.major["제품"]}
+              />
+              <SubTitle checked={filters.major["제품"]}>제품 디자인</SubTitle>
+            </CheckContainer>
+          </FilterSection>
+          <Line className="jb-division-line"></Line>
+          <FilterSection>
+            <Title>과목명</Title>
+            <br />
+            {(filters.major["시각"] ||
+              (!filters.major["시각"] && !filters.major["제품"])) && (
+              <>
+                <CheckContainer>
+                  <Check
+                    type="checkbox"
+                    value="서비스 디자인"
+                    onChange={handleSubjectChange}
+                    checked={filters.subject["서비스 디자인"]}
+                  />
+                  <SubTitle checked={filters.subject["서비스 디자인"]}>
+                    서비스 디자인
+                  </SubTitle>
+                </CheckContainer>
+                <CheckContainer>
+                  <Check
+                    type="checkbox"
+                    value="커뮤니케이션 디자인"
+                    onChange={handleSubjectChange}
+                    checked={filters.subject["커뮤니케이션 디자인"]}
+                  />
+                  <SubTitle checked={filters.subject["커뮤니케이션 디자인"]}>
+                    커뮤니케이션 디자인
+                  </SubTitle>
+                </CheckContainer>
+              </>
+            )}
+            {(filters.major["제품"] ||
+              (!filters.major["시각"] && !filters.major["제품"])) && (
+              <CheckContainer>
+                <Check
+                  type="checkbox"
+                  value="제품 및 서비스 디자인"
+                  onChange={handleSubjectChange}
+                  checked={filters.subject["제품 및 서비스 디자인"]}
+                />
+                <SubTitle checked={filters.subject["제품 및 서비스 디자인"]}>
+                  제품 및 서비스 디자인
+                </SubTitle>
+              </CheckContainer>
+            )}
+          </FilterSection>
+          <Line className="jb-division-line"></Line>
+          <FilterSection>
+            <Title>제작 연도</Title>
+            <br />
+            <YearSelectorContainer>
+              <YearButton onClick={() => handleYearChange(filters.year - 1)}>
+                {"<"}
+              </YearButton>
+              <YearDisplay allYears={filters.allYears}>
+                {filters.allYears ? "All" : filters.year}
+              </YearDisplay>
 
-          <input
-            type="text"
-            placeholder="분야 검색"
-            onChange={handleFieldSearch}
-            value={filters.searchField}
-          />
-        </div>
-        <br />
-        <div>
-          <button onClick={handleLatestSort}>최신순</button>
-          <button onClick={handleLikesSort}>좋아요순</button>
-        </div>
-      </div>
-      {rows}
-    </Vertical>
+              <YearButton onClick={() => handleYearChange(filters.year + 1)}>
+                {">"}
+              </YearButton>
+            </YearSelectorContainer>
+          </FilterSection>
+          <Line className="jb-division-line"></Line>
+          <FilterSection>
+            <Title>사용 툴</Title>
+            <br />
+            {Object.keys(filters.tool).map((tool) => (
+              <CheckContainer key={tool}>
+                <Check
+                  type="checkbox"
+                  value={tool}
+                  onChange={handleToolChange}
+                  checked={filters.tool[tool]}
+                />
+                <SubTitle checked={filters.tool[tool]}>{tool}</SubTitle>
+              </CheckContainer>
+            ))}
+          </FilterSection>
+          <Line className="jb-division-line"></Line>
+          <FilterSection>
+            <Title>분야</Title>
+            <br />
+            <select onChange={handleFieldChange} value={filters.field}>
+              <option value="">All Fields</option>
+              <option value="UI">UI</option>
+              <option value="UX">UX</option>
+              <option value="BRANDING">BRANDING</option>
+              <option value="ARCHITECTURE">ARCHITECTURE</option>
+              <option value="VEHICLE">VEHICLE</option>
+              <option value="FURNITURE">FURNITURE</option>
+              <option value="ENVIRONMENTAL">ENVIRONMENTAL</option>
+            </select>
+          </FilterSection>
+          <Line className="jb-division-line"></Line>
+        </FilterContainer>
+        <FilteredCardsContainer>{filteredCards}</FilteredCardsContainer>
+      </Vertical>
+      <PaginationContainer>
+        {visiblePages.map((page) => (
+          <PageButton
+            key={page}
+            onClick={() => handlePageClick(page)}
+            active={page === currentPage}
+          >
+            {page + 1}
+          </PageButton>
+        ))}
+        {isLoadMoreVisible && (
+          <LoadMoreButton onClick={handleLoadMore}>■ ■ ■</LoadMoreButton>
+        )}
+      </PaginationContainer>
+    </>
   );
 }
 
