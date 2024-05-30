@@ -3,18 +3,8 @@ import { SlMagnifier } from "react-icons/sl";
 import { LiaSortSolid } from "react-icons/lia";
 
 import styled from "styled-components";
+import { Vertical, Horizontal } from "../../styles/StyledComponents";
 
-const Div = styled.div`
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-`;
-const Horizontal = styled.div`
-  //가로 정렬
-  display: flex;
-  align-items: center;
-  width: 100%;
-`;
 const SearchSpace = styled.div`
   display: flex;
   align-items: center;
@@ -31,7 +21,16 @@ const SearchInput = styled.input`
   border: none;
   outline: none;
 `;
-
+const WaitBT = styled.button`
+  border: none;
+  border-radius: 52px;
+  width: 200px;
+  height: 70px;
+  background-color: rgba(238, 123, 0, 0.4);
+  color: black;
+  cursor: pointer;
+  font-size: 30px;
+`;
 const SlMagnifierBT = styled.button`
   border: none;
   background-color: transparent;
@@ -39,19 +38,22 @@ const SlMagnifierBT = styled.button`
 `;
 const Table = styled.table`
   border-collapse: collapse;
-  width: 100%;
+  width: 80%;
+  margin-top: 50px;
 `;
 
 const Th = styled.th`
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  text-align: center;
+  height: 100px;
 `;
 
 const Td = styled.td`
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  text-align: center;
+  height: 50px;
 `;
 const data = [
   {
@@ -70,6 +72,20 @@ const data = [
   },
   {
     id: 3,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 4,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 5,
     date: "2024-05-03",
     author: "김하영",
     email: "22300079@handong.ac.kr",
@@ -115,10 +131,9 @@ function AdminComponent() {
   };
 
   return (
-    <Div>
-      <p>관리자 페이지</p>
-      <Horizontal>
-        <button>승인대기 n 명</button>
+    <Vertical>
+      <Horizontal style={{ justifyContent: "space-between", width: "80%" }}>
+        <WaitBT>승인대기 n</WaitBT>
         <SearchSpace>
           <SearchInput
             placeholder="작성자 이름, 이메일, 작성일로  검색"
@@ -149,7 +164,7 @@ function AdminComponent() {
               이메일
               <LiaSortSolid />
             </Th>
-            <Th></Th>
+            <Th>승인 여부</Th>
           </tr>
         </thead>
         <tbody>
@@ -172,7 +187,7 @@ function AdminComponent() {
           ))}
         </tbody>
       </Table>
-    </Div>
+    </Vertical>
   );
 }
 

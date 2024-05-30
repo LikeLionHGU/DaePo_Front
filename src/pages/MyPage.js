@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import FooterComponent from "../component/Home/FooterComponent";
 import MyPageComponent from "../component/Home/MyPageComponent";
@@ -11,7 +11,6 @@ import {
   NoCenterHorizontal,
   Box,
 } from "../styles/StyledComponents";
-import { Link } from "react-router-dom";
 import logo from "../img/Group 58.png";
 
 const Header = styled.div`
@@ -120,6 +119,7 @@ function MyPage() {
       </Header>
       <MyPageComponent />
       <Box margin="100px" />
+      <Link to="/DaePo/Admin">게시물 관리</Link>
       <FooterComponent />
     </Vertical>
   );
