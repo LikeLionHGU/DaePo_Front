@@ -6,7 +6,7 @@ import initialData from "./dummyData";
 const Vertical = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center; /* 가로 가운데 정렬 */
+  justify-content: center;
 `;
 
 const FilterContainer = styled.div`
@@ -94,7 +94,6 @@ const YearButton = styled.button`
   background-color: transparent;
   font-size: 24px;
   cursor: pointer;
-
   color: #d66f00;
 `;
 
@@ -106,6 +105,7 @@ const YearDisplay = styled.div`
   font-weight: 1300;
   font-size: 18px;
   padding: 5px;
+  color: black;
 `;
 
 const PaginationContainer = styled.div`
@@ -114,7 +114,7 @@ const PaginationContainer = styled.div`
   margin-top: 20px;
   width: 100%;
   margin-bottom: 60px;
-  height: 40px; /* 페이징 컨테이너의 높이를 설정합니다. */
+  height: 40px;
 `;
 
 const PageButton = styled.button`
@@ -158,6 +158,7 @@ function FilteringComponent() {
       "Capstone Design": false,
     },
     year: new Date().getFullYear(),
+    allYears: true, // Added to track the "All" option for years
     tool: {
       포토샵: false,
       일러스트: false,
@@ -179,8 +180,7 @@ function FilteringComponent() {
   const [filters, setFilters] = useState(initialFilters);
   const [filteredData, setFilteredData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(0);
-
-  const [visiblePages, setVisiblePages] = useState([0]); // 초기에 첫 번째 페이지만 보이도록 설정
+  const [visiblePages, setVisiblePages] = useState([0]);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -195,16 +195,16 @@ function FilteringComponent() {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const lastVisiblePage = visiblePages[visiblePages.length - 1];
     const newVisiblePages = Array.from(
-      { length: Math.min(totalPages - lastVisiblePage, 5) }, // 최대 5개의 페이지를 추가합니다.
+      { length: Math.min(totalPages - lastVisiblePage, 5) },
       (_, i) => lastVisiblePage + i + 1
-    ).filter((page) => page < totalPages); // 총 페이지 수를 넘어가지 않는 페이지만 보여줍니다.
+    ).filter((page) => page < totalPages);
     setVisiblePages((prevVisiblePages) => [
       ...prevVisiblePages,
       ...newVisiblePages,
     ]);
   };
 
-  const itemsPerPage = 24; // 페이지당 24개의 아이템
+  const itemsPerPage = 24;
 
   useEffect(() => {
     const newData = dummyData.filter((data) => {
@@ -213,7 +213,7 @@ function FilteringComponent() {
           Object.values(filters.major).every((value) => !value)) &&
         (filters.subject[data.subject] ||
           Object.values(filters.subject).every((value) => !value)) &&
-        (filters.year === 0 || data.year === filters.year) &&
+        (filters.allYears || data.year === filters.year) &&
         (filters.tool[data.tool[0]] ||
           filters.tool[data.tool[1]] ||
           Object.values(filters.tool).every((value) => !value)) &&
@@ -249,11 +249,23 @@ function FilteringComponent() {
     });
   };
 
+  const currentYear = new Date().getFullYear();
+  const maxYear = 2024;
+
   const handleYearChange = (newYear) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      year: newYear,
-    }));
+    if (newYear <= currentYear) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        year: newYear,
+        allYears: false,
+      }));
+    } else if (newYear === currentYear + 1) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        year: newYear,
+        allYears: true,
+      }));
+    }
   };
 
   const handleToolChange = (e) => {
@@ -265,6 +277,7 @@ function FilteringComponent() {
       },
     });
   };
+
   const fillEmptySlots = (data) => {
     const remainingSlots = 24 - data.length;
     if (remainingSlots > 0) {
@@ -273,6 +286,7 @@ function FilteringComponent() {
     }
     return data;
   };
+
   const handleFieldChange = (e) => {
     setFilters({
       ...filters,
@@ -390,7 +404,7 @@ function FilteringComponent() {
               </>
             )}
             {(filters.major["제품"] ||
-              (!filters.major["시각"] && !filters.major["제허다"])) && (
+              (!filters.major["시각"] && !filters.major["제품"])) && (
               <CheckContainer>
                 <Check
                   type="checkbox"
@@ -412,7 +426,10 @@ function FilteringComponent() {
               <YearButton onClick={() => handleYearChange(filters.year - 1)}>
                 {"<"}
               </YearButton>
-              <YearDisplay>{filters.year}</YearDisplay>
+              <YearDisplay allYears={filters.allYears}>
+                {filters.allYears ? "All" : filters.year}
+              </YearDisplay>
+
               <YearButton onClick={() => handleYearChange(filters.year + 1)}>
                 {">"}
               </YearButton>
