@@ -91,6 +91,48 @@ const data = [
     email: "22300079@handong.ac.kr",
     status: "미승인",
   },
+  {
+    id: 6,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 7,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 8,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 9,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 10,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
+  {
+    id: 11,
+    date: "2024-05-03",
+    author: "김하영",
+    email: "22300079@handong.ac.kr",
+    status: "미승인",
+  },
 ];
 
 function AdminComponent() {

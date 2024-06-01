@@ -11,17 +11,14 @@ import {
 
 function AdminPage() {
   return (
-    <Vertical>
-      <WrapContainer>
-        <Container>
-          <HeaderComponent />
-          <DivisionComponent />
-        </Container>
-        <Box margin="50px" />
-        <AdminComponent />
-      </WrapContainer>
-      <FooterComponent />
-    </Vertical>
+    <>
+      <Container>
+        <HeaderComponent />
+        <DivisionComponent />
+      </Container>
+      <Box margin="50px" />
+      <AdminComponent />
+    </>
   );
 }
 

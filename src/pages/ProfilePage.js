@@ -19,6 +19,7 @@ const MyInfo = {
   intro: "멋쟁이 아기사자 웹파트 이한나입니다.",
   image:
     "https://png.pngtree.com/thumb_back/fh260/background/20230609/pngtree-three-puppies-with-their-mouths-open-are-posing-for-a-photo-image_2902292.jpg",
+  otherSite: "github link",
 };
 
 const PoPolDataList = [

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import PortfolioLikedCardComponent from "./PortfolioLikedCardComponent";
@@ -117,16 +117,85 @@ const LikedDataList = [
     title: "밤양갱",
     description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
   },
+  {
+    professor: "콘디 교수님",
+    tools: "젤리",
+    year: "2021",
+    field: "김지원이 내 젤리 먹음..?",
+    title: "밤양갱",
+    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
+  },
+  {
+    professor: "콘디 교수님",
+    tools: "젤리",
+    year: "2021",
+    field: "김지원이 내 젤리 먹음..?",
+    title: "밤양갱",
+    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
+  },
+  {
+    professor: "콘디 교수님",
+    tools: "젤리",
+    year: "2021",
+    field: "김지원이 내 젤리 먹음..?",
+    title: "밤양갱",
+    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
+  },
+  {
+    professor: "콘디 교수님",
+    tools: "젤리",
+    year: "2021",
+    field: "김지원이 내 젤리 먹음..?",
+    title: "밤양갱",
+    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
+  },
+  {
+    professor: "콘디 교수님",
+    tools: "젤리",
+    year: "2021",
+    field: "김지원이 내 젤리 먹음..?",
+    title: "밤양갱",
+    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
+  },
+  {
+    professor: "콘디 교수님",
+    tools: "젤리",
+    year: "2021",
+    field: "김지원이 내 젤리 먹음..?",
+    title: "밤양갱",
+    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
+  },
 ];
 
 function LikedPortfolioComponent() {
   const [visibleItems, setVisibleItems] = useState(8);
+  const [itemsPerRow, setItemsPerRow] = useState(4);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        const newItemsPerRow = Math.floor(containerWidth / 220); // 200px 아이템 너비 + 20px 간격
+        setItemsPerRow(newItemsPerRow);
+        setVisibleItems(newItemsPerRow * 2); // 초기 표시 항목 수 설정
+      }
+    };
+
+    handleResize(); // 초기 계산
+    window.addEventListener("resize", handleResize); // 리사이즈 시 재계산
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const handleSeeMore = () => {
-    setVisibleItems((prev) => prev + 4);
+    setVisibleItems((prev) => prev + itemsPerRow);
   };
 
   return (
-    <Container>
+    <Container ref={containerRef}>
       <h1>좋아요 표시한 작품</h1>
       <PortfolioGrid>
         {LikedDataList.slice(0, visibleItems).map((data, index) => (
@@ -136,11 +205,11 @@ function LikedPortfolioComponent() {
       <Horizontal>
         {visibleItems < LikedDataList.length && (
           <SEEMORE onClick={handleSeeMore}>
-            SEE MORE{" "}
+            더 보기{" "}
             <MdKeyboardDoubleArrowDown
-              style={{ color: themeColors.MAINCOLOR.color, marginLeft: "32px" }}
+              style={{ color: themeColors.MAINCOLOR.color, marginLeft: "18px" }}
             />
-          </SEEMORE> // "더 보기" 버튼을 클릭하면 handleSeeMore 함수가 호출됩니다.
+          </SEEMORE>
         )}
       </Horizontal>
     </Container>

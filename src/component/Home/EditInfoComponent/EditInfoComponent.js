@@ -19,7 +19,15 @@ const TextInput = styled.input`
 `;
 const UpdateBT = styled.button`
   font-family: "AUTHENTICSans90";
-  margin-left: 30px;
+  font-size: 22px;
+  width: 150px;
+  height: 65px;
+  border: none;
+  border-radius: 20px;
+  background-color: ${themeColors.BTBOLOR.color};
+  margin-top: 25px;
+  cursor: pointer;
+  margin-left: 250px;
 `;
 
 const EditInfoComponent = ({ MyInfo }) => {
@@ -65,7 +73,16 @@ const EditInfoComponent = ({ MyInfo }) => {
           onChange={handleChange}
           width="400px"
         />
-        <UpdateBT type="submit">정보 수정</UpdateBT>
+        <br />
+        <Text>기타 사이트</Text>
+        <TextInput
+          name="otherSite"
+          value={formData.otherSite}
+          onChange={handleChange}
+          width="400px"
+        />
+        <br />
+        <UpdateBT type="submit">수정</UpdateBT>
       </form>
     </NoCenterVertical>
   );
