@@ -94,7 +94,8 @@ const YearButton = styled.button`
   background-color: transparent;
   font-size: 24px;
   cursor: pointer;
-  color: #d66f00;
+  color: ${(props) => (props.disabled ? "#d3d3d3" : "#d66f00")};
+  pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
 const YearDisplay = styled.div`
@@ -158,7 +159,7 @@ function FilteringComponent() {
       "Capstone Design": false,
     },
     year: new Date().getFullYear(),
-    allYears: true, // Added to track the "All" option for years
+    allYears: true,
     tool: {
       포토샵: false,
       일러스트: false,
@@ -429,8 +430,10 @@ function FilteringComponent() {
               <YearDisplay allYears={filters.allYears}>
                 {filters.allYears ? "All" : filters.year}
               </YearDisplay>
-
-              <YearButton onClick={() => handleYearChange(filters.year + 1)}>
+              <YearButton
+                onClick={() => handleYearChange(filters.year + 1)}
+                disabled={filters.allYears}
+              >
                 {">"}
               </YearButton>
             </YearSelectorContainer>
