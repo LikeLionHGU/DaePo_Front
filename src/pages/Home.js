@@ -10,7 +10,7 @@ import { Container } from "../styles/StyledComponents";
 
 function Home() {
   return (
-    <div>
+    <>
       <Container>
         <HeaderComponent />
         <DivisionComponent />
@@ -20,7 +20,7 @@ function Home() {
       <HomePageComponent />
       <MapComponent />
       <FooterComponent />
-    </div>
+    </>
   );
 }
 

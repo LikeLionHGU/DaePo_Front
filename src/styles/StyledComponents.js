@@ -68,4 +68,7 @@ export const themeColors = {
   IMAGEHOVERCOLOR: {
     color: "#FA2501",
   },
+  BTBOLOR: {
+    color: "#FFD6AA",
+  },
 };

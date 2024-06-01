@@ -28,6 +28,9 @@ const OtherIntroComponent = ({ MyInfo }) => {
       <br />
       <Text>자기소개</Text>
       <TextInput name="intro" value={MyInfo.intro} width="400px" />
+      <br />
+      <Text>기타 사이트</Text>
+      <TextInput name="otherSite" value={MyInfo.intro} width="400px" />
     </NoCenterVertical>
   );
 };

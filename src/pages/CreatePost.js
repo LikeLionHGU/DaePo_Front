@@ -10,7 +10,7 @@ import { Container } from "../styles/StyledComponents";
 
 function CreatePost() {
   return (
-    <div>
+    <>
       <Container>
         <HeaderComponent />
         <DivisionComponent />
@@ -18,7 +18,7 @@ function CreatePost() {
       <PostFormComponent />
       <PreviewPhotosComponent />
       <FooterComponent />
-    </div>
+    </>
   );
 }
 

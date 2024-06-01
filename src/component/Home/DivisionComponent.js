@@ -48,9 +48,10 @@ function DivisionComponent() {
         <StyledNavLink to="/DaePo/MyPage" activeClassName="active">
           마이페이지
         </StyledNavLink>
-        {/* <MenuButton>
-          <StyledNavLink to="/DaePo/Admin">게시물 관리</StyledNavLink>
-        </MenuButton> */}
+        {/* ToDo: admin인 경우에만 게시물 관리 보이도록 */}
+        <StyledNavLink to="/DaePo/Admin" activeClassName="active">
+          게시물 관리
+        </StyledNavLink>
       </Container>
       <hr />
     </>

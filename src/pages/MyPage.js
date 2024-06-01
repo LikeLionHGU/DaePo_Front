@@ -19,7 +19,7 @@ const Header = styled.div`
   background-image: linear-gradient(to left, #ff7d04, #ffebd9);
   width: 100%;
   height: 225px;
-  margin-bottom: 400px;
+  margin-bottom: 550px;
   padding-top: 25px;
 `;
 const Logo = styled.img.attrs({
@@ -56,6 +56,7 @@ const MyInfo = {
   intro: "멋쟁이 아기사자 웹파트 이한나입니다.",
   image:
     "https://png.pngtree.com/thumb_back/fh260/background/20230609/pngtree-three-puppies-with-their-mouths-open-are-posing-for-a-photo-image_2902292.jpg",
+  otherSite: "github link",
 };
 
 function MyPage() {
@@ -97,6 +98,7 @@ function MyPage() {
             <StyledLink to="/DaePo/MyPage" style={{ fontWeight: 700 }}>
               마이페이지
             </StyledLink>
+            <StyledLink to="/DaePo/Admin">게시물 관리</StyledLink>
           </NoCenterHorizontal>
         </Horizontal>
         <Horizontal>
