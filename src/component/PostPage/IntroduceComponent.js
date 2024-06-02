@@ -1,22 +1,38 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import duck1 from "../../img/duck1.png";
 import emailimg from "../../img/email.png";
 import coffechatimg from "../../img/coffechat.png";
+import commentimg from "../../img/comment.png";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  border-top: 3px solid black;
   width: 60%;
 `;
-
+const BT = styled.div`
+  display: flex;
+  align-items: center; /* Added this to align items in the center */
+`;
+const LikeBT = styled.button`
+  width: 80px;
+  height: 38px;
+  padding-left: 0px;
+  border-radius: 100px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 80px;
+  display: flex; /* Added this to use flexbox */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
+`;
 const TopSection = styled.div`
   display: flex;
   position: relative;
-  width: 100%;
+  border-top: 3px solid black;
+  padding: 20px;
+  width: 97%;
   justify-content: space-between;
   align-items: flex-start;
 `;
@@ -94,10 +110,9 @@ const RightSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 30px;
+  margin-bottom: 100px;
   border-top: 3px solid black;
   border-bottom: 3px solid black;
-  margin-left: -500px;
 `;
 
 const PostDescription = styled.div`
@@ -107,7 +122,7 @@ const PostDescription = styled.div`
   border-radius: 10px;
   padding: 10px;
   width: 440px;
-  height: 240px;
+  height: 230px;
   position: absolute;
   left: 470px;
 `;
@@ -124,15 +139,244 @@ const Tag = styled.span`
   font-weight: bold;
 `;
 
+const Root = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const WritingArea = styled.div`
+  width: 800px;
+  margin-top: 20px;
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+`;
+
+const Button = styled.button``;
+
+const SinglecommentWrapper = styled.div`
+  .comment {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+  }
+  .writer {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .date {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 5px;
+  }
+  .content {
+    font-size: 16px;
+  }
+  .edit-textarea {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+  }
+`;
+
+const Modal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+`;
+
+function CommentComponent() {
+  const [comment, setComment] = useState([
+    {
+      uuid: 1,
+      writer: "김하영",
+      date: "2024-04-08",
+      content: "대포",
+    },
+    {
+      uuid: 2,
+      writer: "이한나",
+      date: "2024-04-12",
+      content: "렛츠고!",
+    },
+  ]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedComment, setSelectedComment] = useState(null);
+  const [editingComment, setEditingComment] = useState(null);
+  const [editContent, setEditContent] = useState("");
+
+  const addComment = () => {
+    const value = document.querySelector("#new-comment-content").value;
+    setComment([
+      ...comment,
+      {
+        uuid: comment.length + 1,
+        writer: "김하영",
+        date: new Date().toISOString().slice(0, 10),
+        content: value,
+      },
+    ]);
+  };
+
+  const deleteComment = () => {
+    const updatedComments = comment.filter(
+      (c) => c.uuid !== selectedComment.uuid
+    );
+    setComment(updatedComments);
+    setShowModal(false);
+  };
+
+  const openModal = (selected) => {
+    setSelectedComment(selected);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const editComment = (selected) => {
+    setEditingComment(selected.uuid);
+    setEditContent(selected.content);
+  };
+
+  const saveEditComment = () => {
+    const updatedComments = comment.map((c) =>
+      c.uuid === editingComment ? { ...c, content: editContent } : c
+    );
+    setComment(updatedComments);
+    setEditingComment(null);
+    setEditContent("");
+  };
+
+  return (
+    <Root id="root">
+      <div>
+        <div>작성자: 김하영</div>
+        <WritingArea id="writing-area">
+          <Textarea id="new-comment-content"></Textarea>
+          <Button id="submit-new-comment" onClick={addComment}>
+            게시
+          </Button>
+        </WritingArea>
+        <ul id="comment">
+          <SinglecommentWrapper>
+            {comment.map((c) => (
+              <div className="comment" key={c.uuid}>
+                <div className="writer">{c.writer}</div>
+                <div className="date">{c.date}</div>
+                {editingComment === c.uuid ? (
+                  <Textarea
+                    className="edit-textarea"
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                  ></Textarea>
+                ) : (
+                  <div className="content">{c.content}</div>
+                )}
+                {editingComment === c.uuid ? (
+                  <>
+                    <Button onClick={saveEditComment}>저장</Button>
+                    <Button onClick={() => setEditingComment(null)}>
+                      취소
+                    </Button>
+                  </>
+                ) : (
+                  <Button onClick={() => editComment(c)}>수정</Button>
+                )}
+                <Button onClick={() => openModal(c)}>삭제</Button>
+              </div>
+            ))}
+          </SinglecommentWrapper>
+        </ul>
+      </div>
+      {showModal && (
+        <Modal>
+          <div>삭제하시겠습니까?</div>
+          <Button onClick={deleteComment}>삭제</Button>
+          <Button onClick={closeModal}>취소</Button>
+        </Modal>
+      )}
+    </Root>
+  );
+}
+
 function IntroduceComponent() {
+  const [heart, setHeart] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
+
+  useEffect(() => {
+    fetch("https://api.example.com/likes")
+      .then((response) => response.json())
+      .then((data) => setLikeCount(data.likeCount))
+      .catch((error) => console.error("Error fetching like count:", error));
+
+    // Fetch initial comment count from API
+    fetch("https://api.example.com/comments/count") // Replace with your API endpoint
+      .then((response) => response.json())
+      .then((data) => setCommentCount(data.commentCount))
+      .catch((error) => console.error("Error fetching comment count:", error));
+  }, []);
+
+  const scrollToComments = () => {
+    document
+      .getElementById("comment-section")
+      .scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleHeart = () => {
+    const newHeartValue = !heart;
+    setHeart(newHeartValue);
+    if (newHeartValue) {
+      setLikeCount(likeCount + 1);
+      fetch("https://api.example.com/likes", {
+        method: "POST",
+        body: JSON.stringify({ like: true }),
+      }).catch((error) => console.error("Error updating like count:", error));
+    } else {
+      setLikeCount(likeCount - 1);
+      fetch("https://api.example.com/likes", {
+        method: "POST",
+        body: JSON.stringify({ like: false }),
+      }).catch((error) => console.error("Error updating like count:", error));
+    }
+  };
+
   return (
     <Wrapper>
+      <BT>
+        <LikeBT onClick={handleHeart}>
+          {heart ? (
+            <AiFillHeart style={{ color: "#F8CA99", fontSize: "30px" }} />
+          ) : (
+            <AiOutlineHeart style={{ color: "#dddddd", fontSize: "30px" }} />
+          )}
+          <span style={{ marginLeft: "10px" }}>{likeCount}</span>
+        </LikeBT>
+        <LikeBT onClick={scrollToComments}>
+          <img
+            src={commentimg}
+            alt="comment"
+            style={{ width: "23px", height: "23px" }}
+          />
+          <span style={{ marginLeft: "10px" }}>{commentCount}</span>
+        </LikeBT>
+      </BT>
       <TopSection>
         <ProfileImage src={duck1} alt="Profile Image" />
         <TextContainer>
           <Title>제목</Title>
           <Designer>디자이너</Designer>
-
           <Adress>
             <ContactRow>
               <Contact>Contact</Contact>
