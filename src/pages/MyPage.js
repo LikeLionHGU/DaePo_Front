@@ -121,7 +121,6 @@ function MyPage() {
       </Header>
       <MyPageComponent />
       <Box margin="100px" />
-      <Link to="/DaePo/Admin">게시물 관리</Link>
       <FooterComponent />
     </Vertical>
   );
