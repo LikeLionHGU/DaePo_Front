@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { SlMagnifier } from "react-icons/sl";
-import { LiaSortSolid } from "react-icons/lia";
 import { Vertical, Horizontal } from "../../styles/StyledComponents";
 
 const SearchSpace = styled.div`
@@ -545,10 +544,19 @@ const StatusButton = styled.button`
   }
 `;
 
+const Dropdown = styled.select`
+  width: 150px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-left: 20px;
+  font-size: 16px;
+`;
+
 function AdminComponent() {
   const [dataState, setDataState] = useState(initialData);
   const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState(null);
+  const [statusFilter, setStatusFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState([]);
 
@@ -562,7 +570,8 @@ function AdminComponent() {
         item.date.includes(searchTerm)
     )
     .filter((item) => {
-      if (statusFilter === null) return true;
+      if (statusFilter === "대기") return item.status === "";
+
       return item.status === statusFilter;
     });
 
@@ -611,19 +620,8 @@ function AdminComponent() {
   const isLoadMoreVisible =
     visiblePages[visiblePages.length - 1] < totalPages - 1;
 
-  const handleHeaderClick = (key) => {
-    if (key === "status") {
-      if (statusFilter === null) setStatusFilter("승인");
-      else if (statusFilter === "승인") setStatusFilter("미승인");
-      else setStatusFilter(null);
-    } else {
-      const sortedData = [...dataState].sort((a, b) => {
-        if (a[key] < b[key]) return -1;
-        if (a[key] > b[key]) return 1;
-        return 0;
-      });
-      setDataState(sortedData);
-    }
+  const handleStatusFilterChange = (e) => {
+    setStatusFilter(e.target.value);
   };
 
   return (
@@ -647,20 +645,19 @@ function AdminComponent() {
           <Table>
             <thead>
               <tr>
-                <Th onClick={() => handleHeaderClick("id")}>
-                  번호 <LiaSortSolid />
-                </Th>
-                <Th onClick={() => handleHeaderClick("date")}>
-                  작성일 <LiaSortSolid />
-                </Th>
-                <Th onClick={() => handleHeaderClick("author")}>
-                  작성자 <LiaSortSolid />
-                </Th>
-                <Th onClick={() => handleHeaderClick("email")}>
-                  이메일 <LiaSortSolid />
-                </Th>
-                <Th onClick={() => handleHeaderClick("status")}>
-                  상태 <LiaSortSolid />
+                <Th>번호</Th>
+                <Th>작성일</Th>
+                <Th>작성자</Th>
+                <Th>이메일</Th>
+                <Th>
+                  <Dropdown
+                    value={statusFilter}
+                    onChange={handleStatusFilterChange}
+                  >
+                    <option value="">대기</option>
+                    <option value="승인">승인</option>
+                    <option value="미승인">미승인</option>
+                  </Dropdown>
                 </Th>
               </tr>
             </thead>
@@ -700,7 +697,7 @@ function AdminComponent() {
               </PageButton>
             ))}
             {isLoadMoreVisible && (
-              <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>
+              <LoadMoreButton onClick={handleLoadMore}>■ ■ ■</LoadMoreButton>
             )}
           </PaginationContainer>
         </Div>
