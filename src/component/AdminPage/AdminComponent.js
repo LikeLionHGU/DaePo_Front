@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { SlMagnifier, SlTag } from "react-icons/sl";
+import { SlMagnifier } from "react-icons/sl";
 import { LiaSortSolid } from "react-icons/lia";
 import { Vertical, Horizontal } from "../../styles/StyledComponents";
 
@@ -33,28 +33,28 @@ const initialData = [
     date: "2024-05-01",
     author: "이한나",
     email: "22100595@handong.ac.kr",
-    status: "승인",
+    status: "",
   },
   {
     id: 2,
     date: "2024-05-02",
     author: "이지광",
     email: "22100110@handong.ac.kr",
-    status: "승인",
+    status: "",
   },
   {
     id: 3,
     date: "2024-05-03",
     author: "김하영",
     email: "22300079@handong.ac.kr",
-    status: "미승인",
+    status: "",
   },
   {
     id: 4,
     date: "2024-05-03",
     author: "김하영",
     email: "22300079@handong.ac.kr",
-    status: "미승인",
+    status: "",
   },
   {
     id: 5,
@@ -535,18 +535,12 @@ const StatusButton = styled.button`
   border-radius: 12px;
   border: none;
   margin: 0 5px;
-  background-color: ${(props) =>
-    props.isActive
-      ? props.type === "approved"
-        ? "#F8CA99"
-        : "#F8CA99"
-      : "#dddddd"};
+  background-color: ${(props) => (props.isActive ? "#F8CA99" : "#dddddd")};
   color: ${(props) => (props.isActive ? "black" : "black")};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) =>
-      props.type === "approved" ? "#F8CA99" : "#F8CA99"};
+    background-color: #f8ca99;
     color: black;
   }
 `;
@@ -666,7 +660,7 @@ function AdminComponent() {
                   이메일 <LiaSortSolid />
                 </Th>
                 <Th onClick={() => handleHeaderClick("status")}>
-                  승인 여부 <LiaSortSolid />
+                  상태 <LiaSortSolid />
                 </Th>
               </tr>
             </thead>
@@ -679,14 +673,12 @@ function AdminComponent() {
                   <Td>{item.email}</Td>
                   <Td>
                     <StatusButton
-                      type="approved"
                       isActive={item.status === "승인"}
                       onClick={() => handleStatusChange(item.id, "승인")}
                     >
                       승인
                     </StatusButton>
                     <StatusButton
-                      type="notApproved"
                       isActive={item.status === "미승인"}
                       onClick={() => handleStatusChange(item.id, "미승인")}
                     >
@@ -701,14 +693,14 @@ function AdminComponent() {
             {visiblePages.map((page) => (
               <PageButton
                 key={page}
+                active={currentPage === page}
                 onClick={() => handlePageClick(page)}
-                active={page === currentPage}
               >
                 {page + 1}
               </PageButton>
             ))}
             {isLoadMoreVisible && (
-              <LoadMoreButton onClick={handleLoadMore}>■ ■ ■</LoadMoreButton>
+              <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>
             )}
           </PaginationContainer>
         </Div>
