@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import FooterComponent from "../component/Home/FooterComponent";
-import CardComponent from "../component/ProfilePage/CardComponent";
 import OtherIntroComponent from "../component/ProfilePage/OtherIntroComponent";
 import OtherPostComponent from "../component/ProfilePage/OtherPostComponent";
 import styled from "styled-components";
 import {
-  Vertical,
   Horizontal,
   NoCenterHorizontal,
   Box,

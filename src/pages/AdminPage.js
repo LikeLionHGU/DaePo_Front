@@ -1,14 +1,11 @@
 import { useNavigate, NavLink } from "react-router-dom";
 import AdminComponent from "../component/AdminPage/AdminComponent";
 import FooterComponent from "../component/Home/FooterComponent";
-import HeaderComponent from "../component/Home/HeaderComponent";
-import DivisionComponent from "../component/Home/DivisionComponent";
 import { useSetRecoilState } from "recoil";
 import { UserInfoState } from "../store/atoms";
 import { FaSignOutAlt } from "react-icons/fa";
 import styled from "styled-components";
 import {
-  Container,
   Box,
   NoCenterHorizontal,
   Horizontal,

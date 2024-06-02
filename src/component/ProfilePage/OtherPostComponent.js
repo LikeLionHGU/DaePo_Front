@@ -1,8 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-
-import PortfolioLikedCardComponent from "../Home/LikedPortfolioComponent/LikedPortfolioComponent";
-
 import { NoCenterHorizontal } from "../../styles/StyledComponents";
 
 const PoPolDataList = [
