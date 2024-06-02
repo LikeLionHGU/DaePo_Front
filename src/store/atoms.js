@@ -8,6 +8,6 @@ const { persistAtom } = recoilPersist({
 
 export const UserInfoState = atom({
   key: "userInfo",
-  default: "",
+  default: { isLoggedIn: false },
   effects_UNSTABLE: [persistAtom],
 });
