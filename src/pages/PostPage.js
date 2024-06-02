@@ -1,5 +1,5 @@
+import React from "react";
 import ReactPlayer from "react-player";
-
 import HeaderComponent from "../component/Home/HeaderComponent";
 import DivisionComponent from "../component/Home/DivisionComponent";
 import CommentComponent from "../component/PostPage/CommentComponent";
@@ -20,13 +20,16 @@ function PostPage() {
           className="player"
           url={"https://www.youtube.com/watch?v=gIiEhETBwBA"}
           width="700px"
-          heigth="700px"
+          height="700px"
           playing={true}
           muted={true}
           controls={true}
         />
       </Vertical>
-      <CommentComponent />
+      <div id="comment-section">
+        {" "}
+        <CommentComponent />
+      </div>
       <LikeComponent />
     </>
   );

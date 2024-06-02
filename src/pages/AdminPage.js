@@ -18,6 +18,7 @@ function AdminPage() {
       </Container>
       <Box margin="50px" />
       <AdminComponent />
+      <FooterComponent />
     </>
   );
 }
