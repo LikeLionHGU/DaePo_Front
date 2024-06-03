@@ -31,7 +31,7 @@ const SearchSpace = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
-  max-width: 400px;
+  max-width: 45%;
   height: 50px;
   border-radius: 50px;
   border: solid 2px #ee7b00;

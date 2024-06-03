@@ -4,6 +4,9 @@ import styled from "styled-components";
 import FooterComponent from "../component/Home/FooterComponent";
 import MyPageComponent from "../component/Home/MyPageComponent";
 import EditInfoComponent from "../component/Home/EditInfoComponent/EditInfoComponent";
+import { useSetRecoilState } from "recoil";
+import { UserInfoState } from "../store/atoms";
+import { FaSignOutAlt } from "react-icons/fa";
 
 import {
   Vertical,
@@ -30,6 +33,7 @@ const Logo = styled.img.attrs({
   height: 40px;
   margin-left: 94px;
   margin-top: 25px;
+  cursor: pointer;
 `;
 
 const ProfileImg = styled.img`
@@ -45,7 +49,7 @@ const StyledLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   margin-right: 40px;
   font-family: "AUTHENTICSans90";
 `;
@@ -64,6 +68,7 @@ function MyPage() {
   const onClickHUP = () => {
     navigate("/DaePo");
   };
+  const setUserInfo = useSetRecoilState(UserInfoState);
   const [imageFile, setImageFile] = useState(MyInfo.image);
   const fileInputRef = useRef();
 
@@ -81,6 +86,11 @@ function MyPage() {
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
+
+  const handleLogout = () => {
+    // 실제 로그아웃 로직을 여기에 추가하세요
+    setUserInfo({ isLoggedIn: false }); // 로그아웃 상태 업데이트
+  };
   return (
     <Vertical>
       <Header>
@@ -89,7 +99,7 @@ function MyPage() {
           <NoCenterHorizontal
             style={{
               justifyContent: "flex-end",
-              marginRight: "95px",
+              marginRight: "102px",
               marginTop: "10px",
             }}
           >
@@ -99,6 +109,9 @@ function MyPage() {
               마이페이지
             </StyledLink>
             <StyledLink to="/DaePo/Admin">게시물 관리</StyledLink>
+            <StyledLink to="/DaePo" onClick={handleLogout}>
+              <FaSignOutAlt />
+            </StyledLink>
           </NoCenterHorizontal>
         </Horizontal>
         <Horizontal>

@@ -1,6 +1,4 @@
-import AddPostButtonComponent from "./AddPostButtonComponent";
 import CarouselComponent from "./CarouselComponent";
-import CardComponent from "./CardComponent";
 
 function HomePageComponent() {
   return (
