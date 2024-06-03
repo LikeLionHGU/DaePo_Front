@@ -5,6 +5,7 @@ import emailimg from "../../img/email.png";
 import coffechatimg from "../../img/coffechat.png";
 import commentimg from "../../img/comment.png";
 import styled from "styled-components";
+import { Link, useParams } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -321,7 +322,7 @@ function CommentComponent() {
   );
 }
 
-function IntroduceComponent() {
+function IntroduceComponent({}) {
   const [heart, setHeart] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [commentCount, setCommentCount] = useState(0);
@@ -383,7 +384,9 @@ function IntroduceComponent() {
         </LikeBT>
       </BT>
       <TopSection>
-        <ProfileImage src={duck1} alt="Profile Image" />
+        <Link to="/DaePo/Profile/:id">
+          <ProfileImage src={duck1} alt="Profile Image" />
+        </Link>
         <TextContainer>
           <Title>제목</Title>
           <Designer>디자이너</Designer>
