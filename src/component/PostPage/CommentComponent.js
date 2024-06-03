@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 const Root = styled.div`
@@ -232,9 +232,11 @@ const CommentComponent = () => {
   const [editContent, setEditContent] = useState("");
   const [showDropdown, setShowDropdown] = useState(null);
   const [commentCount, setCommentCount] = useState(comment.length);
+  const textareaRef = useRef(null);
 
   const addComment = () => {
-    const value = document.querySelector("#new-comment-content").value;
+    const value = textareaRef.current.value;
+    if (value.trim() === "") return; // Avoid adding empty comments
     setComment([
       ...comment,
       {
@@ -244,6 +246,7 @@ const CommentComponent = () => {
         content: value,
       },
     ]);
+    textareaRef.current.value = ""; // Clear the textarea
     setCommentCount(commentCount + 1); // Update the comment count
   };
 
@@ -308,7 +311,7 @@ const CommentComponent = () => {
       <div>
         <WritingArea id="writing-area">
           <TextareaWrapper>
-            <Textarea id="new-comment-content"></Textarea>
+            <Textarea id="new-comment-content" ref={textareaRef}></Textarea>
             <Button id="submit-new-comment" onClick={addComment}>
               등록
             </Button>
