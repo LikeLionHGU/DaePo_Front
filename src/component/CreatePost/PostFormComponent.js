@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -6,7 +6,6 @@ import {
   themeColors,
   Horizontal,
 } from "../../styles/StyledComponents";
-import { LuUpload } from "react-icons/lu";
 
 const TitleText = styled.div`
   border: none;
@@ -17,6 +16,7 @@ const TitleText = styled.div`
   margin-top: 100px;
   margin-bottom: 80px;
 `;
+
 const InfoText = styled.p`
   border: none;
   font-family: AUTHENTICSans130;
@@ -24,6 +24,7 @@ const InfoText = styled.p`
   width: 200px;
   margin-bottom: 50px;
 `;
+
 const InputText = styled.input`
   border: none;
   border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
@@ -33,6 +34,14 @@ const InputText = styled.input`
   width: 90%;
   outline: none;
 `;
+
+const FileUploadRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
 const UpdateBT = styled.button`
   font-family: "AUTHENTICSans90";
   font-size: 22px;
@@ -46,6 +55,7 @@ const UpdateBT = styled.button`
   margin-left: 40%;
   margin-bottom: 100px;
 `;
+
 const Textarea = styled.textarea`
   border: none;
   border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
@@ -55,70 +65,67 @@ const Textarea = styled.textarea`
   width: 90%;
   outline: none;
 `;
-const ImageBT = styled.button`
-  font-family: "AUTHENTICSans90";
-  font-size: 22px;
-  width: 20%;
-  height: 80px;
-  border: none;
-  border-radius: 20px;
+
+const CustomFileInput = styled.label`
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  margin-bottom: 100px;
-  margin-top: 80px;
+  display: inline-block;
 `;
-const UploaderWrapper = styled.div`
+
+const FileName = styled.span`
+  margin-left: 10px;
+  font-family: AUTHENTICSans90;
+`;
+
+const FilePreviewContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  padding: 10px;
+  width: 1000px;
+  max-height: 800px;
+  margin-top: 20px;
+`;
+
+const FilePreview = styled.div`
   width: 100%;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  position: relative; // 부모 컨테이너를 relative로 설정
+`;
 
-  .file-container {
-    width: 600px;
-    height: 400px;
-    padding: 16px;
-    margin: 32px 0;
-    border: 1px solid slateblue;
-    border-radius: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-y: auto; /* 세로 스크롤 */
-    max-height: 800px; /* 최대 높이 설정, 필요에 따라 조정 */
-    gap: 10px; /* 파일 간의 간격 추가 */
+const ImagePreview = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
-    .file-wrapper {
-      position: relative;
-      flex-shrink: 0;
-      width: 100%;
-      height: 400px;
-      margin: 10px 0;
+const VideoPreview = styled.video`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
-      &:hover {
-        .delete-button {
-          opacity: 1;
-          z-index: 1;
-        }
-      }
-
-      img,
-      video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .delete-button {
-        color: red;
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        cursor: pointer;
-        opacity: 0;
-        z-index: 0;
-      }
-    }
-  }
+const DeleteButton = styled.button`
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  position: absolute; // 절대 위치
+  top: 20px;
+  right: 20px;
 `;
 
 function PostFormComponent() {
@@ -131,64 +138,29 @@ function PostFormComponent() {
   const [field, setField] = useState("");
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState("");
-  const [fileList, setFileList] = useState([]);
-  let inputRef;
+  const [files, setFiles] = useState([]);
+  const [fileName, setFileName] = useState("");
 
-  const ImageWithDeleteButton = ({ item, onDelete }) => {
-    return (
-      <div className="file-wrapper" key={item.id}>
-        {
-          //item.type === "image" ? (
-          <img src={item.preview_URL} alt="Preview" />
-          // ) : (
-          // <video src={item.preview_URL} autoPlay={false} controls={true} />
-          // )
-        }
-        <div className="delete-button" onClick={() => onDelete(item.id)}>
-          Delete
-        </div>
-      </div>
-    );
-  };
+  const handleFileChange = useCallback((event) => {
+    const newFiles = Array.from(event.target.files).map((file) => ({
+      id: uuidv4(),
+      data: file,
+      preview: URL.createObjectURL(file),
+    }));
+    setFiles((prev) => [...prev, ...newFiles]);
+    setFileName(event.target.files.length ? event.target.files[0].name : "");
+  }, []);
 
-  const saveImage = async (e) => {
-    e.preventDefault();
-    const files = e.target.files;
-    if (files) {
-      const newFileList = [];
-      for (let i = 0; i < files.length; i++) {
-        const preview_URL = URL.createObjectURL(files[i]);
-        const fileType = files[i].type.split("/")[0];
-        // UUID로 고유한 ID 생성
-        const id = uuidv4();
-        newFileList.push({
-          id: id,
-          fileObject: files[i],
-          preview_URL: preview_URL,
-          type: fileType,
-        });
-      }
-      setFileList((prevFileList) => [...prevFileList, ...newFileList]);
-    }
-  };
-  const deleteImage = (id) => {
-    setFileList((prevFileList) => {
-      const updatedFileList = prevFileList.filter((item) => item.id !== id);
-      const deletedItem = prevFileList.find((item) => item.id === id);
-      URL.revokeObjectURL(deletedItem.preview_URL);
-      return updatedFileList;
-    });
-  };
+  const handleDeleteFile = useCallback(
+    (fileId) => {
+      const updatedFiles = files.filter((file) => file.id !== fileId);
+      setFiles(updatedFiles);
+      if (updatedFiles.length === 0) setFileName("");
+      URL.revokeObjectURL(files.find((file) => file.id === fileId).preview);
+    },
+    [files]
+  );
 
-  useEffect(() => {
-    return () => {
-      fileList?.forEach((item) => {
-        URL.revokeObjectURL(item.preview_URL);
-      });
-    };
-  }, [fileList]);
-
-  //ToDo: 폼을 제출 시 함수
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = {
@@ -201,14 +173,16 @@ function PostFormComponent() {
       field: field,
       description: description,
       video: video,
-      fileList: fileList,
+      fileList: files,
     };
     console.log("CreatePost : ", formData);
   };
+
   return (
     <NoCenterVertical style={{ width: "80%" }}>
       <TitleText>학생 정보</TitleText>
       <form onSubmit={handleSubmit}>
+        {/* Existing form fields */}
         <Horizontal>
           <InfoText>전공</InfoText>
           <InputText
@@ -241,7 +215,6 @@ function PostFormComponent() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </Horizontal>
-
         <TitleText style={{ marginBottom: "80px" }}>프로젝트 정보</TitleText>
         <Horizontal>
           <InfoText>제작 연도</InfoText>
@@ -282,34 +255,40 @@ function PostFormComponent() {
             onChange={(e) => setVideo(e.target.value)}
           />
         </Horizontal>
-        <UploaderWrapper>
-          <InfoText>작품 업로드</InfoText>
-          <ImageBT
-            className="img-button"
-            variant="contained"
-            onClick={() => inputRef.click()}
-          >
-            <LuUpload />
-          </ImageBT>
-          <input
-            type="file"
-            multiple={true}
-            accept="video/*, image/*"
-            onChange={saveImage}
-            onClick={(e) => (e.target.value = null)}
-            ref={(refParam) => (inputRef = refParam)}
-            style={{ display: "none" }}
-          />
-          <div className="file-container">
-            {fileList?.map((item) => (
-              <ImageWithDeleteButton
-                key={item.id}
-                item={item}
-                onDelete={deleteImage}
-              />
-            ))}
-          </div>
-        </UploaderWrapper>
+        <Horizontal>
+          <FileUploadRow>
+            <InfoText>작품 파일</InfoText>
+
+            <FilePreviewContainer>
+              <div>
+                <CustomFileInput htmlFor="file-input">
+                  파일 선택
+                  <input
+                    id="file-input"
+                    type="file"
+                    multiple
+                    accept="image/*, video/*"
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                </CustomFileInput>
+                <FileName>{fileName}</FileName>
+              </div>
+              {files.map((file) => (
+                <FilePreview key={file.id}>
+                  {file.data.type.startsWith("image") ? (
+                    <ImagePreview src={file.preview} alt="Image preview" />
+                  ) : (
+                    <VideoPreview controls src={file.preview} />
+                  )}
+                  <DeleteButton onClick={() => handleDeleteFile(file.id)}>
+                    Delete
+                  </DeleteButton>
+                </FilePreview>
+              ))}
+            </FilePreviewContainer>
+          </FileUploadRow>
+        </Horizontal>
         <UpdateBT type="submit">작품 업로드</UpdateBT>
       </form>
     </NoCenterVertical>
