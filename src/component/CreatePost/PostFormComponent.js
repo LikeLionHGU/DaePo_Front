@@ -85,6 +85,7 @@ const Textarea = styled.textarea`
 
 const CustomFileInput = styled.label`
   background-color: white;
+
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -94,6 +95,7 @@ const CustomFileInput = styled.label`
 const FileName = styled.span`
   margin-left: 10px;
   font-family: AUTHENTICSans90;
+  color: white;
 `;
 
 const FilePreviewContainer = styled.div`
@@ -118,7 +120,7 @@ const FilePreview = styled.div`
   border: 1px solid #ccc;
   padding: 10px;
   height: 300px;
-  position: relative; // 부모 컨테이너를 relative로 설정
+  position: relative;
 `;
 
 const ImagePreview = styled.img`
@@ -313,7 +315,6 @@ function PostFormComponent() {
                     style={{ display: "none" }}
                   />
                 </CustomFileInput>
-                <FileName>{fileName}</FileName>
               </div>
               {files.map((file) => (
                 <FilePreview key={file.id}>
