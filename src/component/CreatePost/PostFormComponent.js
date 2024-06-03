@@ -6,6 +6,7 @@ import {
   themeColors,
   Horizontal,
 } from "../../styles/StyledComponents";
+import { LuLink } from "react-icons/lu";
 
 const TitleText = styled.div`
   border: none;
@@ -29,10 +30,25 @@ const InputText = styled.input`
   border: none;
   border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
   font-family: AUTHENTICSans90;
-  font-size: 32px;
+  font-size: 24px;
   margin-left: 80px;
   width: 90%;
   outline: none;
+`;
+const ErrorText = styled.div`
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-left: 80px;
+`;
+const SelectBox = styled.select`
+  border: none;
+  border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
+  outline: none;
+  margin-left: 80px;
+  width: 90%;
+  padding: 5px;
+  font-size: 24px;
 `;
 
 const FileUploadRow = styled.div`
@@ -52,7 +68,7 @@ const UpdateBT = styled.button`
   background-color: ${themeColors.BTBOLOR.color};
   margin-top: 50px;
   cursor: pointer;
-  margin-left: 40%;
+  margin-left: 45%;
   margin-bottom: 100px;
 `;
 
@@ -60,7 +76,7 @@ const Textarea = styled.textarea`
   border: none;
   border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
   font-family: AUTHENTICSans90;
-  font-size: 32px;
+  font-size: 24px;
   margin-left: 80px;
   width: 90%;
   outline: none;
@@ -88,9 +104,9 @@ const FilePreviewContainer = styled.div`
   border: 1px solid #ccc;
   border-radius: 30px;
   padding: 10px;
-  width: 1000px;
+  width: 90%;
+  margin-left: 80px;
   max-height: 800px;
-  margin-top: 20px;
 `;
 
 const FilePreview = styled.div`
@@ -138,6 +154,7 @@ function PostFormComponent() {
   const [field, setField] = useState("");
   const [description, setDescription] = useState("");
   const [video, setVideo] = useState("");
+  const [error, setError] = useState(false);
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState("");
 
@@ -163,33 +180,43 @@ function PostFormComponent() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = {
-      major: major,
-      studentNum: studentNum,
-      email: email,
-      title: title,
-      year: year,
-      tools: tools,
-      field: field,
-      description: description,
-      video: video,
-      fileList: files,
-    };
-    console.log("CreatePost : ", formData);
+    const youtubePattern =
+      /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
+    if (!youtubePattern.test(video)) {
+      setError(true);
+    } else {
+      setError(false);
+      // 업로드 로직 추가
+      const formData = {
+        major: major,
+        studentNum: studentNum,
+        email: email,
+        title: title,
+        year: year,
+        tools: tools,
+        field: field,
+        description: description,
+        video: video,
+        fileList: files,
+      };
+      console.log("CreatePost : ", formData);
+    }
   };
 
   return (
-    <NoCenterVertical style={{ width: "80%" }}>
+    <NoCenterVertical style={{ width: "65%" }}>
       <TitleText>학생 정보</TitleText>
       <form onSubmit={handleSubmit}>
         {/* Existing form fields */}
         <Horizontal>
           <InfoText>전공</InfoText>
-          <InputText
-            type="text"
-            value={major}
-            onChange={(e) => setMajor(e.target.value)}
-          />
+          <SelectBox value={major} onChange={(e) => setMajor(e.target.value)}>
+            <option value="" disabled>
+              전공 선택
+            </option>
+            <option value="시각디자인">시각디자인</option>
+            <option value="제품디자인">제품디자인</option>
+          </SelectBox>
         </Horizontal>
         <Horizontal>
           <InfoText>학번</InfoText>
@@ -226,11 +253,20 @@ function PostFormComponent() {
         </Horizontal>
         <Horizontal>
           <InfoText>사용 툴</InfoText>
-          <InputText
-            type="text"
-            value={tools}
-            onChange={(e) => setTools(e.target.value)}
-          />
+          <SelectBox value={tools} onChange={(e) => setTools(e.target.value)}>
+            <option value="" disabled>
+              사용 툴
+            </option>
+            <option value="포토샵">포토샵</option>
+            <option value="일러스트">일러스트</option>
+            <option value="인디자인">인디자인</option>
+            <option value="블렌더">블렌더</option>
+            <option value="라이노">라이노</option>
+            <option value="스케치">스케치</option>
+            <option value="프리미엄프로">프리미엄프로</option>
+            <option value="에프터이팩트">에프터이팩트</option>
+            <option value="피그마">피그마</option>
+          </SelectBox>
         </Horizontal>
         <Horizontal>
           <InfoText>분야</InfoText>
@@ -249,16 +285,20 @@ function PostFormComponent() {
         </Horizontal>
         <Horizontal>
           <InfoText>영상 링크</InfoText>
-          <InputText
-            type="text"
-            value={video}
-            onChange={(e) => setVideo(e.target.value)}
-          />
+          <NoCenterVertical>
+            <InputText
+              type="text"
+              value={video}
+              onChange={(e) => setVideo(e.target.value)}
+            />
+            {error && <ErrorText>유튜브 영상링크만 업로드해주세요</ErrorText>}
+          </NoCenterVertical>
+          <LuLink style={{ fontSize: "25px" }} />
         </Horizontal>
+
         <Horizontal>
           <FileUploadRow>
             <InfoText>작품 파일</InfoText>
-
             <FilePreviewContainer>
               <div>
                 <CustomFileInput htmlFor="file-input">

@@ -1,6 +1,6 @@
 import { useNavigate, NavLink } from "react-router-dom";
 import AdminComponent from "../component/AdminPage/AdminComponent";
-import FooterComponent from "../component/Home/FooterComponent";
+// import FooterComponent from "../component/Home/FooterComponent";
 import { useSetRecoilState } from "recoil";
 import { UserInfoState } from "../store/atoms";
 import { FaSignOutAlt } from "react-icons/fa";
@@ -57,7 +57,7 @@ function AdminPage() {
         <NoCenterHorizontal
           style={{
             justifyContent: "flex-end",
-            marginRight: "102px",
+            marginRight: "5%",
             marginTop: "36px",
           }}
         >
@@ -80,7 +80,7 @@ function AdminPage() {
       </Horizontal>
       <Box margin="50px" />
       <AdminComponent />
-      <FooterComponent />
+      {/* <FooterComponent /> */}
     </>
   );
 }

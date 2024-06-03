@@ -31,7 +31,7 @@ const SearchSpace = styled.div`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
-  max-width: 45%;
+  max-width: 40%;
   height: 50px;
   border-radius: 50px;
   border: solid 2px #ee7b00;
@@ -58,9 +58,9 @@ function HeaderComponent() {
   const onClickHUP = () => {
     navigate("/DaePo");
   };
-  const onClickLogin = () => {
-    // ToDo: 로그인 연결
-  };
+  // const onClickLogin = () => {
+  //   // ToDo: 로그인 연결
+  // };
   return (
     <Horizontal>
       <LogoContainer onClick={onClickHUP}>

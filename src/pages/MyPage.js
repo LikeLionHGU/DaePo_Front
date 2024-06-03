@@ -99,7 +99,7 @@ function MyPage() {
           <NoCenterHorizontal
             style={{
               justifyContent: "flex-end",
-              marginRight: "102px",
+              marginRight: "5%",
               marginTop: "10px",
             }}
           >

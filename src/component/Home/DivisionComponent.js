@@ -8,8 +8,8 @@ import { FaSignOutAlt } from "react-icons/fa";
 const Container = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 800px;
-  margin-right: 100px;
+  width: 1000px;
+  margin-right: 5%;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -26,13 +26,6 @@ const StyledNavLink = styled(NavLink)`
   &.${(props) => props.activeClassName} {
     font-weight: bold;
   }
-`;
-
-const MenuButton = styled.button`
-  margin-right: 20px;
-  cursor: pointer;
-  border: none;
-  background-color: white;
 `;
 
 function DivisionComponent() {
