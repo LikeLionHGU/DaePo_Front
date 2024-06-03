@@ -27,6 +27,17 @@ const LikeBT = styled.button`
   align-items: center; /* Align items vertically */
   justify-content: center; /* Align items horizontally */
 `;
+
+const ChatBT = styled.button`
+  width: 60px;
+  height: 18px;
+  margin-left: 10px;
+  background-color: black;
+  color: white;
+  font-size: 10px;
+  border-radius: 5px;
+`;
+
 const TopSection = styled.div`
   display: flex;
   position: relative;
@@ -106,7 +117,7 @@ const Behance = styled.a`
 `;
 
 const RightSection = styled.div`
-  width: 50%;
+  width: 58%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -121,16 +132,16 @@ const PostDescription = styled.div`
   border: 3px solid black;
   border-radius: 10px;
   padding: 10px;
-  width: 440px;
+  width: 358px;
   height: 230px;
   position: absolute;
-  left: 470px;
+  left: 550px;
 `;
 
 const Tags = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 22px;
+  font-size: 25px;
   width: 100%;
 `;
 
@@ -321,8 +332,7 @@ function IntroduceComponent() {
       .then((data) => setLikeCount(data.likeCount))
       .catch((error) => console.error("Error fetching like count:", error));
 
-    // Fetch initial comment count from API
-    fetch("https://api.example.com/comments/count") // Replace with your API endpoint
+    fetch("https://api.example.com/comments/count")
       .then((response) => response.json())
       .then((data) => setCommentCount(data.commentCount))
       .catch((error) => console.error("Error fetching comment count:", error));
@@ -387,6 +397,7 @@ function IntroduceComponent() {
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
                 22200000@gmail.com
+                <ChatBT>커피챗</ChatBT>
               </Email>
             </ContactRow>
             <Behance href="http://www.behance.net" target="_blank">
