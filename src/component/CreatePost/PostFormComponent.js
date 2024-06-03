@@ -7,6 +7,7 @@ import {
   Horizontal,
 } from "../../styles/StyledComponents";
 import { LuLink } from "react-icons/lu";
+import upload from "../../img/upload.png";
 
 const TitleText = styled.div`
   border: none;
@@ -83,7 +84,7 @@ const Textarea = styled.textarea`
 `;
 
 const CustomFileInput = styled.label`
-  background-color: #f0f0f0;
+  background-color: white;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -302,7 +303,7 @@ function PostFormComponent() {
             <FilePreviewContainer>
               <div>
                 <CustomFileInput htmlFor="file-input">
-                  파일 선택
+                  <img src={upload} alt="upload" style={{ width: 70 }} />
                   <input
                     id="file-input"
                     type="file"
