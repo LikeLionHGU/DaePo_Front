@@ -72,8 +72,7 @@ const Run = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: "AUTHENTICSans";
-  font-weight: 150;
+  font-family: "AUTHENTICSans150";
   font-size: 48px;
   display: flex;
   justify-content: center;
@@ -83,8 +82,7 @@ const Title = styled.div`
 const SubTitle = styled.div`
   padding-top: 35px;
   margin-bottom: 50px;
-  font-family: "AUTHENTICSans";
-  font-weight: 90;
+  font-family: "AUTHENTICSans90";
   font-size: 24px;
   display: flex;
   justify-content: center;

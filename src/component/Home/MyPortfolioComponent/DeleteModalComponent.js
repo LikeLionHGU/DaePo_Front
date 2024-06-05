@@ -9,14 +9,43 @@ const Modal = styled.div`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  width: 300px;
-  height: 150px;
+  width: 415px;
+  height: 212px;
 `;
-const Button = styled.button`
-  margin: 20px;
+const CancleButton = styled.button`
+  padding-top: 25px;
   cursor: pointer;
+  background-color: white;
+  border: none;
+  position: absolute;
+  left: 320px;
+  font-family: "AUTHENTICSans150";
+  bottom: 40px;
 `;
 
+const DeleteButton = styled.button`
+  padding-top: 25px;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  position: absolute;
+  left: 380px;
+  bottom: 40px;
+  font-family: "AUTHENTICSans150";
+  color: #ee7b00;
+`;
+const Title = styled.div`
+  margin-top: 40px;
+  margin-left: 37px;
+  font-family: "AUTHENTICSans150";
+  font-size: 24px;
+`;
+const SubTitle = styled.div`
+  margin-top: 20px;
+  margin-left: 37px;
+  font-family: "AUTHENTICSans90";
+  font-size: 20px;
+`;
 function DeleteModalComponent({ onClose }) {
   const handleDelete = () => {
     console.log("포트폴리오 삭제");
@@ -25,10 +54,10 @@ function DeleteModalComponent({ onClose }) {
 
   return (
     <Modal>
-      <h2>포트폴리오 삭제</h2>
-      <p>정말로 삭제하시겠습니까?</p>
-      <Button onClick={handleDelete}>삭제</Button>
-      <Button onClick={onClose}>취소</Button>
+      <Title>포트폴리오 삭제</Title>
+      <SubTitle>포트폴리오를 정말 삭제하시겠습니까?</SubTitle>
+      <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+      <CancleButton onClick={onClose}>취소</CancleButton>
     </Modal>
   );
 }

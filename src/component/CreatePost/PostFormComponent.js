@@ -271,14 +271,14 @@ function PostFormComponent() {
             <option value="피그마">피그마</option>
           </SelectBox>
         </Horizontal>
-        <Horizontal>
+        {/* <Horizontal>
           <InfoText>분야</InfoText>
           <InputText
             type="text"
             value={field}
             onChange={(e) => setField(e.target.value)}
           />
-        </Horizontal>
+        </Horizontal> */}
         <Horizontal>
           <InfoText>작품 설명</InfoText>
           <Textarea
