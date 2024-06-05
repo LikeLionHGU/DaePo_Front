@@ -44,6 +44,7 @@ const PlusButton = styled.button`
   border-radius: 24px;
   cursor: pointer;
 `;
+
 function MyPortfolioComponent() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
@@ -53,6 +54,7 @@ function MyPortfolioComponent() {
     setSelectedData(data);
     setShowEditModal(true);
   };
+
   const handleCardDeleteClick = () => {
     setShowDeleteModal(true);
   };
@@ -80,6 +82,8 @@ function MyPortfolioComponent() {
             data={data}
             onEdit={handleCardEditClick}
             onDelete={handleCardDeleteClick}
+            showEditModal={showEditModal}
+            showDeleteModal={showDeleteModal}
           />
         ))}
       </NoCenterHorizontal>
@@ -90,4 +94,5 @@ function MyPortfolioComponent() {
     </Container>
   );
 }
+
 export default MyPortfolioComponent;
