@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import LikeComponent from "../PostPage/LikeComponent";
-import { dummyDataList } from "../PostPage/dummyData.js";
 
 const Rect = styled.div`
   width: 230px;
@@ -87,23 +86,20 @@ const Name = styled.p`
   font-size: 22px;
 `;
 
-const CardComponent = ({ id }) => {
+const CardComponent = ({ id, imageSrc }) => {
   const [hovered, setHovered] = useState(false);
-  const data = dummyDataList[id]; // 해당 id에 대한 데이터 가져오기
-  if (!data) return null; // 데이터가 없는 경우 null 반환
-  const { title, designer, profileImage } = data; // 가져온 데이터 디스트럭처링
   return (
     <Rect
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <Link to={`/DaePo/PostPage/${id + 1}`}>
-        <Image src={profileImage} alt={`Card ${id}`} />
+        <Image src={imageSrc} alt={`Card ${id}`} />
         <OverlayTop show={hovered}></OverlayTop>
         <OverlayBottom show={hovered}></OverlayBottom>
         <TextWrapper show={hovered}>
-          <Name>{designer}</Name>
-          <Text>{title}</Text>
+          <Name>Somang</Name>
+          <Text>{`Duck${id + 1}`}</Text>
         </TextWrapper>
       </Link>
       <LikeWrapper show={hovered}>
