@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
 import {
@@ -32,6 +32,9 @@ const UpdateBT = styled.button`
 
 const EditInfoComponent = ({ MyInfo }) => {
   const [formData, setFormData] = useState(MyInfo);
+  useEffect(() => {
+    console.log("MyInfo", MyInfo);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,8 +55,8 @@ const EditInfoComponent = ({ MyInfo }) => {
         <Text>이름</Text>
         <TextInput
           type="text"
-          name="name"
-          value={formData.name}
+          name="username"
+          value={formData.username}
           onChange={handleChange}
         />
         <br />

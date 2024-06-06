@@ -8,6 +8,8 @@ import {
 } from "../../styles/StyledComponents";
 import { LuLink } from "react-icons/lu";
 import upload from "../../img/upload.png";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const TitleText = styled.div`
   border: none;
@@ -148,15 +150,17 @@ const DeleteButton = styled.button`
 `;
 
 function PostFormComponent() {
+  const navigate = useNavigate();
+
   const [major, setMajor] = useState("");
   const [studentNum, setStudentNum] = useState("");
-  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [tools, setTools] = useState("");
   const [field, setField] = useState("");
-  const [description, setDescription] = useState("");
-  const [video, setVideo] = useState("");
+  const [content, setContent] = useState("");
+  const [videoURL, setVideoURL] = useState("");
   const [error, setError] = useState(false);
   const [files, setFiles] = useState([]);
   const [fileName, setFileName] = useState("");
@@ -185,24 +189,46 @@ function PostFormComponent() {
     event.preventDefault();
     const youtubePattern =
       /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-    if (!youtubePattern.test(video)) {
+    if (!youtubePattern.test(videoURL)) {
       setError(true);
     } else {
       setError(false);
       // 업로드 로직 추가
-      const formData = {
-        major: major,
-        studentNum: studentNum,
-        email: email,
-        title: title,
-        year: year,
-        tools: tools,
-        field: field,
-        description: description,
-        video: video,
-        fileList: files,
-      };
-      console.log("CreatePost : ", formData);
+      const formData = new FormData();
+      formData.append("major", major);
+      formData.append("studentNum", studentNum);
+      formData.append("contact", contact);
+      formData.append("title", title);
+      formData.append("year", year);
+      formData.append("tools", tools);
+      formData.append("field", field);
+      formData.append("content", content);
+      formData.append("videoURL", videoURL);
+      files.forEach((file) => {
+        formData.append("image", file.data); // 파일 배열을 추가하는 경우
+      });
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0] + ": " + pair[1]);
+      }
+      axios
+        .post(`${process.env.REACT_APP_BASE_URL}/posts`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+          maxRedirects: 0,
+        })
+        .then((response) => {
+          console.log("Response status:", response.status);
+          console.log("Request successful");
+          console.log("Response data:", response.data);
+          navigate("/DaePo/PortFolio");
+        })
+        .catch((error) => {
+          // Handle errors
+          console.error("Error:", error);
+        });
     }
   };
 
@@ -233,8 +259,8 @@ function PostFormComponent() {
           <InfoText>이메일</InfoText>
           <InputText
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
           />
         </Horizontal>
         <Horizontal>
@@ -282,8 +308,8 @@ function PostFormComponent() {
         <Horizontal>
           <InfoText>작품 설명</InfoText>
           <Textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
         </Horizontal>
         <Horizontal>
@@ -291,8 +317,8 @@ function PostFormComponent() {
           <NoCenterVertical>
             <InputText
               type="text"
-              value={video}
-              onChange={(e) => setVideo(e.target.value)}
+              value={videoURL}
+              onChange={(e) => setVideoURL(e.target.value)}
             />
             {error && <ErrorText>유튜브 영상링크만 업로드해주세요</ErrorText>}
           </NoCenterVertical>
