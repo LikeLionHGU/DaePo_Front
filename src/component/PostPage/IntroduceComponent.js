@@ -6,7 +6,6 @@ import coffechatimg from "../../img/coffechat.png";
 import commentimg from "../../img/comment.png";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
-import { dummyDataList } from "./dummyData.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,7 +14,7 @@ const Wrapper = styled.div`
 `;
 const BT = styled.div`
   display: flex;
-  align-items: center;
+  align-items: center; /* Added this to align items in the center */
 `;
 const LikeBT = styled.button`
   width: 80px;
@@ -25,22 +24,9 @@ const LikeBT = styled.button`
   margin-right: 10px;
   margin-bottom: 10px;
   margin-top: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const CommentBT = styled.button`
-  width: 80px;
-  height: 38px;
-  padding-left: 10px;
-  border-radius: 100px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-top: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; /* Added this to use flexbox */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Align items horizontally */
 `;
 
 const ChatBT = styled.button`
@@ -399,24 +385,21 @@ function IntroduceComponent({}) {
       </BT>
       <TopSection>
         <Link to="/DaePo/Profile/:id">
-          <ProfileImage
-            src={dummyDataList[0].profileImage}
-            alt="Profile Image"
-          />
+          <ProfileImage src={duck1} alt="Profile Image" />
         </Link>
         <TextContainer>
-          <Title>{dummyDataList[0].title}</Title>
-          <Designer>{dummyDataList[0].designer}</Designer>
+          <Title>제목</Title>
+          <Designer>디자이너</Designer>
           <Adress>
             <ContactRow>
               <Contact>Contact</Contact>
-              <Email href={`mailto:${dummyDataList[0].email}`}>
+              <Email href="mailto:22200000@gmail.com">
                 <img
                   src={emailimg}
                   alt="Email Icon"
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
-                {dummyDataList[0].email}
+                22200000@gmail.com
                 <ChatBT>커피챗</ChatBT>
               </Email>
             </ContactRow>
@@ -431,14 +414,18 @@ function IntroduceComponent({}) {
           </Adress>
         </TextContainer>
         <PostDescription>
-          <Explain>{dummyDataList[0].explain}</Explain>
+          <Explain>작품 설명</Explain>이 작품은 가상현실과 현실세계의 모호함을
+          나타냈으며 그 사이의 괴리감을 풀어내기 위한 어쩌구 저쩌구로서 너무
+          줄리네요. 다음 확인할 때 늦지 않게 디자인 바꿔서 정말 정말 죄송합니다.
+          프론트엔드 너무 잘하세요. 어쩌구 그렇게 다들 예쁜말만 해주시느지 이번
+          학기에도 화이팅하고 행복하세요.. 다들 학기 마무리 잘하시길 기도할게용
         </PostDescription>
       </TopSection>
       <RightSection>
         <Tags>
-          {dummyDataList[0].tags.map((tag, index) => (
-            <Tag key={index}>{tag}</Tag>
-          ))}
+          <Tag># 서비스 디자인</Tag>
+          <Tag># Figma</Tag>
+          <Tag># illustrator</Tag>
         </Tags>
       </RightSection>
     </Wrapper>

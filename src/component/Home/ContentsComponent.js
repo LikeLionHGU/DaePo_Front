@@ -77,7 +77,6 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
   color: #ee7b00;
 `;
 const SubTitle = styled.div`
@@ -95,10 +94,10 @@ function ContentComponent() {
   return (
     <Container>
       <Title>SPECIAL VIDEOS</Title>
-      {/* <SubTitle>
+      <SubTitle>
         이곳은 영상 설명이 간략하게 들어가는 공간입니다
         <br /> 2-3문장이면 좋을 것 같아요.
-      </SubTitle> */}
+      </SubTitle>
       <ContentWrapper>
         <Content>
           <Img src={img77} alt="image 77" />

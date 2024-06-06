@@ -70,8 +70,7 @@ const ImageContainer = styled.div`
 `;
 
 const Title = styled.div`
-  margin-top: 150px;
-  margin-bottom: 50px;
+  margin-top: 200px;
   font-family: "AUTHENTICSans150";
   font-size: 48px;
   display: flex;
@@ -171,10 +170,10 @@ const Carousel = ({ images }) => {
   return (
     <div className="carousel">
       <Title>BEST PROJECT</Title>
-      {/* <SubTitle>
+      <SubTitle>
         이곳은 영상 설명이 간략하게 들어가는 공간입니다
         <br /> 2-3문장이면 좋을 것 같아요.
-      </SubTitle> */}
+      </SubTitle>
       <ImageContainer>
         <CarouselContainer>
           {visibleImages.map((image, index) => (
@@ -193,7 +192,7 @@ const Carousel = ({ images }) => {
       </ImageContainer>
 
       <CarouselBar currentIndex={currentIndex} totalImages={images.length} />
-      {/* <Text>프로젝트 더 보러가기 {`>>`} </Text> */}
+      <Text>프로젝트 더 보러가기 {`>>`} </Text>
     </div>
   );
 };
