@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ReactPlayer from "react-player";
+import { useEffect } from "react";
 
 // const Video = styled.div`
 //   display: flex;
@@ -55,6 +56,18 @@ const ArrowTip = styled.div`
 `;
 
 function VideoComponent() {
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/profile/mydata`, {
+      method: "POST",
+      // mode: "no-cors",
+      credentials: "include",
+    })
+      .then((response) => response.text()) // 응답 본문만 읽을 수 있음
+      .then((data) => {
+        console.log("member data", data);
+      }) // 로그인 상태 업데이트)
+      .catch((error) => console.error(error));
+  }, []);
   return (
     <Container>
       {/* <Video /> */}

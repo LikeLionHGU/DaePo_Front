@@ -33,8 +33,20 @@ function DivisionComponent() {
   const userInfo = useRecoilValue(UserInfoState);
 
   const handleLogin = () => {
-    // 실제 로그인 로직을 여기에 추가하세요
-    setUserInfo({ isLoggedIn: true }); // 로그인 상태 업데이트
+    document.location.href = `${process.env.REACT_APP_BASE_URL}/login/google`;
+    setUserInfo({ isLoggedIn: true });
+    // fetch(`${process.env.REACT_APP_BASE_URL}/login`, {
+    //   method: "POST",
+    //   // mode: "no-cors",
+    //   credentials: "include",
+    // })
+    //   .then((response) => response.text()) // 응답 본문만 읽을 수 있음
+    //   .then((data) => {
+    //     console.log(data);
+    //     setUserInfo({ isLoggedIn: true });
+    //   }) // 로그인 상태 업데이트)
+    //   .catch((error) => console.error(error));
+    // // window.location.href = `${process.env.REACT_APP_BASE_URL}`;
   };
   const handleLogout = () => {
     // 실제 로그아웃 로직을 여기에 추가하세요
@@ -67,7 +79,9 @@ function DivisionComponent() {
             </StyledNavLink>
           </>
         ) : (
-          <StyledNavLink onClick={handleLogin}>로그인</StyledNavLink>
+          <>
+            <StyledNavLink onClick={handleLogin}>로그인</StyledNavLink>
+          </>
         )}
       </Container>
       <hr />

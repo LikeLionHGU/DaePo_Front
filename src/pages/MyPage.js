@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import FooterComponent from "../component/Home/FooterComponent";
@@ -13,6 +13,8 @@ import {
   Horizontal,
   NoCenterHorizontal,
   Box,
+  NoCenterVertical,
+  themeColors,
 } from "../styles/StyledComponents";
 import logo from "../img/Group 58.png";
 
@@ -53,30 +55,71 @@ const StyledLink = styled(Link)`
   margin-right: 40px;
   font-family: "AUTHENTICSans90";
 `;
-
-const MyInfo = {
-  name: "이한나",
-  email: "22100595@handong.ac.kr",
-  intro: "멋쟁이 아기사자 웹파트 이한나입니다.",
-  image:
-    "https://png.pngtree.com/thumb_back/fh260/background/20230609/pngtree-three-puppies-with-their-mouths-open-are-posing-for-a-photo-image_2902292.jpg",
-  otherSite: "github link",
-};
-
+const Text = styled.p`
+  font-family: "AUTHENTICSans90";
+  color: ${themeColors.MAINCOLOR.color};
+  font-size: 24px;
+`;
+const TextInput = styled.input`
+  border: none;
+  border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
+  background-color: none;
+  width: ${(props) => props.width || "300px"};
+`;
+const UpdateBT = styled.button`
+  font-family: "AUTHENTICSans90";
+  font-size: 22px;
+  width: 150px;
+  height: 65px;
+  border: none;
+  border-radius: 20px;
+  background-color: ${themeColors.BTBOLOR.color};
+  margin-top: 25px;
+  cursor: pointer;
+  margin-left: 250px;
+`;
 function MyPage() {
+  const [myInfo, setMyInfo] = useState({
+    username: "",
+    email: "",
+    intro: "",
+    image: "",
+    otherSite: "",
+  });
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/profile/myinfo`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json()) // 응답을 JSON으로 파싱
+      .then((data) => {
+        console.log("member data", data);
+        // 받아온 데이터를 myInfo 상태에 업데이트
+        setMyInfo(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated myInfo:", myInfo);
+  }, [myInfo]);
+
   const navigate = useNavigate();
   const onClickHUP = () => {
     navigate("/DaePo");
   };
   const setUserInfo = useSetRecoilState(UserInfoState);
-  const [imageFile, setImageFile] = useState(MyInfo.image);
   const fileInputRef = useRef();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setImageFile(reader.result);
+      setMyInfo((prevInfo) => ({
+        ...prevInfo,
+        image: reader.result,
+      }));
     };
     if (file) {
       reader.readAsDataURL(file);
@@ -90,6 +133,19 @@ function MyPage() {
   const handleLogout = () => {
     // 실제 로그아웃 로직을 여기에 추가하세요
     setUserInfo({ isLoggedIn: false }); // 로그아웃 상태 업데이트
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMyInfo((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("수정된 정보:", myInfo);
   };
   return (
     <Vertical>
@@ -117,7 +173,7 @@ function MyPage() {
         <Horizontal>
           <div style={{ display: "flex" }}>
             <ProfileImg
-              src={imageFile}
+              src={myInfo.image}
               alt="프로필 이미지"
               onClick={handleImageClick}
             />
@@ -128,7 +184,46 @@ function MyPage() {
               style={{ display: "none" }}
               onChange={handleImageChange}
             />
-            <EditInfoComponent MyInfo={MyInfo} />
+            <NoCenterVertical
+              style={{ marginLeft: "100px", marginTop: "200px" }}
+            >
+              <form onSubmit={handleSubmit}>
+                <Text>이름</Text>
+                <TextInput
+                  type="text"
+                  name="username"
+                  value={myInfo.username}
+                  onChange={handleChange}
+                />
+                <br />
+                <Text>이메일</Text>
+                <TextInput
+                  type="email"
+                  name="email"
+                  value={myInfo.email}
+                  onChange={handleChange}
+                  width="400px"
+                />
+                <br />
+                <Text>자기소개</Text>
+                <TextInput
+                  name="intro"
+                  value={myInfo.intro}
+                  onChange={handleChange}
+                  width="400px"
+                />
+                <br />
+                <Text>기타 사이트</Text>
+                <TextInput
+                  name="otherSite"
+                  value={myInfo.otherSite}
+                  onChange={handleChange}
+                  width="400px"
+                />
+                <br />
+                <UpdateBT type="submit">수정</UpdateBT>
+              </form>
+            </NoCenterVertical>
           </div>
         </Horizontal>
       </Header>
