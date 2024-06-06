@@ -192,7 +192,7 @@ const Carousel = ({ images }) => {
       </ImageContainer>
 
       <CarouselBar currentIndex={currentIndex} totalImages={images.length} />
-      <Text>프로젝트 더 보러가기 {`>>`} </Text>
+      {/* <Text>프로젝트 더 보러가기 {`>>`} </Text> */}
     </div>
   );
 };
