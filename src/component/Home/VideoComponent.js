@@ -43,14 +43,14 @@ const ArrowContainer = styled.div`
 const ArrowBar = styled.div`
   width: 2px;
   height: 20px;
-  background-color: #ee7b00;
+  background-color: #39007C;
 `;
 
 const ArrowTip = styled.div`
   width: 12px;
   height: 12px;
-  border-left: 2px solid #ee7b00;
-  border-bottom: 2px solid #ee7b00;
+  border-left: 2px solid #39007C;
+  border-bottom: 2px solid #39007C;
   transform: rotate(-45deg);
   margin-top: -15px;
 `;

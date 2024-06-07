@@ -257,27 +257,23 @@ function FilteringComponent() {
       });
     }
 
-    // 사용 툴 필터 적용
-    filteredData = filteredData.filter((post) => {
-      const tools = post.tools;
-      const selectedTools = Object.keys(filters.tool).filter(
-        (tool) => filters.tool[tool]
-      );
-      if (selectedTools.length > 0) {
-        const hasAllTools = selectedTools.every((tool) => tools.includes(tool));
-        return hasAllTools;
-      }
-      return true;
-    });
+// 사용 툴 필터 적용
+filteredData = filteredData.filter((post) => {
+  const tools = post.tools;
+  const selectedTools = Object.keys(filters.tool).filter(
+    (tool) => filters.tool[tool]
+  );
+  
+  // 선택한 툴 중 하나라도 데이터에 포함되어 있으면 해당 데이터를 유지
+  if (selectedTools.length > 0) {
+    const hasAnyTool = selectedTools.some((tool) => tools.includes(tool));
+    return hasAnyTool;
+  }
+  
+  // 선택한 툴이 없는 경우 모든 데이터를 유지
+  return true;
+});
 
-    // 분야 필터 적용
-    filteredData = filteredData.filter((post) => {
-      const field = post.field;
-      if (filters.field && filters.field !== "") {
-        return field === filters.field;
-      }
-      return true;
-    });
 
     return filteredData;
   };
@@ -425,7 +421,7 @@ function FilteringComponent() {
             </CheckContainer>
           </FilterSection>
           <Line className="jb-division-line"></Line>
-          <FilterSection>
+          {/* <FilterSection>
             <Title>과목명</Title>
             <br />
             {(filters.major["시각디자인"] ||
@@ -471,9 +467,9 @@ function FilteringComponent() {
                 </SubTitle>
               </CheckContainer>
             )}
-          </FilterSection>
-          <Line className="jb-division-line"></Line>
-          <FilterSection>
+          </FilterSection>*/}
+          {/* <Line className="jb-division-line"></Line> */}
+          <FilterSection> 
             <Title>제작 연도</Title>
             <br />
             <YearSelectorContainer>

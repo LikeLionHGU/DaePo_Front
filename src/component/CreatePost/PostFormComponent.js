@@ -24,7 +24,7 @@ const TitleText = styled.div`
 const InfoText = styled.p`
   border: none;
   font-family: AUTHENTICSans130;
-  font-size: 36px;
+  font-size: 28px;
   width: 200px;
   margin-bottom: 50px;
 `;

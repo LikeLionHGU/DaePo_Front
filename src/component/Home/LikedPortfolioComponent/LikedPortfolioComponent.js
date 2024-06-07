@@ -9,12 +9,14 @@ const Container = styled.div`
   flex-direction: column;
   width: 63%;
   margin: 0 auto;
+  
 `;
 
 const PortfolioGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
+  
 `;
 
 const SEEMORE = styled.p`
@@ -57,7 +59,7 @@ function LikedPortfolioComponent({ myLiked }) {
 
   return (
     <Container ref={containerRef}>
-      <h1>좋아요 표시한 작품</h1>
+      <h2>좋아요 표시한 작품</h2>
       <PortfolioGrid>
         {myLiked.slice(0, visibleItems).map((data, index) => (
           <PortfolioLikedCardComponent key={index} data={data} />

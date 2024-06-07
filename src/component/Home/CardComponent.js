@@ -13,11 +13,13 @@ const Rect = styled.div`
   justify-content: center;
   margin-bottom: 30px;
   margin-right: 10px;
+  box-shadow: 1px 3px 5px 0px gray;
+
 `;
 
 const Image = styled.img`
   width: 230px;
-  height: 230px;
+  height: 235px;
 `;
 
 const OverlayTop = styled.div`
@@ -77,7 +79,7 @@ const Text = styled.p`
 
 const Name = styled.p`
   color: black;
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: -20px;
   font-family: "AUTHENTICSans";
   font-weight: 1300;
