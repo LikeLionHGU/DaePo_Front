@@ -335,7 +335,7 @@ function CommentComponent() {
     </Root>
   );
 }
-function IntroduceComponent() {
+function IntroduceComponent({ post }) {
   const { id } = useParams();
 
   const [heart, setHeart] = useState(false);
@@ -400,24 +400,21 @@ function IntroduceComponent() {
       </BT>
       <TopSection>
         <Link to={`/DaePo/Profile/${id}`}>
-          <ProfileImage
-            src={dummyDataList[id - 1].profileImage}
-            alt="Profile Image"
-          />
+          <ProfileImage src={post.images[0].imageURL} alt="Profile Image" />
         </Link>
         <TextContainer>
-          <Title>{dummyDataList[id - 1].title}</Title>
-          <Designer>{dummyDataList[id - 1].designer}</Designer>
+          <Title>{post.title}</Title>
+          <Designer>{post.userName}</Designer>
           <Adress>
             <ContactRow>
               <Contact>Contact</Contact>
-              <Email href={`mailto:${dummyDataList[id].email}`}>
+              <Email href={`mailto:${post.email}`}>
                 <img
                   src={emailimg}
                   alt="Email Icon"
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
-                {dummyDataList[id - 1].email}
+                {post.email}
                 <ChatBT>커피챗</ChatBT>
               </Email>
             </ContactRow>
@@ -432,7 +429,7 @@ function IntroduceComponent() {
           </Adress>
         </TextContainer>
         <PostDescription>
-          <Explain>{dummyDataList[id - 1].explain}</Explain>
+          <Explain>{post.content}</Explain>
         </PostDescription>
       </TopSection>
       <RightSection>
