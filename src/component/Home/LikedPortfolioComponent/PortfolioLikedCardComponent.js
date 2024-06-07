@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -11,14 +12,14 @@ const Card = styled.div`
 `;
 
 function PortfolioLikedCardComponent({ data }) {
+  console.log("image check", data);
+  const navigate = useNavigate();
+  const onClickLogin = () => {
+    navigate("/DaePo/PostPage/" + data.id);
+  };
   return (
-    <Card>
-      <p>담당 교수님: {data.professor}</p>
-      <p>사용 툴: {data.tools}</p>
-      <p>제작 연도: {data.year}</p>
-      <p>분야: {data.field}</p>
+    <Card onClick={onClickLogin}>
       <p>작품명: {data.title}</p>
-      <p>디그리 설명: {data.description}</p>
     </Card>
   );
 }

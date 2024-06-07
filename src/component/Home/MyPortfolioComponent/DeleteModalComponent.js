@@ -46,9 +46,20 @@ const SubTitle = styled.div`
   font-family: "AUTHENTICSans90";
   font-size: 20px;
 `;
-function DeleteModalComponent({ onClose }) {
+function DeleteModalComponent({ onClose, myPortfoilo }) {
   const handleDelete = () => {
-    console.log("포트폴리오 삭제");
+    console.log("포트폴리오 삭제", myPortfoilo.id);
+    // delete
+    fetch(`${process.env.REACT_APP_BASE_URL}/posts/${myPortfoilo.id}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("profile data", data);
+        window.location.reload();
+      })
+      .catch((error) => console.error(error));
     onClose();
   };
 

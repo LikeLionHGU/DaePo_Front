@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { RecoilLoadable } from "recoil";
 
 import styled from "styled-components";
 
@@ -91,41 +92,48 @@ const CancelButton = styled.button`
   font-family: "AUTHENTICSans150";
 `;
 
-function EditModalComponent({ data, onClose }) {
-  const [formData, setFormData] = useState(data);
+function EditModalComponent({ data, onClose, myPortfoilo }) {
+  console.log("myPortfoilo check modal", myPortfoilo);
 
   const [error, setError] = useState(false);
-  const [video, setVideo] = useState("");
-  const [tools, setTools] = useState("");
-  const [title, setTitle] = useState("");
-  const [year, setYear] = useState("");
-  const [description, setDescription] = useState("");
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const [videoURL, setVideoURL] = useState(myPortfoilo.videoURL);
+  const [tools, setTools] = useState(myPortfoilo.tools);
+  const [title, setTitle] = useState(myPortfoilo.title);
+  const [year, setYear] = useState(myPortfoilo.year);
+  const [content, setContent] = useState(myPortfoilo.content);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const youtubePattern =
       /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-    if (!youtubePattern.test(video)) {
+    if (!youtubePattern.test(videoURL)) {
       setError(true);
     } else {
       setError(false);
-      const formData = {
-        title: title,
-        year: year,
-        tools: tools,
-        description: description,
-        video: video,
-      };
+
+      // update modal
+      const formData = new FormData();
+      formData.append("videoURL", videoURL);
+      formData.append("tools", tools);
+      formData.append("title", title);
+      formData.append("year", year);
+      formData.append("content", content);
+
+      fetch(
+        `${process.env.REACT_APP_BASE_URL}/posts/update/${myPortfoilo.id}`,
+        {
+          method: "PATCH",
+          credentials: "include",
+          body: formData,
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("profile data", data);
+          window.location.reload();
+        })
+        .catch((error) => console.error(error));
     }
-    console.log("CreatePost : ", formData);
     onClose();
   };
 
@@ -136,7 +144,6 @@ function EditModalComponent({ data, onClose }) {
         <label>
           <Div1>
             <Name>작품명</Name>
-
             <InputText
               type="text"
               value={title}
@@ -159,7 +166,11 @@ function EditModalComponent({ data, onClose }) {
         <label>
           <Div>
             <Name>사용 툴</Name>
-            <SelectBox value={tools} onChange={(e) => setTools(e.target.value)}>
+            <SelectBox
+              type="text"
+              value={tools}
+              onChange={(e) => setTools(e.target.value)}
+            >
               <option value="" disabled>
                 사용 툴
               </option>
@@ -180,8 +191,9 @@ function EditModalComponent({ data, onClose }) {
           <Div>
             <Name>작품 설명</Name>
             <Textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              type="text"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </Div>
         </label>
@@ -191,9 +203,8 @@ function EditModalComponent({ data, onClose }) {
             <Name>영상 링크</Name>
             <InputText
               type="text"
-              name="field"
-              value={video}
-              onChange={(e) => setVideo(e.target.value)}
+              value={videoURL}
+              onChange={(e) => setVideoURL(e.target.value)}
             />
             {error && <ErrorText>유튜브 영상링크만 업로드해주세요</ErrorText>}
           </Div>

@@ -28,146 +28,7 @@ const SEEMORE = styled.p`
   cursor: pointer;
 `;
 
-const LikedDataList = [
-  {
-    professor: "이재선 교수님",
-    tools: "네모네모 빔 툴",
-    year: "2020",
-    field: "아이고 허리야",
-    title: "허리아픔..?",
-    description: "누가 나에게 찜질을 좀",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "젤리",
-    year: "2021",
-    field: "김지원이 내 젤리 먹음..?",
-    title: "밤양갱",
-    description: "달고 달디 단 젤ㅇ리리리리리리이이ㅣ이이",
-  },
-];
-
-function LikedPortfolioComponent() {
+function LikedPortfolioComponent({ myLiked }) {
   const [visibleItems, setVisibleItems] = useState(8);
   const [itemsPerRow, setItemsPerRow] = useState(4);
   const containerRef = useRef(null);
@@ -198,12 +59,12 @@ function LikedPortfolioComponent() {
     <Container ref={containerRef}>
       <h1>좋아요 표시한 작품</h1>
       <PortfolioGrid>
-        {LikedDataList.slice(0, visibleItems).map((data, index) => (
+        {myLiked.slice(0, visibleItems).map((data, index) => (
           <PortfolioLikedCardComponent key={index} data={data} />
         ))}
       </PortfolioGrid>
       <Horizontal>
-        {visibleItems < LikedDataList.length && (
+        {visibleItems < myLiked.length && (
           <SEEMORE onClick={handleSeeMore}>
             더 보기{" "}
             <MdKeyboardDoubleArrowDown

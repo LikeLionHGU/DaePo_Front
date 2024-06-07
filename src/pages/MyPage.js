@@ -87,6 +87,23 @@ function MyPage() {
     contribution: "",
     // image: "",
   });
+  const [myPortfoilo, setMyPortfoilo] = useState([
+    {
+      id: "",
+      title: "",
+      year: "",
+      content: "",
+      tools: "",
+      videoURL: "",
+    },
+  ]);
+  const [myLiked, setMyLiked] = useState([
+    {
+      id: "",
+      title: "",
+      images: "",
+    },
+  ]);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BASE_URL}/profile/myinfo`, {
@@ -96,7 +113,30 @@ function MyPage() {
       .then((response) => response.json()) // 응답을 JSON으로 파싱
       .then((data) => {
         // 받아온 데이터를 myInfo 상태에 업데이트
+        //TODO: 밥 먹고 와서 할 것
         setMyInfo(data);
+        if (data.uploadedPosts && data.uploadedPosts.length > 0) {
+          const portfolioItems = data.uploadedPosts.map((post) => ({
+            id: post.id || "",
+            title: post.title || "",
+            year: post.year || "",
+            content: post.content || "",
+            tools: post.tools || "",
+            videoURL: post.videoURL || "",
+          }));
+          // console.log("portfolioItems test", portfolioItems);
+          setMyPortfoilo(portfolioItems);
+        }
+        if (data.likedPosts && data.likedPosts.length > 0) {
+          const portfolioLikedItems = data.uploadedPosts.map((like) => ({
+            id: like.id || "",
+            title: like.title || "",
+            images: like.images || "",
+          }));
+          // console.log("portfolioItems test", portfolioItems);
+          setMyLiked(portfolioLikedItems);
+        }
+        console.log("myInfo", data);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -116,9 +156,9 @@ function MyPage() {
   //   }));
   // };
 
-  const handleImageClick = () => {
-    fileInputRef.current.click();
-  };
+  // const handleImageClick = () => {
+  //   fileInputRef.current.click();
+  // };
 
   const handleLogout = () => {
     // 실제 로그아웃 로직을 여기에 추가하세요
@@ -153,6 +193,7 @@ function MyPage() {
       })
       .catch((error) => console.error(error));
   };
+
   return (
     <Vertical>
       <Header>
@@ -233,7 +274,7 @@ function MyPage() {
           </div>
         </Horizontal>
       </Header>
-      <MyPageComponent />
+      <MyPageComponent myPortfoilo={myPortfoilo} myLiked={myLiked} />
       <Box margin="100px" />
       <FooterComponent />
     </Vertical>

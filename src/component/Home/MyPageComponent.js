@@ -1,12 +1,13 @@
 import MyPortfolioComponent from "./MyPortfolioComponent/MyPortfolioComponent";
 import LikedPortfolioComponent from "./LikedPortfolioComponent/LikedPortfolioComponent";
 import { Vertical, Box } from "../../styles/StyledComponents";
-function MyPageComponent() {
+function MyPageComponent({ myPortfoilo, myLiked }) {
+  console.log("myLiked", myLiked);
   return (
     <Vertical>
-      <MyPortfolioComponent />
+      <MyPortfolioComponent myPortfoilo={myPortfoilo} />
       <Box margin="50px" />
-      <LikedPortfolioComponent />
+      <LikedPortfolioComponent myLiked={myLiked} />
     </Vertical>
   );
 }

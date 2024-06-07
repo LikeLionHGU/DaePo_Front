@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 import PortfolioCardComponent from "../MyPortfolioComponent/PortfolioCardComponent";
 import EditModalComponent from "../MyPortfolioComponent/EditModalComponent";
 import DeleteModalComponent from "./DeleteModalComponent";
@@ -9,25 +8,6 @@ import {
   NoCenterHorizontal,
   themeColors,
 } from "../../../styles/StyledComponents";
-
-const PoPolDataList = [
-  {
-    professor: "이재선 교수님",
-    tools: "네모네모 빔 툴",
-    year: "2020",
-    field: "자동차 부품..?",
-    title: "핸들..?",
-    description: "핸들 디자인 이런거 있나 뭐 있으면 있겠지",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "다른 툴",
-    year: "2021",
-    field: "다른 분야..?",
-    title: "밤양갱",
-    description: "달고 달디 단 밤양개객애개액애갱개액액액액애갱갱ㄱㅇ",
-  },
-];
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +25,7 @@ const PlusButton = styled.button`
   cursor: pointer;
 `;
 
-function MyPortfolioComponent() {
+function MyPortfolioComponent({ myPortfoilo }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -76,21 +56,32 @@ function MyPortfolioComponent() {
             +
           </Link>
         </PlusButton>
-        {PoPolDataList.map((data, index) => (
-          <PortfolioCardComponent
-            key={index}
-            data={data}
-            onEdit={handleCardEditClick}
-            onDelete={handleCardDeleteClick}
-            showEditModal={showEditModal}
-            showDeleteModal={showDeleteModal}
-          />
-        ))}
+        {myPortfoilo.length >= 0 &&
+          myPortfoilo.map((data, index) => (
+            <PortfolioCardComponent
+              key={index}
+              data={data}
+              onEdit={handleCardEditClick}
+              onDelete={handleCardDeleteClick}
+              showEditModal={showEditModal}
+              showDeleteModal={showDeleteModal}
+              myPortfolio={myPortfoilo} // 수정된 부분
+            />
+          ))}
       </NoCenterHorizontal>
       {showEditModal && (
-        <EditModalComponent data={selectedData} onClose={handleCloseModal} />
+        <EditModalComponent
+          data={selectedData}
+          onClose={handleCloseModal}
+          myPortfoilo={selectedData}
+        />
       )}
-      {showDeleteModal && <DeleteModalComponent onClose={handleCloseModal} />}
+      {showDeleteModal && (
+        <DeleteModalComponent
+          onClose={handleCloseModal}
+          myPortfoilo={selectedData}
+        />
+      )}
     </Container>
   );
 }
