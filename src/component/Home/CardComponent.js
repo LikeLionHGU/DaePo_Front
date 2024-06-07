@@ -103,13 +103,12 @@ const CardComponent = ({ post }) => {
   if (!data) return null; // 데이터가 없는 경우 null 반환
 
   // const { title, designer, imageURLs } = data; // 가져온 데이터 디스트럭처링
-
   return (
     <Rect
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Link to={`/DaePo/PostPage/${post.id}`}>
+      <Link to={`/DaePo/PostPage/${post.id}`} state={{ post: post }}>
         {post.images && post.images.length > 0 && (
           <Image src={post.images[0].imageURL} alt={`Card ${post.id}`} />
         )}
