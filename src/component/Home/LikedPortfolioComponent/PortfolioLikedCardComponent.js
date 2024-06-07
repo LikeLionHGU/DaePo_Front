@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Card = styled.div`
   border: 1px solid #ccc;
@@ -12,15 +12,14 @@ const Card = styled.div`
 `;
 
 function PortfolioLikedCardComponent({ data }) {
-  console.log("image check", data);
-  const navigate = useNavigate();
-  const onClickLogin = () => {
-    navigate("/DaePo/PostPage/" + data.id);
-  };
+  console.log("image check", data.images[0]);
   return (
-    <Card onClick={onClickLogin}>
-      <p>작품명: {data.title}</p>
-    </Card>
+    <Link to={`/DaePo/PostPage/${data.id}`} state={{ post: data }}>
+      <Card>
+        {/* <p>작품명: {data.title}</p> */}
+        <img src={data.images.imageURL} />
+      </Card>
+    </Link>
   );
 }
 
