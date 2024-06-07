@@ -7,6 +7,7 @@ import commentimg from "../../img/comment.png";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import dummyDataList from "./dummyData.js";
+import user from "../../img/images.png";
 
 const Wrapper = styled.div`
   display: flex;
@@ -339,20 +340,7 @@ function IntroduceComponent({ post }) {
   const { id } = useParams();
 
   const [heart, setHeart] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
-
-  useEffect(() => {
-    fetch("https://api.example.com/likes")
-      .then((response) => response.json())
-      .then((data) => setLikeCount(data.likeCount))
-      .catch((error) => console.error("Error fetching like count:", error));
-
-    fetch("https://api.example.com/comments/count")
-      .then((response) => response.json())
-      .then((data) => setCommentCount(data.commentCount))
-      .catch((error) => console.error("Error fetching comment count:", error));
-  }, []);
+  const [likeCount, setLikeCount] = useState(post.likeCount);
 
   const scrollToComments = () => {
     document
@@ -377,6 +365,7 @@ function IntroduceComponent({ post }) {
       }).catch((error) => console.error("Error updating like count:", error));
     }
   };
+  console.log("post check", post, typeof post);
 
   return (
     <Wrapper>
@@ -395,12 +384,12 @@ function IntroduceComponent({ post }) {
             alt="comment"
             style={{ width: "23px", height: "23px" }}
           />
-          <span style={{ marginLeft: "10px" }}>{commentCount}</span>
+          <span style={{ marginLeft: "10px" }}>{post.commentsCounts}</span>
         </LikeBT>
       </BT>
       <TopSection>
-        <Link to={`/DaePo/Profile/${id}`}>
-          <ProfileImage src={post.images[0].imageURL} alt="Profile Image" />
+        <Link to={`/DaePo/Profile/${post.id}`}>
+          <ProfileImage src={user} alt="Profile Image" />
         </Link>
         <TextContainer>
           <Title>{post.title}</Title>
@@ -408,13 +397,13 @@ function IntroduceComponent({ post }) {
           <Adress>
             <ContactRow>
               <Contact>Contact</Contact>
-              <Email href={`mailto:${post.email}`}>
+              <Email href={`mailto:${post.contact}`}>
                 <img
                   src={emailimg}
                   alt="Email Icon"
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
-                {post.email}
+                {post.contact}
                 <ChatBT>커피챗</ChatBT>
               </Email>
             </ContactRow>
@@ -434,9 +423,8 @@ function IntroduceComponent({ post }) {
       </TopSection>
       <RightSection>
         <Tags>
-          {dummyDataList[id - 1].tags.map((tag, index) => (
-            <Tag key={index}>#{tag}</Tag>
-          ))}
+          <Tag>#{post.tools[0]}</Tag>
+          <Tag>#viewCount {post.viewCount}</Tag>
         </Tags>
       </RightSection>
     </Wrapper>
