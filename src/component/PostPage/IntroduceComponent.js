@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import duck1 from "../../img/duck1.png";
+import axios from "axios";
 import emailimg from "../../img/email.png";
 import coffechatimg from "../../img/coffechat.png";
 import commentimg from "../../img/comment.png";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
-import dummyDataList from "./dummyData.js";
 import user from "../../img/images.png";
 
 const Wrapper = styled.div`
@@ -124,7 +123,6 @@ const Email = styled.a`
 
 const Behance = styled.a`
   margin-top: 0px;
-  margin-left: 83px;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.5);
   display: flex;
@@ -220,127 +218,26 @@ const Modal = styled.div`
   border-radius: 5px;
 `;
 
-function CommentComponent() {
-  const [comment, setComment] = useState([
-    {
-      uuid: 1,
-      writer: "김하영",
-      date: "2024-04-08",
-      content: "대포",
-    },
-    {
-      uuid: 2,
-      writer: "이한나",
-      date: "2024-04-12",
-      content: "렛츠고!",
-    },
-  ]);
-
-  const [showModal, setShowModal] = useState(false);
-  const [selectedComment, setSelectedComment] = useState(null);
-  const [editingComment, setEditingComment] = useState(null);
-  const [editContent, setEditContent] = useState("");
-
-  const addComment = () => {
-    const value = document.querySelector("#new-comment-content").value;
-    setComment([
-      ...comment,
-      {
-        uuid: comment.length + 1,
-        writer: "김하영",
-        date: new Date().toISOString().slice(0, 10),
-        content: value,
-      },
-    ]);
-  };
-
-  const deleteComment = () => {
-    const updatedComments = comment.filter(
-      (c) => c.uuid !== selectedComment.uuid
-    );
-    setComment(updatedComments);
-    setShowModal(false);
-  };
-
-  const openModal = (selected) => {
-    setSelectedComment(selected);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-  const editComment = (selected) => {
-    setEditingComment(selected.uuid);
-    setEditContent(selected.content);
-  };
-
-  const saveEditComment = () => {
-    const updatedComments = comment.map((c) =>
-      c.uuid === editingComment ? { ...c, content: editContent } : c
-    );
-    setComment(updatedComments);
-    setEditingComment(null);
-    setEditContent("");
-  };
-
-  return (
-    <Root id="root">
-      <div>
-        <div>작성자: 김하영</div>
-        <WritingArea id="writing-area">
-          <Textarea id="new-comment-content"></Textarea>
-          <Button id="submit-new-comment" onClick={addComment}>
-            게시
-          </Button>
-        </WritingArea>
-        <ul id="comment">
-          <SinglecommentWrapper>
-            {comment.map((c) => (
-              <div className="comment" key={c.uuid}>
-                <div className="writer">{c.writer}</div>
-                <div className="date">{c.date}</div>
-                {editingComment === c.uuid ? (
-                  <Textarea
-                    className="edit-textarea"
-                    value={editContent}
-                    onChange={(e) => setEditContent(e.target.value)}
-                  ></Textarea>
-                ) : (
-                  <div className="content">{c.content}</div>
-                )}
-                {editingComment === c.uuid ? (
-                  <>
-                    <Button onClick={saveEditComment}>저장</Button>
-                    <Button onClick={() => setEditingComment(null)}>
-                      취소
-                    </Button>
-                  </>
-                ) : (
-                  <Button onClick={() => editComment(c)}>수정</Button>
-                )}
-                <Button onClick={() => openModal(c)}>삭제</Button>
-              </div>
-            ))}
-          </SinglecommentWrapper>
-        </ul>
-      </div>
-      {showModal && (
-        <Modal>
-          <div>삭제하시겠습니까?</div>
-          <Button onClick={deleteComment}>삭제</Button>
-          <Button onClick={closeModal}>취소</Button>
-        </Modal>
-      )}
-    </Root>
-  );
-}
 function IntroduceComponent({ post }) {
+  const [likeData, setLikeData] = useState();
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/like/byPost/${post.id}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json()) // JSON 형식으로 응답을 파싱
+      .then((data) => {
+        setLikeData(data);
+        console.log("setLikeData: ", data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
   const { id } = useParams();
 
   const [heart, setHeart] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [postLikeId, setPostLikeId] = useState();
 
   const scrollToComments = () => {
     document
@@ -352,20 +249,55 @@ function IntroduceComponent({ post }) {
     const newHeartValue = !heart;
     setHeart(newHeartValue);
     if (newHeartValue) {
-      setLikeCount(likeCount + 1);
-      fetch("https://api.example.com/likes", {
+      //TODO : 하트 눌렀을 때 (하트 추가)
+      fetch(`${process.env.REACT_APP_BASE_URL}/like/add/${post.id}`, {
         method: "POST",
-        body: JSON.stringify({ like: true }),
-      }).catch((error) => console.error("Error updating like count:", error));
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("profile data", data);
+          setLikeCount(likeCount + 1);
+          setPostLikeId(data.postLikeId);
+        })
+        .catch((error) => console.error(error));
     } else {
-      setLikeCount(likeCount - 1);
-      fetch("https://api.example.com/likes", {
-        method: "POST",
-        body: JSON.stringify({ like: false }),
-      }).catch((error) => console.error("Error updating like count:", error));
+      //TODO : 하트 다시 눌렀을 때 (하트 제거)
+      fetch(`${process.env.REACT_APP_BASE_URL}/like/${postLikeId}`, {
+        method: "DELETE",
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("profile data", data);
+          setLikeCount(likeCount - 1);
+        })
+        .catch((error) => console.error(error));
     }
   };
-  console.log("post check", post, typeof post);
+
+  const onClickMail = () => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/sending/${post.id}`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({}), // Add any body content if necessary, or use an empty object
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Response status:", data.status); // data.status may not exist in fetch, typically you get the status from response
+        console.log("Request successful");
+        console.log("Response data:", data);
+      })
+      .catch((error) => {
+        // Handle errors
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <Wrapper>
@@ -397,14 +329,14 @@ function IntroduceComponent({ post }) {
           <Adress>
             <ContactRow>
               <Contact>Contact</Contact>
-              <Email href={`mailto:${post.contact}`}>
+              <Email>
                 <img
                   src={emailimg}
                   alt="Email Icon"
                   style={{ width: "20px", height: "20px", marginRight: "5px" }}
                 />
                 {post.contact}
-                <ChatBT>커피챗</ChatBT>
+                <ChatBT onClick={onClickMail}>커피챗</ChatBT>
               </Email>
             </ContactRow>
             <Behance href="http://www.behance.net" target="_blank">
@@ -413,7 +345,7 @@ function IntroduceComponent({ post }) {
                 alt="Behance Icon"
                 style={{ width: "18px", height: "18px", marginRight: "5px" }}
               />
-              www.behance.net
+              {post.profileContribution}
             </Behance>
           </Adress>
         </TextContainer>

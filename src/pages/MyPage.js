@@ -130,7 +130,7 @@ function MyPage() {
           setMyPortfoilo(portfolioItems);
         }
         if (data.likedPosts && data.likedPosts.length > 0) {
-          const portfolioLikedItems = data.uploadedPosts.map((like) => ({
+          const portfolioLikedItems = data.likedPosts.map((like) => ({
             id: like.id || "",
             title: like.title || "",
             images: like.images[0] || "",

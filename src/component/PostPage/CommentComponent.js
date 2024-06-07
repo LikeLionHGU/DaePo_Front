@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 
 const Root = styled.div`
   display: flex;
@@ -211,84 +213,36 @@ const Modal = styled.div`
 `;
 
 const CommentComponent = () => {
-  const [comment, setComment] = useState([
-    {
-      uuid: 1,
-      writer: "김하영",
-      date: "2024-04-08",
-      content: "대포",
-    },
-    {
-      uuid: 2,
-      writer: "이한나",
-      date: "2024-04-12",
-      content: "렛츠고!",
-    },
-  ]);
+  const { id } = useParams();
+  const [comment, setComment] = useState([]);
 
-  const [showModal, setShowModal] = useState(false);
-  const [selectedComment, setSelectedComment] = useState(null);
   const [editingComment, setEditingComment] = useState(null);
   const [editContent, setEditContent] = useState("");
-  const [showDropdown, setShowDropdown] = useState(null);
   const [commentCount, setCommentCount] = useState(comment.length);
-  const textareaRef = useRef(null);
+  const [commentsLength, setCommentsLength] = useState(0); // 상태로 변경
 
-  const addComment = () => {
-    const value = textareaRef.current.value;
-    if (value.trim() === "") return; // Avoid adding empty comments
-    setComment([
-      ...comment,
-      {
-        uuid: comment.length + 1,
-        writer: "김하영",
-        date: new Date().toISOString().slice(0, 10),
-        content: value,
-      },
-    ]);
-    textareaRef.current.value = ""; // Clear the textarea
-    setCommentCount(commentCount + 1); // Update the comment count
-  };
+  //댓글 작성 api 연결
+  const [value, setValue] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  const deleteComment = () => {
-    const updatedComments = comment.filter(
-      (c) => c.uuid !== selectedComment.uuid
-    );
-    setComment(updatedComments);
-    setCommentCount(commentCount - 1); // Update the comment count
-    setShowModal(false);
-  };
-
-  const openModal = (selected) => {
-    setSelectedComment(selected);
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-  const editComment = (selected) => {
-    setEditingComment(selected.uuid);
-    setEditContent(selected.content);
-    setShowDropdown(null); // Close dropdown when editing
-  };
-
-  const saveEditComment = () => {
-    const updatedComments = comment.map((c) =>
-      c.uuid === editingComment ? { ...c, content: editContent } : c
-    );
-    setComment(updatedComments);
-    setEditingComment(null);
-    setEditContent("");
-  };
-
-  const toggleDropdown = (uuid) => {
-    if (showDropdown === uuid) {
-      setShowDropdown(null);
-    } else {
-      setShowDropdown(uuid);
-    }
+    axios
+      .post(
+        `${process.env.REACT_APP_BASE_URL}/comment/add/${id}`,
+        {
+          content: value,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then(function (response) {
+        window.location.reload();
+        console.log("response", response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   // Fetch the comment count from an API
@@ -300,45 +254,48 @@ const CommentComponent = () => {
       // setCommentCount(data.count);
 
       // For demonstration, using the length of comment array
+      // 댓글 불러오기
+      fetch(`${process.env.REACT_APP_BASE_URL}/comment/byPost/${id}`, {
+        method: "GET",
+        // mode: "no-cors",
+        credentials: "include",
+      })
+        .then((response) => response.text()) // 응답 본문만 읽을 수 있음
+        .then((data) => {
+          const parsedData = typeof data === "string" ? JSON.parse(data) : data;
+          setComment(parsedData.comments);
+          setCommentsLength(parsedData.comments.length); // 상태 업데이트
+          console.log("정보 확인해서 postId로 댓글 불러오기", parsedData);
+        })
+        .catch((error) => console.error(error));
       setCommentCount(comment.length);
     };
 
     fetchCommentCount();
-  }, [comment]);
+  }, []);
 
   return (
     <Root id="root">
       <div>
         <WritingArea id="writing-area">
           <TextareaWrapper>
-            <Textarea id="new-comment-content" ref={textareaRef}></Textarea>
-            <Button id="submit-new-comment" onClick={addComment}>
-              등록
-            </Button>
+            <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+              <Textarea
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="Write your comment..."
+              ></Textarea>
+              <Button type="submit">등록</Button>
+            </form>
           </TextareaWrapper>
           <CommentTitle>
-            <span>댓글 {commentCount}</span>
+            <span>댓글 {commentsLength}</span>
           </CommentTitle>
         </WritingArea>
         <ul id="comment">
           <SinglecommentWrapper>
             {comment.map((c) => (
               <Savecomment key={c.uuid}>
-                {!editingComment && (
-                  <MoreButton onClick={() => toggleDropdown(c.uuid)}>
-                    ■ ■ ■
-                  </MoreButton>
-                )}
-                {showDropdown === c.uuid && (
-                  <Dropdown>
-                    <DropdownItem onClick={() => editComment(c)}>
-                      수정
-                    </DropdownItem>
-                    <DropdownItem onClick={() => openModal(c)}>
-                      삭제
-                    </DropdownItem>
-                  </Dropdown>
-                )}
                 <div className="writer">{c.writer}</div>
                 {/* <div className="date">{c.date}</div> */}
                 {editingComment === c.uuid ? (
@@ -350,26 +307,11 @@ const CommentComponent = () => {
                 ) : (
                   <div className="content">{c.content}</div>
                 )}
-                {editingComment === c.uuid ? (
-                  <>
-                    <SaveButton onClick={saveEditComment}>완료</SaveButton>
-                    <CancelButton onClick={() => setEditingComment(null)}>
-                      취소
-                    </CancelButton>
-                  </>
-                ) : null}
               </Savecomment>
             ))}
           </SinglecommentWrapper>
         </ul>
       </div>
-      {showModal && (
-        <Modal>
-          <div>삭제하시겠습니까?</div>
-          <Deletebutton onClick={deleteComment}>삭제</Deletebutton>
-          <Cancelbutton onClick={closeModal}>취소</Cancelbutton>
-        </Modal>
-      )}
     </Root>
   );
 };
