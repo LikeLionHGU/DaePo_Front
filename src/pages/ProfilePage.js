@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link, useLocation, useParams } from "react-router-dom";
 import FooterComponent from "../component/Home/FooterComponent";
 import OtherIntroComponent from "../component/ProfilePage/OtherIntroComponent";
 import OtherPostComponent from "../component/ProfilePage/OtherPostComponent";
@@ -8,8 +8,10 @@ import {
   Horizontal,
   NoCenterHorizontal,
   Box,
+  themeColors,
 } from "../styles/StyledComponents";
 import logo from "../img/Group 58.png";
+import user from "../img/images.png";
 
 const MyInfo = {
   name: "이한나",
@@ -20,29 +22,10 @@ const MyInfo = {
   otherSite: "github link",
 };
 
-const PoPolDataList = [
-  {
-    professor: "이재선 교수님",
-    tools: "네모네모 빔 툴",
-    year: "2020",
-    field: "자동차 부품..?",
-    title: "핸들..?",
-    description: "핸들 디자인 이런거 있나 뭐 있으면 있겠지",
-  },
-  {
-    professor: "콘디 교수님",
-    tools: "다른 툴",
-    year: "2021",
-    field: "다른 분야..?",
-    title: "밤양갱",
-    description: "달고 달디 단 밤양개객애개액애갱개액액액액애갱갱ㄱㅇ",
-  },
-];
-
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to left, #ff7d04, #ffebd9);
+  background-image: linear-gradient(to left, #8e15c7, #f3dffc);
   width: 100%;
   height: 225px;
   margin-bottom: 400px;
@@ -75,10 +58,55 @@ const ProfileImg = styled.img`
 `;
 
 function ProfilePage() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const onClickHUP = () => {
     navigate("/DaePo");
   };
+  const [myInfo, setMyInfo] = useState({
+    name: "",
+    contact: "",
+    info: "",
+    contribution: "",
+    // image: "",
+  });
+  const [myPortfoilo, setMyPortfoilo] = useState([
+    {
+      id: "",
+      title: "",
+      year: "",
+      content: "",
+      tools: "",
+      videoURL: "",
+      images: "",
+    },
+  ]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/profile/${id}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json()) // 응답을 JSON으로 파싱
+      .then((data) => {
+        // 받아온 데이터를 myInfo 상태에 업데이트
+        setMyInfo(data);
+        if (data.uploadedPosts && data.uploadedPosts.length > 0) {
+          const portfolioItems = data.uploadedPosts.map((post) => ({
+            id: post.id || "",
+            title: post.title || "",
+            year: post.year || "",
+            content: post.content || "",
+            tools: post.tools || "",
+            videoURL: post.videoURL || "",
+            images: post.images[0] || "",
+          }));
+          setMyPortfoilo(portfolioItems);
+        }
+        console.log("myInfo", data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <>
@@ -99,12 +127,12 @@ function ProfilePage() {
         </Horizontal>
         <Horizontal>
           <div style={{ display: "flex" }}>
-            <ProfileImg src={MyInfo.image} alt="프로필 이미지" />
-            <OtherIntroComponent MyInfo={MyInfo} />
+            <ProfileImg src={user} alt="프로필 이미지" />
+            <OtherIntroComponent MyInfo={myInfo} />
           </div>
         </Horizontal>
       </Header>
-      <OtherPostComponent />
+      <OtherPostComponent MyPortfoilo={myPortfoilo} />
       <Box margin="70px" />
       <FooterComponent />
     </>

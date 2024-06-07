@@ -21,16 +21,21 @@ const OtherIntroComponent = ({ MyInfo }) => {
       style={{ marginLeft: "100px", marginTop: "200px", marginRight: "100px" }}
     >
       <Text>이름</Text>
-      <TextInput type="text" name="name" value={MyInfo.name} />
+      <TextInput type="text" name="name" value={MyInfo.username} />
       <br />
       <Text>이메일</Text>
-      <TextInput type="email" name="email" value={MyInfo.email} width="400px" />
+      <TextInput
+        type="email"
+        name="email"
+        value={MyInfo.contact}
+        width="400px"
+      />
       <br />
       <Text>자기소개</Text>
-      <TextInput name="intro" value={MyInfo.intro} width="400px" />
+      <TextInput name="intro" value={MyInfo.info} width="400px" />
       <br />
       <Text>기타 사이트</Text>
-      <TextInput name="otherSite" value={MyInfo.intro} width="400px" />
+      <TextInput name="otherSite" value={MyInfo.contribution} width="400px" />
     </NoCenterVertical>
   );
 };
