@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import LikeComponent from "../PostPage/LikeComponent";
-import { dummyDataList } from "../PostPage/dummyData.js"; // dummyData.js 불러오기
 
 const Rect = styled.div`
   width: 230px;
@@ -84,23 +83,41 @@ const Name = styled.p`
   font-weight: 1300;
 `;
 
-const CardComponent = ({ id, imageSrc }) => {
+const CardComponent = ({ post }) => {
   const [hovered, setHovered] = useState(false);
-  const data = dummyDataList[id]; // dummyDataList에서 해당 id에 대한 데이터 가져오기
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/posts/get/${post.id}`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json()) // JSON 형식으로 응답을 파싱
+      .then((data) => {
+        setData(data);
+        console.log("Fetched data:", data);
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, [post.id]);
+
   if (!data) return null; // 데이터가 없는 경우 null 반환
-  const { title, designer, profileImage } = data; // 가져온 데이터 디스트럭처링
+
+  // const { title, designer, imageURLs } = data; // 가져온 데이터 디스트럭처링
+
   return (
     <Rect
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <Link to={`/DaePo/PostPage/${id + 1}`}>
-        <Image src={imageSrc} alt={`Card ${id}`} />
+      <Link to={`/DaePo/PostPage/${post.id}`}>
+        {post.images && post.images.length > 0 && (
+          <Image src={post.images[0].imageURL} alt={`Card ${post.id}`} />
+        )}
         <OverlayTop show={hovered}></OverlayTop>
         <OverlayBottom show={hovered}></OverlayBottom>
         <TextWrapper show={hovered}>
-          <Name>{designer}</Name>
-          <Text>{title}</Text>
+          <Name>{post.userName}</Name>
+          <Text>{post.title}</Text>
         </TextWrapper>
       </Link>
       <LikeWrapper show={hovered}>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CardComponent from "../Home/CardComponent";
 import styled from "styled-components";
-import initialData from "./dummyData";
 
 const Vertical = styled.div`
   display: flex;
@@ -149,14 +148,13 @@ const LoadMoreButton = styled.button`
 `;
 
 function FilteringComponent() {
+  const [cardData, setCardData] = useState([]);
   const initialFilters = {
-    major: { 시각: false, 제품: false },
+    major: { 시각디자인: false, 제품디자인: false },
     subject: {
-      "시각 캡스톤 디자인": false,
       "서비스 디자인": false,
       "커뮤니케이션 디자인": false,
       "제품 및 서비스 디자인": false,
-      "Capstone Design": false,
     },
     year: new Date().getFullYear(),
     allYears: true,
@@ -177,13 +175,15 @@ function FilteringComponent() {
     sortOrder: "desc",
   };
 
-  const [dummyData, setDummyData] = useState(initialData);
+  const [cards, setCards] = useState([]);
+
   const [filters, setFilters] = useState(initialFilters);
-  const [filteredData, setFilteredData] = useState(initialData);
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState([0]);
 
   useEffect(() => {
+    // filteredData가 업데이트될 때마다 visiblePages도 업데이트됩니다.
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const newVisiblePages = Array.from(
       { length: Math.min(totalPages, 5) },
@@ -206,25 +206,77 @@ function FilteringComponent() {
   };
 
   const itemsPerPage = 24;
-
   useEffect(() => {
-    const newData = dummyData.filter((data) => {
-      return (
-        (filters.major[data.major] ||
-          Object.values(filters.major).every((value) => !value)) &&
-        (filters.subject[data.subject] ||
-          Object.values(filters.subject).every((value) => !value)) &&
-        (filters.allYears || data.year === filters.year) &&
-        (filters.tool[data.tool[0]] ||
-          filters.tool[data.tool[1]] ||
-          Object.values(filters.tool).every((value) => !value)) &&
-        (filters.field === "" || data.field === filters.field) &&
-        (filters.searchField === "" ||
-          data.field.toLowerCase().includes(filters.searchField.toLowerCase()))
-      );
+    fetch(`${process.env.REACT_APP_BASE_URL}/posts/main`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched card data:", data);
+        setCardData(data.posts); // 초기 데이터 설정
+        setFilteredData(applyFilters(data.posts, filters)); // 필터링 적용
+      })
+      .catch((error) => console.error("Error fetching card data:", error));
+  }, [filters]);
+
+  const applyFilters = (data, filters) => {
+    let filteredData = [...data];
+
+    // 전공 필터 적용
+    if (filters.major["시각디자인"] || filters.major["제품디자인"]) {
+      filteredData = filteredData.filter((post) => {
+        if (filters.major["시각디자인"] && post.major === "시각디자인") {
+          return true;
+        }
+        if (filters.major["제품디자인"] && post.major === "제품디자인") {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    // 과목명 필터 적용
+    filteredData = filteredData.filter((post) => {
+      const subject = post.category;
+      if (Object.keys(filters.subject).some((key) => filters.subject[key])) {
+        return filters.subject[subject];
+      }
+      return true;
     });
-    setFilteredData(newData);
-  }, [dummyData, filters]);
+
+    // 제작 연도 필터 적용
+    if (!filters.allYears) {
+      filteredData = filteredData.filter((post) => {
+        const postYear = new Date(post.year).getFullYear();
+        return postYear === filters.year;
+      });
+    }
+
+    // 사용 툴 필터 적용
+    filteredData = filteredData.filter((post) => {
+      const tools = post.tools;
+      const selectedTools = Object.keys(filters.tool).filter(
+        (tool) => filters.tool[tool]
+      );
+      if (selectedTools.length > 0) {
+        const hasAllTools = selectedTools.every((tool) => tools.includes(tool));
+        return hasAllTools;
+      }
+      return true;
+    });
+
+    // 분야 필터 적용
+    filteredData = filteredData.filter((post) => {
+      const field = post.field;
+      if (filters.field && filters.field !== "") {
+        return field === filters.field;
+      }
+      return true;
+    });
+
+    return filteredData;
+  };
 
   const handleMajorChange = (e) => {
     const { value, checked } = e.target;
@@ -299,48 +351,58 @@ function FilteringComponent() {
     setCurrentPage(page);
   };
 
-  const cardImages = [
-    require("../../img/p1.png"),
-    require("../../img/p2.png"),
-    require("../../img/p3.png"),
-    require("../../img/p4.png"),
-    require("../../img/p5.png"),
-    require("../../img/p6.png"),
-    require("../../img/duck1.png"),
-    require("../../img/duck2.png"),
-    require("../../img/duck3.png"),
-    require("../../img/duck4.png"),
-    require("../../img/duck5.png"),
-    require("../../img/duck6.png"),
-    require("../../img/duck7.png"),
-    require("../../img/duck8.png"),
-    require("../../img/CardComponent.png"),
-    require("../../img/p8.png"),
-  ];
+  // const cardImages = [
+  //   require("../../img/p1.png"),
+  //   require("../../img/p2.png"),
+  //   require("../../img/p3.png"),
+  //   require("../../img/p4.png"),
+  //   require("../../img/p5.png"),
+  //   require("../../img/p6.png"),
+  //   require("../../img/duck1.png"),
+  //   require("../../img/duck2.png"),
+  //   require("../../img/duck3.png"),
+  //   require("../../img/duck4.png"),
+  //   require("../../img/duck5.png"),
+  //   require("../../img/duck6.png"),
+  //   require("../../img/duck7.png"),
+  //   require("../../img/duck8.png"),
+  //   require("../../img/CardComponent.png"),
+  //   require("../../img/p8.png"),
+  // ];
 
   const offset = currentPage * itemsPerPage;
   const currentData = filteredData.slice(offset, offset + itemsPerPage);
 
-  const filteredCards = fillEmptySlots(currentData).map((data, index) => {
-    if (!data) {
+  const filteredCards = fillEmptySlots(currentData).map((post, index) => {
+    if (!post) {
       return (
         <div key={index} style={{ width: "250px", height: "250px" }}></div>
       );
     }
-    const cardImageIndex = dummyData.findIndex((item) => item === data);
-    return (
-      <CardComponent
-        key={index}
-        id={index}
-        major={data.major}
-        subject={data.subject}
-        year={data.year}
-        tool={data.tool.join(", ")}
-        likes={data.likes}
-        registrationDate={data.registrationDate}
-        imageSrc={cardImages[cardImageIndex % cardImages.length]}
-      />
-    );
+    const cardImageIndex = cardData.findIndex((item) => item === post);
+    // 선택된 전공에 해당하는 데이터만 필터링하여 표시합니다.
+    if (
+      (filters.major["시각디자인"] && post.major === "시각디자인") ||
+      (filters.major["제품디자인"] && post.major === "제품디자인") ||
+      filters
+    ) {
+      return (
+        <React.Fragment key={index}>
+          <CardComponent
+            post={post}
+            // major={post.major}
+            // subject={post.category}
+            // year={post.year}
+            // tool={post.tools.join(", ")}
+            // likes={post.likeCount}
+            // registrationDate={post.createdDate}
+            // imageSrc={post.images[0].imageURL}
+          />
+        </React.Fragment>
+      );
+    } else {
+      return null; // 선택된 전공에 해당하지 않는 경우 null을 반환하여 표시하지 않습니다.
+    }
   });
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -357,28 +419,33 @@ function FilteringComponent() {
             <CheckContainer>
               <Check
                 type="checkbox"
-                value="시각"
+                value="시각디자인"
                 onChange={handleMajorChange}
-                checked={filters.major["시각"]}
+                checked={filters.major["시각디자인"]}
               />
-              <SubTitle checked={filters.major["시각"]}>시각 디자인</SubTitle>
+              <SubTitle checked={filters.major["시각디자인"]}>
+                시각 디자인
+              </SubTitle>
             </CheckContainer>
             <CheckContainer>
               <Check
                 type="checkbox"
-                value="제품"
+                value="제품디자인"
                 onChange={handleMajorChange}
-                checked={filters.major["제품"]}
+                checked={filters.major["제품디자인"]}
               />
-              <SubTitle checked={filters.major["제품"]}>제품 디자인</SubTitle>
+              <SubTitle checked={filters.major["제품디자인"]}>
+                제품 디자인
+              </SubTitle>
             </CheckContainer>
           </FilterSection>
           <Line className="jb-division-line"></Line>
           <FilterSection>
             <Title>과목명</Title>
             <br />
-            {(filters.major["시각"] ||
-              (!filters.major["시각"] && !filters.major["제품"])) && (
+            {(filters.major["시각디자인"] ||
+              (!filters.major["시각디자인"] &&
+                !filters.major["제품디자인"])) && (
               <>
                 <CheckContainer>
                   <Check
@@ -404,8 +471,9 @@ function FilteringComponent() {
                 </CheckContainer>
               </>
             )}
-            {(filters.major["제품"] ||
-              (!filters.major["시각"] && !filters.major["제품"])) && (
+            {(filters.major["제품디자인"] ||
+              (!filters.major["시각디자인"] &&
+                !filters.major["제품디자인"])) && (
               <CheckContainer>
                 <Check
                   type="checkbox"
