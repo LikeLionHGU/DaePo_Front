@@ -79,6 +79,7 @@ function PortfolioCardComponent({
   onDelete,
   showEditModal,
   showDeleteModal,
+  myPortfoilo,
 }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);

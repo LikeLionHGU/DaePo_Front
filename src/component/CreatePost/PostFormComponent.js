@@ -209,7 +209,13 @@ function PostFormComponent() {
       });
 
       for (let pair of formData.entries()) {
-        console.log(pair[0] + ": " + pair[1]);
+        if (pair[1] instanceof File) {
+          console.log(
+            `${pair[0]}: ${pair[1].name}, size: ${pair[1].size} bytes`
+          );
+        } else {
+          console.log(`${pair[0]}: ${pair[1]}`);
+        }
       }
       axios
         .post(`${process.env.REACT_APP_BASE_URL}/posts`, formData, {
