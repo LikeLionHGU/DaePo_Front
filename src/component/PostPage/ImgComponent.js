@@ -5,7 +5,7 @@ const Img = styled.img`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 700px;
+  width: 800px;
   height: 700px;
   margin-top: 20px;
 `;

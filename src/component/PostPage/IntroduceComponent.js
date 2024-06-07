@@ -220,6 +220,7 @@ const Modal = styled.div`
 
 function IntroduceComponent({ post }) {
   const [likeData, setLikeData] = useState();
+  const [heart, setHeart] = useState(false);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BASE_URL}/like/byPost/${post.id}`, {
       method: "GET",
@@ -228,6 +229,7 @@ function IntroduceComponent({ post }) {
       .then((response) => response.json()) // JSON 형식으로 응답을 파싱
       .then((data) => {
         setLikeData(data);
+        setHeart(data.isSuccessful);
         console.log("setLikeData: ", data);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -235,9 +237,8 @@ function IntroduceComponent({ post }) {
 
   const { id } = useParams();
 
-  const [heart, setHeart] = useState(false);
   const [likeCount, setLikeCount] = useState(post.likeCount);
-  const [postLikeId, setPostLikeId] = useState();
+  const postLikeId = 0;
 
   const scrollToComments = () => {
     document
@@ -258,7 +259,7 @@ function IntroduceComponent({ post }) {
         .then((data) => {
           console.log("profile data", data);
           setLikeCount(likeCount + 1);
-          setPostLikeId(data.postLikeId);
+          postLikeId = data.postLikeId;
         })
         .catch((error) => console.error(error));
     } else {
@@ -320,9 +321,7 @@ function IntroduceComponent({ post }) {
         </LikeBT>
       </BT>
       <TopSection>
-        <Link to={`/DaePo/Profile/${post.id}`}>
-          <ProfileImage src={user} alt="Profile Image" />
-        </Link>
+        <ProfileImage src={user} alt="Profile Image" />
         <TextContainer>
           <Title>{post.title}</Title>
           <Designer>{post.userName}</Designer>
