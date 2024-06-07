@@ -79,8 +79,8 @@ function PortfolioCardComponent({
   onDelete,
   showEditModal,
   showDeleteModal,
-  myPortfoilo,
 }) {
+  console.log("check zzz", data);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -106,7 +106,7 @@ function PortfolioCardComponent({
       <p>분야: {data.field}</p> */}
       {/* <p>작품명: {data.title}</p>
       <p>디그리 설명: {data.description}</p> */}
-      <Img src={img} alt="img"></Img>
+      <Img src={data.images.imageURL} alt="img"></Img>
       <DropdownButton
         show={!showEditModal && !showDeleteModal}
         onClick={handleDropdownToggle}

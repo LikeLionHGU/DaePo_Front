@@ -65,7 +65,6 @@ function MyPortfolioComponent({ myPortfoilo }) {
               onDelete={handleCardDeleteClick}
               showEditModal={showEditModal}
               showDeleteModal={showDeleteModal}
-              myPortfolio={myPortfoilo} // 수정된 부분
             />
           ))}
       </NoCenterHorizontal>

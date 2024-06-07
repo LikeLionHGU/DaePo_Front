@@ -95,6 +95,7 @@ function MyPage() {
       content: "",
       tools: "",
       videoURL: "",
+      images: "",
     },
   ]);
   const [myLiked, setMyLiked] = useState([
@@ -123,6 +124,7 @@ function MyPage() {
             content: post.content || "",
             tools: post.tools || "",
             videoURL: post.videoURL || "",
+            images: post.images[0] || "",
           }));
           // console.log("portfolioItems test", portfolioItems);
           setMyPortfoilo(portfolioItems);
@@ -131,7 +133,7 @@ function MyPage() {
           const portfolioLikedItems = data.uploadedPosts.map((like) => ({
             id: like.id || "",
             title: like.title || "",
-            images: like.images || "",
+            images: like.images[0] || "",
           }));
           // console.log("portfolioItems test", portfolioItems);
           setMyLiked(portfolioLikedItems);
