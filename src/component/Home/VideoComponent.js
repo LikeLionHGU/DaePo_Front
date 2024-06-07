@@ -57,8 +57,8 @@ const ArrowTip = styled.div`
 
 function VideoComponent() {
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_BASE_URL}/profile/mydata`, {
-      method: "POST",
+    fetch(`${process.env.REACT_APP_BASE_URL}/profile/myinfo`, {
+      method: "GET",
       // mode: "no-cors",
       credentials: "include",
     })

@@ -7,6 +7,7 @@ import EditInfoComponent from "../component/Home/EditInfoComponent/EditInfoCompo
 import { useSetRecoilState } from "recoil";
 import { UserInfoState } from "../store/atoms";
 import { FaSignOutAlt } from "react-icons/fa";
+import duckImg from "../img/duck1.png";
 
 import {
   Vertical,
@@ -80,11 +81,11 @@ const UpdateBT = styled.button`
 `;
 function MyPage() {
   const [myInfo, setMyInfo] = useState({
-    username: "",
-    email: "",
-    intro: "",
-    image: "",
-    otherSite: "",
+    name: "",
+    contact: "",
+    info: "",
+    contribution: "",
+    // image: "",
   });
 
   useEffect(() => {
@@ -94,16 +95,11 @@ function MyPage() {
     })
       .then((response) => response.json()) // 응답을 JSON으로 파싱
       .then((data) => {
-        console.log("member data", data);
         // 받아온 데이터를 myInfo 상태에 업데이트
         setMyInfo(data);
       })
       .catch((error) => console.error(error));
   }, []);
-
-  useEffect(() => {
-    console.log("Updated myInfo:", myInfo);
-  }, [myInfo]);
 
   const navigate = useNavigate();
   const onClickHUP = () => {
@@ -112,19 +108,13 @@ function MyPage() {
   const setUserInfo = useSetRecoilState(UserInfoState);
   const fileInputRef = useRef();
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setMyInfo((prevInfo) => ({
-        ...prevInfo,
-        image: reader.result,
-      }));
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setMyInfo((prevInfo) => ({
+  //     ...prevInfo,
+  //     image: file,
+  //   }));
+  // };
 
   const handleImageClick = () => {
     fileInputRef.current.click();
@@ -146,6 +136,22 @@ function MyPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("수정된 정보:", myInfo);
+
+    const formData = new FormData();
+    for (const key in myInfo) {
+      formData.append(key, myInfo[key]);
+    }
+
+    fetch(`${process.env.REACT_APP_BASE_URL}/profile`, {
+      method: "PATCH",
+      credentials: "include",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("profile data", data);
+      })
+      .catch((error) => console.error(error));
   };
   return (
     <Vertical>
@@ -173,17 +179,17 @@ function MyPage() {
         <Horizontal>
           <div style={{ display: "flex" }}>
             <ProfileImg
-              src={myInfo.image}
+              src={duckImg}
               alt="프로필 이미지"
-              onClick={handleImageClick}
+              // onClick={handleImageClick}
             />
-            <input
+            {/* <input
               type="file"
               accept="image/*"
               ref={fileInputRef}
               style={{ display: "none" }}
               onChange={handleImageChange}
-            />
+            /> */}
             <NoCenterVertical
               style={{ marginLeft: "100px", marginTop: "200px" }}
             >
@@ -191,32 +197,32 @@ function MyPage() {
                 <Text>이름</Text>
                 <TextInput
                   type="text"
-                  name="username"
-                  value={myInfo.username}
+                  name="name"
+                  value={myInfo.name}
                   onChange={handleChange}
                 />
                 <br />
                 <Text>이메일</Text>
                 <TextInput
                   type="email"
-                  name="email"
-                  value={myInfo.email}
+                  name="contact"
+                  value={myInfo.contact}
                   onChange={handleChange}
                   width="400px"
                 />
                 <br />
                 <Text>자기소개</Text>
                 <TextInput
-                  name="intro"
-                  value={myInfo.intro}
+                  name="info"
+                  value={myInfo.info}
                   onChange={handleChange}
                   width="400px"
                 />
                 <br />
                 <Text>기타 사이트</Text>
                 <TextInput
-                  name="otherSite"
-                  value={myInfo.otherSite}
+                  name="contribution"
+                  value={myInfo.contribution}
                   onChange={handleChange}
                   width="400px"
                 />
