@@ -9,6 +9,7 @@ const Card = styled.div`
   border-radius: 24px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 `;
 const Image = styled.img`
   width: 100%;

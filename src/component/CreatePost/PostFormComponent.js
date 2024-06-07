@@ -71,7 +71,7 @@ const UpdateBT = styled.button`
   background-color: ${themeColors.BTBOLOR.color};
   margin-top: 50px;
   cursor: pointer;
-  margin-left: 45%;
+  margin-left: 42%;
   margin-bottom: 100px;
 `;
 
