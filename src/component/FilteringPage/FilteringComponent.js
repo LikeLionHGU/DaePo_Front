@@ -158,7 +158,7 @@ function FilteringComponent() {
       "제품 및 서비스 디자인": false,
       "Capstone Design": false,
     },
-    year: new Date().getFullYear() + 1,
+    year: new Date().getFullYear(),
     allYears: true,
     tool: {
       포토샵: false,
@@ -254,7 +254,6 @@ function FilteringComponent() {
   const maxYear = 2024;
 
   const handleYearChange = (newYear) => {
-    console.log({ currentYear, newYear, filters });
     if (newYear <= currentYear) {
       setFilters((prevFilters) => ({
         ...prevFilters,
