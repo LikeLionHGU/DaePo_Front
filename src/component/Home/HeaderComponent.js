@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { IoSearchSharp } from "react-icons/io5";
 import logo from "../../img/Group 58.png";
+import { themeColors } from "../../styles/StyledComponents";
 
 const Horizontal = styled.div`
   display: flex;
@@ -34,7 +35,7 @@ const SearchSpace = styled.div`
   max-width: 40%;
   height: 50px;
   border-radius: 50px;
-  border: solid 2px #ee7b00;
+  border: solid 2px ${themeColors.MAINCOLOR.color};
 `;
 
 const SearchInput = styled.input`
@@ -49,7 +50,7 @@ const SlMagnifierBT = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
   margin-right: 5px;
 `;
 

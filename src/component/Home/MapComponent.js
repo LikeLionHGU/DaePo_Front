@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import map from "./../../img/Group 39.png";
+import { themeColors } from "../../styles/StyledComponents";
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const LinkWrapper = styled.div`
 `;
 
 const LinkItems = styled.div`
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
   display: flex;
   align-items: center;
   margin-right: 100px;

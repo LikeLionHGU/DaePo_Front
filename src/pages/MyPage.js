@@ -22,7 +22,7 @@ import logo from "../img/Group 58.png";
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to left, #ff7d04, #ffebd9);
+  background-image: linear-gradient(to left, #8e15c7, #f3dffc);
   width: 100%;
   height: 225px;
   margin-bottom: 550px;
@@ -130,7 +130,7 @@ function MyPage() {
           setMyPortfoilo(portfolioItems);
         }
         if (data.likedPosts && data.likedPosts.length > 0) {
-          const portfolioLikedItems = data.uploadedPosts.map((like) => ({
+          const portfolioLikedItems = data.likedPosts.map((like) => ({
             id: like.id || "",
             title: like.title || "",
             images: like.images[0] || "",

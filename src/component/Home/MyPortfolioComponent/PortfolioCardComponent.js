@@ -100,12 +100,6 @@ function PortfolioCardComponent({
 
   return (
     <Card>
-      {/* <p>담당 교수님: {data.professor}</p>
-      <p>사용 툴: {data.tools}</p> */}
-      {/* <p>제작 연도: {data.year}</p>
-      <p>분야: {data.field}</p> */}
-      {/* <p>작품명: {data.title}</p>
-      <p>디그리 설명: {data.description}</p> */}
       <Img src={data.images.imageURL} alt="img"></Img>
       <DropdownButton
         show={!showEditModal && !showDeleteModal}

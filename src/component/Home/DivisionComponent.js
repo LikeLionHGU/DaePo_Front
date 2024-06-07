@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { UserInfoState } from "../../store/atoms";
 import { FaSignOutAlt } from "react-icons/fa";
+import { themeColors } from "../../styles/StyledComponents";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const Container = styled.div`
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
   font-size: 18px;
   margin-right: 40px;
   transition: font-weight 0.3s; /* 글자 두껍게 전환 효과를 위한 transition 추가 */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CardComponent from "../Home/CardComponent";
 import styled from "styled-components";
+import { themeColors } from "../../styles/StyledComponents";
 
 const Vertical = styled.div`
   display: flex;
@@ -52,14 +53,14 @@ const Check = styled.input.attrs({ type: "checkbox" })`
   width: 20px;
   height: 20px;
   background-color: ${(props) => (props.checked ? "#ee7b00" : "white")};
-  border: 2px solid #ee7b00;
+  border: 2px solid ${themeColors.MAINCOLOR.color};
   border-radius: 3px;
   cursor: pointer;
   position: relative;
   margin-right: 10px;
 
   &:checked {
-    background-color: #ee7b00;
+    background-color: ${themeColors.MAINCOLOR.color};
   }
 
   &:checked::after {
@@ -93,7 +94,8 @@ const YearButton = styled.button`
   background-color: transparent;
   font-size: 24px;
   cursor: pointer;
-  color: ${(props) => (props.disabled ? "#d3d3d3" : "#d66f00")};
+  color: ${(props) =>
+    props.disabled ? "#d3d3d3" : `${themeColors.MAINCOLOR.color}`};
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 `;
 
@@ -121,21 +123,23 @@ const PageButton = styled.button`
   margin: 0 5px;
   padding: 5px 10px;
   background-color: white;
-  color: ${(props) => (props.active ? "#d66f00" : "black")};
+  color: ${(props) =>
+    props.active ? `${themeColors.MAINCOLOR.color}` : "black"};
   border: 1px solid white;
   cursor: pointer;
   font-family: "AUTHENTICSans";
   font-weight: bold;
   font-size: 20px;
   &:hover {
-    color: #d66f00;
+    color: ${themeColors.MAINCOLOR.color};
   }
 `;
 
 const LoadMoreButton = styled.button`
   padding: 5px 10px;
   background-color: white;
-  color: ${(props) => (props.active ? "#d66f00" : "black")};
+  color: ${(props) =>
+    props.active ? `${themeColors.MAINCOLOR.color}` : "black"};
   border: 1px solid white;
   cursor: pointer;
   font-family: "AUTHENTICSans";
@@ -143,7 +147,7 @@ const LoadMoreButton = styled.button`
   font-size: 8px;
 
   &:hover {
-    color: #d66f00;
+    color: ${themeColors.MAINCOLOR.color};
   }
 `;
 
@@ -351,25 +355,6 @@ function FilteringComponent() {
     setCurrentPage(page);
   };
 
-  // const cardImages = [
-  //   require("../../img/p1.png"),
-  //   require("../../img/p2.png"),
-  //   require("../../img/p3.png"),
-  //   require("../../img/p4.png"),
-  //   require("../../img/p5.png"),
-  //   require("../../img/p6.png"),
-  //   require("../../img/duck1.png"),
-  //   require("../../img/duck2.png"),
-  //   require("../../img/duck3.png"),
-  //   require("../../img/duck4.png"),
-  //   require("../../img/duck5.png"),
-  //   require("../../img/duck6.png"),
-  //   require("../../img/duck7.png"),
-  //   require("../../img/duck8.png"),
-  //   require("../../img/CardComponent.png"),
-  //   require("../../img/p8.png"),
-  // ];
-
   const offset = currentPage * itemsPerPage;
   const currentData = filteredData.slice(offset, offset + itemsPerPage);
 
@@ -521,21 +506,6 @@ function FilteringComponent() {
                 <SubTitle checked={filters.tool[tool]}>{tool}</SubTitle>
               </CheckContainer>
             ))}
-          </FilterSection>
-          <Line className="jb-division-line"></Line>
-          <FilterSection>
-            <Title>분야</Title>
-            <br />
-            <select onChange={handleFieldChange} value={filters.field}>
-              <option value="">All Fields</option>
-              <option value="UI">UI</option>
-              <option value="UX">UX</option>
-              <option value="BRANDING">BRANDING</option>
-              <option value="ARCHITECTURE">ARCHITECTURE</option>
-              <option value="VEHICLE">VEHICLE</option>
-              <option value="FURNITURE">FURNITURE</option>
-              <option value="ENVIRONMENTAL">ENVIRONMENTAL</option>
-            </select>
           </FilterSection>
           <Line className="jb-division-line"></Line>
         </FilterContainer>

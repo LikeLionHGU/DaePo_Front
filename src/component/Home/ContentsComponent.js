@@ -3,6 +3,7 @@ import styled from "styled-components";
 import img77 from "../../img/image 77.png";
 import img78 from "../../img/image 78.png";
 import img79 from "../../img/image 79.png";
+import { themeColors } from "../../styles/StyledComponents";
 
 const Container = styled.div`
   width: 100%;
@@ -31,7 +32,7 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 24px;
-  border: 3px solid #ee7b00;
+  border: 3px solid ${themeColors.MAINCOLOR.color};
   transition: transform 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -78,7 +79,7 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 50px;
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
 `;
 const SubTitle = styled.div`
   padding-top: 35px;

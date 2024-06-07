@@ -10,14 +10,17 @@ const Card = styled.div`
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
-
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 function PortfolioLikedCardComponent({ data }) {
   console.log("image check", data.images[0]);
   return (
     <Link to={`/DaePo/PostPage/${data.id}`} state={{ post: data }}>
       <Card>
-        {/* <p>작품명: {data.title}</p> */}
-        <img src={data.images.imageURL} />
+        <Image src={data.images.imageURL} alt={data.title} />
       </Card>
     </Link>
   );
