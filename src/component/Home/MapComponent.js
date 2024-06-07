@@ -45,6 +45,10 @@ const Map = styled.img.attrs({
   width: 1300px;
   height: 680px;
   margin-bottom: 180px;
+  display: flex;
+  align-items: center;
+  
+  width: 100%;
 `;
 
 function MapComponent() {

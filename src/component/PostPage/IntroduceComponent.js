@@ -18,6 +18,8 @@ const BT = styled.div`
   align-items: center;
 `;
 const LikeBT = styled.button`
+  border: none;
+  box-shadow: 2px 2px 2px 0px gray;
   width: 80px;
   height: 38px;
   padding-left: 0px;
@@ -56,7 +58,7 @@ const ChatBT = styled.button`
 const TopSection = styled.div`
   display: flex;
   position: relative;
-  border-top: 3px solid black;
+  border-top: 2px solid rgba(0, 0, 0, 0.4);
   padding: 20px;
   width: 97%;
   justify-content: space-between;
@@ -136,14 +138,14 @@ const RightSection = styled.div`
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 100px;
-  border-top: 3px solid black;
-  border-bottom: 3px solid black;
+  border-top: 2px solid rgba(0, 0, 0, 0.4);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
 `;
 
 const PostDescription = styled.div`
   font-size: 14px;
   line-height: 1.5;
-  border: 3px solid black;
+  border: 2px solid rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   padding: 10px;
   width: 358px;
@@ -155,7 +157,7 @@ const PostDescription = styled.div`
 const Tags = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 25px;
+  font-size: 21px;
   width: 100%;
 `;
 
@@ -305,9 +307,9 @@ function IntroduceComponent({ post }) {
       <BT>
         <LikeBT onClick={handleHeart}>
           {heart ? (
-            <AiFillHeart style={{ color: "#F8CA99", fontSize: "30px" }} />
+            <AiFillHeart style={{ color: "#FE0100", fontSize: "30px" }} />
           ) : (
-            <AiOutlineHeart style={{ color: "#dddddd", fontSize: "30px" }} />
+            <AiOutlineHeart style={{ color: "black", fontSize: "30px" }} />
           )}
           <span style={{ marginLeft: "10px" }}>{likeCount}</span>
         </LikeBT>
@@ -315,7 +317,7 @@ function IntroduceComponent({ post }) {
           <img
             src={commentimg}
             alt="comment"
-            style={{ width: "23px", height: "23px" }}
+            style={{ width: "27px", height: "27px" }}
           />
           <span style={{ marginLeft: "10px" }}>{post.commentsCounts}</span>
         </LikeBT>

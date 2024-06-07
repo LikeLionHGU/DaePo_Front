@@ -9,6 +9,7 @@ import { UserInfoState } from "../store/atoms";
 import { FaSignOutAlt } from "react-icons/fa";
 import duckImg from "../img/duck1.png";
 
+
 import {
   Vertical,
   Horizontal,
@@ -40,8 +41,8 @@ const Logo = styled.img.attrs({
 `;
 
 const ProfileImg = styled.img`
-  width: 330px;
-  height: 330px;
+  width: 270px;
+  height: 270px;
   border-radius: 50%;
   cursor: pointer;
   border: 10px solid white;
@@ -57,27 +58,33 @@ const StyledLink = styled(Link)`
   font-family: "AUTHENTICSans90";
 `;
 const Text = styled.p`
-  font-family: "AUTHENTICSans90";
+  font-family: "AUTHENTICSans130";
   color: ${themeColors.MAINCOLOR.color};
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: bold;
+    margin-bottom: 15px;  
 `;
 const TextInput = styled.input`
   border: none;
   border-bottom: 1px solid ${themeColors.ARROWCOLOR.color};
   background-color: none;
   width: ${(props) => props.width || "300px"};
+  font-size: 18px;
+
 `;
 const UpdateBT = styled.button`
   font-family: "AUTHENTICSans90";
-  font-size: 22px;
+  color: ${themeColors.MAINCOLOR.color};
+  font-size: 20px;
   width: 150px;
   height: 65px;
   border: none;
   border-radius: 20px;
-  background-color: ${themeColors.BTBOLOR.color};
+  background-color: white;
   margin-top: 25px;
   cursor: pointer;
   margin-left: 250px;
+  padding-left: 100px;
 `;
 function MyPage() {
   const [myInfo, setMyInfo] = useState({

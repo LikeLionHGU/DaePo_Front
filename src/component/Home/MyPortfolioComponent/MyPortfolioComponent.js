@@ -8,6 +8,7 @@ import {
   NoCenterHorizontal,
   themeColors,
 } from "../../../styles/StyledComponents";
+import plus from "../../../img/plus.png"
 
 const Container = styled.div`
   display: flex;
@@ -46,14 +47,14 @@ function MyPortfolioComponent({ myPortfoilo }) {
 
   return (
     <Container>
-      <h1>업로드한 작품</h1>
+      <h2>업로드한 작품</h2>
       <NoCenterHorizontal>
         <PlusButton>
           <Link
             to="/DaePo/CreatePost"
             style={{ textDecoration: "none", color: "white" }}
           >
-            +
+            <img src={plus}/>
           </Link>
         </PlusButton>
         {myPortfoilo.length >= 0 &&
