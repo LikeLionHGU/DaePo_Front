@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import LikeComponent from "../PostPage/LikeComponent";
+import { dummyDataList } from "../PostPage/dummyData.js"; // dummyData.js 불러오기
 
 const Rect = styled.div`
   width: 230px;
@@ -41,7 +42,6 @@ const OverlayBottom = styled.div`
   right: 0;
   background-color: rgba(85, 92, 154, 0.8);
   transition: bottom 0.8s ease-in-out;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,7 +74,6 @@ const Text = styled.p`
   font-size: 24px;
   font-family: "AUTHENTICSans";
   font-weight: bold;
-  font-size: 22px;
 `;
 
 const Name = styled.p`
@@ -83,11 +82,13 @@ const Name = styled.p`
   margin-bottom: -20px;
   font-family: "AUTHENTICSans";
   font-weight: 1300;
-  font-size: 22px;
 `;
 
 const CardComponent = ({ id, imageSrc }) => {
   const [hovered, setHovered] = useState(false);
+  const data = dummyDataList[id]; // dummyDataList에서 해당 id에 대한 데이터 가져오기
+  if (!data) return null; // 데이터가 없는 경우 null 반환
+  const { title, designer, profileImage } = data; // 가져온 데이터 디스트럭처링
   return (
     <Rect
       onMouseEnter={() => setHovered(true)}
@@ -98,8 +99,8 @@ const CardComponent = ({ id, imageSrc }) => {
         <OverlayTop show={hovered}></OverlayTop>
         <OverlayBottom show={hovered}></OverlayBottom>
         <TextWrapper show={hovered}>
-          <Name>Somang</Name>
-          <Text>{`Duck${id + 1}`}</Text>
+          <Name>{designer}</Name>
+          <Text>{title}</Text>
         </TextWrapper>
       </Link>
       <LikeWrapper show={hovered}>
