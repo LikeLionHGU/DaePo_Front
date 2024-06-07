@@ -9,12 +9,13 @@ import {
   Box,
   NoCenterHorizontal,
   Horizontal,
+  themeColors,
 } from "../styles/StyledComponents";
 import logo from "../img/Group 58.png";
 
 const StyledNavLink = styled(NavLink)`
   text-decoration: none;
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
   font-size: 18px;
   margin-right: 40px;
   transition: font-weight 0.3s; /* 글자 두껍게 전환 효과를 위한 transition 추가 */

@@ -22,7 +22,7 @@ import logo from "../img/Group 58.png";
 const Header = styled.div`
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(to left, #ff7d04, #ffebd9);
+  background-image: linear-gradient(to left, #8e15c7, #f3dffc);
   width: 100%;
   height: 225px;
   margin-bottom: 550px;

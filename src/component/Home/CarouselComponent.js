@@ -5,12 +5,13 @@ import duck2 from "../../img/Rectangle 566.png";
 import duck3 from "../../img/Rectangle 567.png";
 import duck4 from "../../img/Rectangle 568.png";
 import duck5 from "../../img/Rectangle 569.png";
+import { themeColors } from "../../styles/StyledComponents";
 
 const StartButton = styled.button`
   background-color: #ffffff;
-  border: 2.3px solid #ee7b00;
+  border: 2.3px solid ${themeColors.MAINCOLOR.color};
   border-radius: 50%;
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
   font-size: 22px;
   font-weight: bold;
   width: 40px;
@@ -40,8 +41,9 @@ const CarouselBarDot = styled.div`
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: ${(props) => (props.isActive ? "#ee7b00" : "#ffffff")};
-  border: 2.3px solid #ee7b00;
+  background-color: ${(props) =>
+    props.isActive ? `${themeColors.MAINCOLOR.color}` : "#ffffff"};
+  border: 2.3px solid ${themeColors.MAINCOLOR.color};
   margin-top: 10px;
   margin-right: 15px;
   cursor: pointer;
@@ -51,7 +53,13 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: linear-gradient(to left, #ff9532, #ffebd9);
+  background: linear-gradient(
+    to top left,
+    #95d5fa,
+    #838ffa 48%,
+    #838ffa 52%,
+    #95d5fa
+  );
   width: 100%;
   height: 600px;
   padding-bottom: 200px;

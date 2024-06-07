@@ -51,7 +51,7 @@ export const Box = styled.div`
 
 export const themeColors = {
   MAINCOLOR: {
-    color: "#EE7B00",
+    color: "#39007C",
   },
   MAPCOLOR: {
     color: "#FE0100",
@@ -69,6 +69,6 @@ export const themeColors = {
     color: "#FA2501",
   },
   BTBOLOR: {
-    color: "#FFD6AA",
+    color: "#DBB5EE",
   },
 };

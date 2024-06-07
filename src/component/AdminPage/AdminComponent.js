@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { SlMagnifier } from "react-icons/sl";
-import { Vertical, Horizontal } from "../../styles/StyledComponents";
+import {
+  Vertical,
+  Horizontal,
+  themeColors,
+} from "../../styles/StyledComponents";
 
 const SearchSpace = styled.div`
   display: flex;
@@ -438,21 +442,23 @@ const PageButton = styled.button`
   margin: 0 5px;
   padding: 5px 10px;
   background-color: white;
-  color: ${(props) => (props.active ? "#d66f00" : "black")};
+  color: ${(props) =>
+    props.active ? `${themeColors.ARROWCOLOR.color}` : "black"};
   border: 1px solid white;
   cursor: pointer;
   font-family: "AUTHENTICSans";
   font-weight: bold;
   font-size: 20px;
   &:hover {
-    color: #d66f00;
+    color: ${themeColors.ARROWCOLOR.color};
   }
 `;
 
 const LoadMoreButton = styled.button`
   padding: 5px 10px;
   background-color: white;
-  color: ${(props) => (props.active ? "#d66f00" : "black")};
+  color: ${(props) =>
+    props.active ? `${themeColors.ARROWCOLOR.color}` : "black"};
   border: 1px solid white;
   cursor: pointer;
   font-family: "AUTHENTICSans";
@@ -460,7 +466,7 @@ const LoadMoreButton = styled.button`
   font-size: 8px;
 
   &:hover {
-    color: #d66f00;
+    color: ${themeColors.ARROWCOLOR.color};
   }
 `;
 
@@ -508,7 +514,7 @@ const Tdid = styled.td`
   border-bottom: 1px solid #dddddd;
   text-align: center;
   padding: 10px;
-  color: #ee7b00;
+  color: ${themeColors.MAINCOLOR.color};
   font-weight: bold;
   font-size: 20px;
 `;
@@ -534,12 +540,12 @@ const StatusButton = styled.button`
   border-radius: 12px;
   border: none;
   margin: 0 5px;
-  background-color: ${(props) => (props.isActive ? "#F8CA99" : "#dddddd")};
+  background-color: ${(props) => (props.isActive ? "#DBB5EE" : "#dddddd")};
   color: ${(props) => (props.isActive ? "black" : "black")};
   cursor: pointer;
 
   &:hover {
-    background-color: #f8ca99;
+    background-color: #dbb5ee;
     color: black;
   }
 `;

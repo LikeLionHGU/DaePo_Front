@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "./../../img/Group 70.png";
+import { themeColors } from "../../styles/StyledComponents";
 
 const FooterContainer = styled.div`
-  background-color: #ee7b00;
+  background-color: ${themeColors.MAINCOLOR.color};
   height: 200px;
   display: flex;
   flex-direction: column;
