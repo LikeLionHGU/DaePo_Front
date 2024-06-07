@@ -30,401 +30,6 @@ const SlMagnifierBT = styled.button`
   cursor: pointer;
 `;
 
-const initialData = [
-  {
-    id: 1,
-    date: "2024-05-01",
-    author: "이한나",
-    email: "22100595@handong.ac.kr",
-    status: "",
-  },
-  {
-    id: 2,
-    date: "2024-05-02",
-    author: "이지광",
-    email: "22100110@handong.ac.kr",
-    status: "",
-  },
-  {
-    id: 3,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "",
-  },
-  {
-    id: 4,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "",
-  },
-  {
-    id: 5,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 6,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 7,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 8,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 9,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 10,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 11,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 12,
-    date: "2024-05-01",
-    author: "이한나",
-    email: "22100595@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 13,
-    date: "2024-05-02",
-    author: "이지광",
-    email: "22100110@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 14,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 15,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 16,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 17,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 18,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 19,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 20,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 21,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 22,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 23,
-    date: "2024-05-01",
-    author: "이한나",
-    email: "22100595@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 24,
-    date: "2024-05-02",
-    author: "이지광",
-    email: "22100110@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 25,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 26,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 27,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 28,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 29,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 30,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 31,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 32,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 33,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 34,
-    date: "2024-05-01",
-    author: "이한나",
-    email: "22100595@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 35,
-    date: "2024-05-02",
-    author: "이지광",
-    email: "22100110@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 36,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 37,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 38,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 39,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 40,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 41,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 42,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 43,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 44,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 45,
-    date: "2024-05-01",
-    author: "이한나",
-    email: "22100595@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 46,
-    date: "2024-05-02",
-    author: "이지광",
-    email: "22100110@handong.ac.kr",
-    status: "승인",
-  },
-  {
-    id: 47,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 48,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 49,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 50,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 51,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 52,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 53,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 54,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 55,
-    date: "2024-05-03",
-    author: "김하영",
-    email: "22300079@handong.ac.kr",
-    status: "미승인",
-  },
-  {
-    id: 56,
-    date: "2024-05-01",
-    author: "이한나",
-    email: "22100595@handong.ac.kr",
-    status: "승인",
-  },
-];
-
 const PaginationContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -560,29 +165,79 @@ const Dropdown = styled.select`
 `;
 
 function AdminComponent() {
-  const [dataState, setDataState] = useState(initialData);
+  const [dataState, setDataState] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [visiblePages, setVisiblePages] = useState([]);
-
   const itemsPerPage = 10;
 
-  const filteredData = dataState
-    .filter(
-      (item) =>
-        item.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.date.includes(searchTerm)
-    )
-    .filter((item) => {
-      if (statusFilter === "대기") return item.status === "";
+  const refreshList = () => {
+    setDataState([]);
+    fetch(`${process.env.REACT_APP_BASE_URL}/admin/all`, {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("member data", data);
+        setDataState(data.posts); // 데이터 상태 업데이트
+      })
+      .catch((error) => console.error(error));
+  };
 
-      return item.status === statusFilter;
-    });
+  useEffect(() => {
+    refreshList();
+  }, []);
+
+  const updatePostStatus = (id, newStatus) => {
+    fetch(`${process.env.REACT_APP_BASE_URL}/admin/${id}`, {
+      // 해당 포스트의 ID를 사용하여 요청
+      method: "PATCH",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ decision: newStatus }), // 상태 값을 JSON으로 전달
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          // 서버에서 성공적으로 업데이트된 데이터를 받아옴
+          // 클라이언트의 데이터 상태를 업데이트
+          setDataState(data.posts);
+        } else {
+          console.error("Status update failed");
+        }
+      })
+      .catch((error) => console.error(error))
+      .finally(() => {
+        refreshList();
+      });
+  };
+
+  const filteredData = Array.isArray(dataState)
+    ? dataState
+        .filter(
+          (posts) =>
+            posts.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            posts.contact.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            posts.createdDate.includes(searchTerm)
+        )
+        .filter((posts) => {
+          console.log("statusFilter : ", statusFilter);
+          // return true;
+          console.log({ a: posts.isConfirmed, b: statusFilter });
+          if (statusFilter === "") return posts.isConfirmed === 0;
+
+          return posts.isConfirmed === +statusFilter;
+        })
+    : [];
+  console.log("filtered : ", filteredData);
 
   useEffect(() => {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+    console.log("Total pages:", totalPages);
     setVisiblePages(
       Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i)
     );
@@ -590,10 +245,12 @@ function AdminComponent() {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    console.log("Search term:", e.target.value);
   };
 
   const handlePageClick = (page) => {
     setCurrentPage(page);
+    console.log("Current page:", page);
   };
 
   const handleLoadMore = () => {
@@ -607,19 +264,21 @@ function AdminComponent() {
       ...prevVisiblePages,
       ...newVisiblePages,
     ]);
+    console.log("Loaded more pages:", newVisiblePages);
   };
 
   const paginateData = () => {
     const offset = currentPage * itemsPerPage;
-    return filteredData.slice(offset, offset + itemsPerPage);
+    const paginated = filteredData.slice(offset, offset + itemsPerPage);
+    console.log("Paginated data:", paginated);
+    return paginated;
   };
 
   const handleStatusChange = (id, newStatus) => {
-    setDataState((prevData) =>
-      prevData.map((item) =>
-        item.id === id ? { ...item, status: newStatus } : item
-      )
-    );
+    // 서버에 상태 변경을 요청합니다.
+
+    updatePostStatus(id, newStatus);
+    console.log(`Status changed for ID ${id} to ${newStatus}`);
   };
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -628,6 +287,7 @@ function AdminComponent() {
 
   const handleStatusFilterChange = (e) => {
     setStatusFilter(e.target.value);
+    console.log("Status filter:", e.target.value);
   };
 
   return (
@@ -661,29 +321,29 @@ function AdminComponent() {
                     onChange={handleStatusFilterChange}
                   >
                     <option value="">대기</option>
-                    <option value="승인">승인</option>
-                    <option value="미승인">미승인</option>
+                    <option value="1">승인</option>
+                    <option value="2">미승인</option>
                   </Dropdown>
                 </Th>
               </tr>
             </thead>
             <tbody>
-              {paginateData().map((item) => (
-                <TableRow key={item.id}>
-                  <Tdid>{item.id}</Tdid>
-                  <Td>{item.date}</Td>
-                  <Td>{item.author}</Td>
-                  <Td>{item.email}</Td>
+              {filteredData.map((posts) => (
+                <TableRow key={posts.id}>
+                  <Tdid>{posts.id}</Tdid>
+                  <Td>{posts.createdDate}</Td>
+                  <Td>{posts.userName}</Td>
+                  <Td>{posts.contact}</Td>
                   <Td>
                     <StatusButton
-                      isActive={item.status === "승인"}
-                      onClick={() => handleStatusChange(item.id, "승인")}
+                      isActive={posts.isConfirmed === 1}
+                      onClick={() => handleStatusChange(posts.id, 1)}
                     >
                       승인
                     </StatusButton>
                     <StatusButton
-                      isActive={item.status === "미승인"}
-                      onClick={() => handleStatusChange(item.id, "미승인")}
+                      isActive={posts.isConfirmed === 2}
+                      onClick={() => handleStatusChange(posts.id, 2)}
                     >
                       미승인
                     </StatusButton>
@@ -696,14 +356,14 @@ function AdminComponent() {
             {visiblePages.map((page) => (
               <PageButton
                 key={page}
-                active={currentPage === page}
+                active={page === currentPage}
                 onClick={() => handlePageClick(page)}
               >
                 {page + 1}
               </PageButton>
             ))}
             {isLoadMoreVisible && (
-              <LoadMoreButton onClick={handleLoadMore}>■ ■ ■</LoadMoreButton>
+              <LoadMoreButton onClick={handleLoadMore}>더보기</LoadMoreButton>
             )}
           </PaginationContainer>
         </Div>
