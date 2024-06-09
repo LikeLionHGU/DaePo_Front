@@ -7,6 +7,11 @@ import commentimg from "../../img/comment.png";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import user from "../../img/images.png";
+import {
+  Vertical,
+  Horizontal,
+  NoCenterHorizontal,
+} from "../../styles/StyledComponents";
 
 const Wrapper = styled.div`
   display: flex;
@@ -71,11 +76,13 @@ const ProfileImage = styled.img`
   border-radius: 10px;
   background-color: #e0e0e0;
   margin-left: -20px;
+  margin-top: -50px;
 `;
 
 const TextContainer = styled.div`
   flex-grow: 1;
   margin-left: 20px;
+  margin-top: -80px;
 `;
 
 const Title = styled.h2`
@@ -140,6 +147,7 @@ const RightSection = styled.div`
   margin-bottom: 100px;
   border-top: 2px solid rgba(0, 0, 0, 0.4);
   border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+  margin-top: -60px;
 `;
 
 const PostDescription = styled.div`
@@ -150,8 +158,9 @@ const PostDescription = styled.div`
   padding: 10px;
   width: 358px;
   height: 230px;
-  position: absolute;
-  left: 550px;
+  /* position: absolute; */
+  /* left: 550px; */
+  margin-left: 200px;
 `;
 
 const Tags = styled.div`
@@ -230,8 +239,9 @@ function IntroduceComponent({ post }) {
     })
       .then((response) => response.json()) // JSON 형식으로 응답을 파싱
       .then((data) => {
+        console.log("AAAAAA");
         setLikeData(data);
-        setHeart(data.isSuccessful);
+        setHeart(data.postLikeTF === "Liked.");
         console.log("setLikeData: ", data);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -240,7 +250,6 @@ function IntroduceComponent({ post }) {
   const { id } = useParams();
 
   const [likeCount, setLikeCount] = useState(post.likeCount);
-  const postLikeId = 0;
 
   const scrollToComments = () => {
     document
@@ -260,22 +269,23 @@ function IntroduceComponent({ post }) {
         .then((response) => response.json())
         .then((data) => {
           console.log("profile data", data);
-          setLikeCount(likeCount + 1);
-          postLikeId = data.postLikeId;
+          setLikeCount((prev) => prev + 1);
         })
         .catch((error) => console.error(error));
     } else {
       //TODO : 하트 다시 눌렀을 때 (하트 제거)
-      fetch(`${process.env.REACT_APP_BASE_URL}/like/${postLikeId}`, {
+      fetch(`${process.env.REACT_APP_BASE_URL}/like/${post.id}`, {
         method: "DELETE",
         credentials: "include",
       })
         .then((response) => response.json())
         .then((data) => {
           console.log("profile data", data);
-          setLikeCount(likeCount - 1);
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error(error))
+        .finally(() => {
+          setLikeCount((prev) => prev - 1);
+        });
     }
   };
 
@@ -323,36 +333,42 @@ function IntroduceComponent({ post }) {
         </LikeBT>
       </BT>
       <TopSection>
-        <ProfileImage src={user} alt="Profile Image" />
-        <TextContainer>
-          <Title>{post.title}</Title>
-          <Designer>{post.userName}</Designer>
-          <Adress>
-            <ContactRow>
-              <Contact>Contact</Contact>
-              <Email>
+        <NoCenterHorizontal>
+          <ProfileImage src={user} alt="Profile Image" />
+          <TextContainer>
+            <Title>{post.title}</Title>
+            <Designer>{post.userName}</Designer>
+            <Adress>
+              <ContactRow>
+                <Contact>Contact</Contact>
+                <Email>
+                  <img
+                    src={emailimg}
+                    alt="Email Icon"
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      marginRight: "5px",
+                    }}
+                  />
+                  {post.contact}
+                  <ChatBT onClick={onClickMail}>커피챗</ChatBT>
+                </Email>
+              </ContactRow>
+              <Behance href="http://www.behance.net" target="_blank">
                 <img
-                  src={emailimg}
-                  alt="Email Icon"
-                  style={{ width: "20px", height: "20px", marginRight: "5px" }}
+                  src={coffechatimg}
+                  alt="Behance Icon"
+                  style={{ width: "18px", height: "18px", marginRight: "5px" }}
                 />
-                {post.contact}
-                <ChatBT onClick={onClickMail}>커피챗</ChatBT>
-              </Email>
-            </ContactRow>
-            <Behance href="http://www.behance.net" target="_blank">
-              <img
-                src={coffechatimg}
-                alt="Behance Icon"
-                style={{ width: "18px", height: "18px", marginRight: "5px" }}
-              />
-              {post.profileContribution}
-            </Behance>
-          </Adress>
-        </TextContainer>
-        <PostDescription>
-          <Explain>{post.content}</Explain>
-        </PostDescription>
+                {post.profileContribution}
+              </Behance>
+            </Adress>
+          </TextContainer>
+          <PostDescription>
+            <Explain>{post.content}</Explain>
+          </PostDescription>
+        </NoCenterHorizontal>
       </TopSection>
       <RightSection>
         <Tags>

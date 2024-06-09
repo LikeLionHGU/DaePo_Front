@@ -9,7 +9,6 @@ import { UserInfoState } from "../store/atoms";
 import { FaSignOutAlt } from "react-icons/fa";
 import duckImg from "../img/duck1.png";
 
-
 import {
   Vertical,
   Horizontal,
@@ -47,6 +46,8 @@ const ProfileImg = styled.img`
   cursor: pointer;
   border: 10px solid white;
   margin-top: 100px;
+  margin-left: -230px;
+  margin-right: 230px;
 `;
 
 const StyledLink = styled(Link)`
@@ -62,7 +63,7 @@ const Text = styled.p`
   color: ${themeColors.MAINCOLOR.color};
   font-size: 20px;
   font-weight: bold;
-    margin-bottom: 15px;  
+  margin-bottom: 15px;
 `;
 const TextInput = styled.input`
   border: none;
@@ -70,7 +71,6 @@ const TextInput = styled.input`
   background-color: none;
   width: ${(props) => props.width || "300px"};
   font-size: 18px;
-
 `;
 const UpdateBT = styled.button`
   font-family: "AUTHENTICSans90";
@@ -120,9 +120,11 @@ function MyPage() {
     })
       .then((response) => response.json()) // 응답을 JSON으로 파싱
       .then((data) => {
+        console.log("/profile/myinfo data", data);
         // 받아온 데이터를 myInfo 상태에 업데이트
-        //TODO: 밥 먹고 와서 할 것
         setMyInfo(data);
+
+        // uploadedPosts가 존재하고 배열에 하나 이상의 항목이 있는지 확인
         if (data.uploadedPosts && data.uploadedPosts.length > 0) {
           const portfolioItems = data.uploadedPosts.map((post) => ({
             id: post.id || "",
@@ -131,21 +133,22 @@ function MyPage() {
             content: post.content || "",
             tools: post.tools || "",
             videoURL: post.videoURL || "",
-            images: post.images[0] || "",
+            images: post.images && post.images.length > 0 ? post.images[0] : "",
           }));
-          // console.log("portfolioItems test", portfolioItems);
+          // portfolioItems를 myPortfolio 상태로 업데이트
           setMyPortfoilo(portfolioItems);
+          console.log("portfolioItems", portfolioItems);
         }
         if (data.likedPosts && data.likedPosts.length > 0) {
           const portfolioLikedItems = data.likedPosts.map((like) => ({
             id: like.id || "",
             title: like.title || "",
-            images: like.images[0] || "",
+            images: like.images && like.images.length > 0 ? like.images[0] : "",
           }));
           // console.log("portfolioItems test", portfolioItems);
           setMyLiked(portfolioLikedItems);
+          console.log("portfolioLikedItems", data);
         }
-        console.log("myInfo", data);
       })
       .catch((error) => console.error(error));
   }, []);

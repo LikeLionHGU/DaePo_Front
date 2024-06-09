@@ -43,19 +43,20 @@ const ArrowContainer = styled.div`
 const ArrowBar = styled.div`
   width: 2px;
   height: 20px;
-  background-color: #39007C;
+  background-color: #39007c;
 `;
 
 const ArrowTip = styled.div`
   width: 12px;
   height: 12px;
-  border-left: 2px solid #39007C;
-  border-bottom: 2px solid #39007C;
+  border-left: 2px solid #39007c;
+  border-bottom: 2px solid #39007c;
   transform: rotate(-45deg);
   margin-top: -15px;
 `;
 
 function VideoComponent() {
+  // TODO: 오류 시 반복
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BASE_URL}/profile/myinfo`, {
       method: "GET",

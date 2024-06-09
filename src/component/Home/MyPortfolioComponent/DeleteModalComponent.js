@@ -47,8 +47,8 @@ const SubTitle = styled.div`
   font-size: 20px;
 `;
 function DeleteModalComponent({ onClose, myPortfoilo }) {
+  console.log("포트폴리오 삭제", myPortfoilo);
   const handleDelete = () => {
-    console.log("포트폴리오 삭제", myPortfoilo.id);
     // delete
     fetch(`${process.env.REACT_APP_BASE_URL}/posts/${myPortfoilo.id}`, {
       method: "DELETE",
@@ -57,7 +57,7 @@ function DeleteModalComponent({ onClose, myPortfoilo }) {
       .then((response) => response.json())
       .then((data) => {
         console.log("profile data", data);
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((error) => console.error(error));
     onClose();

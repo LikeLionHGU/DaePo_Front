@@ -11,6 +11,12 @@ const Card = styled.div`
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  //
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6b2fb0;
+  color: white;
 `;
 
 const DropdownButton = styled.button`
@@ -33,6 +39,11 @@ const Img = styled.img`
   position: absolute;
   top: 0;
   left: 0;
+`;
+
+const Title = styled.p`
+  font-family: "AUTHENTICSans90";
+  font-size: 24px;
 `;
 
 const DropdownMenu = styled.div`
@@ -80,7 +91,6 @@ function PortfolioCardComponent({
   showEditModal,
   showDeleteModal,
 }) {
-  console.log("check zzz", data);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -94,13 +104,14 @@ function PortfolioCardComponent({
   };
 
   const handleDeleteClick = () => {
-    onDelete();
+    onDelete(data);
     setShowDropdown(false);
   };
 
   return (
     <Card>
-      <Img src={data.images.imageURL} alt="img"></Img>
+      {/* <Img src={data.images.imageURL} alt="img"></Img> */}
+      <Title>{data.title}</Title>
       <DropdownButton
         show={!showEditModal && !showDeleteModal}
         onClick={handleDropdownToggle}

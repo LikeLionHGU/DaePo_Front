@@ -8,7 +8,7 @@ import {
   NoCenterHorizontal,
   themeColors,
 } from "../../../styles/StyledComponents";
-import plus from "../../../img/plus.png"
+import plus from "../../../img/plus.png";
 
 const Container = styled.div`
   display: flex;
@@ -36,7 +36,8 @@ function MyPortfolioComponent({ myPortfoilo }) {
     setShowEditModal(true);
   };
 
-  const handleCardDeleteClick = () => {
+  const handleCardDeleteClick = (data) => {
+    setSelectedData(data);
     setShowDeleteModal(true);
   };
 
@@ -54,7 +55,7 @@ function MyPortfolioComponent({ myPortfoilo }) {
             to="/DaePo/CreatePost"
             style={{ textDecoration: "none", color: "white" }}
           >
-            <img src={plus}/>
+            <img src={plus} />
           </Link>
         </PlusButton>
         {myPortfoilo.length >= 0 &&
@@ -78,6 +79,7 @@ function MyPortfolioComponent({ myPortfoilo }) {
       )}
       {showDeleteModal && (
         <DeleteModalComponent
+          data={selectedData}
           onClose={handleCloseModal}
           myPortfoilo={selectedData}
         />
